@@ -1,0 +1,62 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Life Atlas"
+  description="暮らす場所を、感覚だけで決めないための地域生活メディア。最初の地域は新潟です。"
+>
+  <section class="atlas-hero">
+    <div class="shell atlas-hero__grid">
+      <div>
+        <p class="eyebrow">LOCAL LIFE, MAPPED.</p>
+        <h1>暮らす場所を、<br /><span>感覚だけで決めない。</span></h1>
+        <p class="hero-lead">
+          住まい、食、仕事、支援制度、移動、走る場所。観光では見えにくい「生活」を重ねて、地域を一枚の地図にします。
+        </p>
+        <a class="button button--primary" href="/niigata/"
+          >新潟のアトラスを開く <span>→</span></a
+        >
+      </div>
+      <div
+        class="atlas-mark"
+        aria-label="Life Atlas の抽象的な地図表現"
+        role="img"
+      >
+        <span class="atlas-mark__axis atlas-mark__axis--x"></span>
+        <span class="atlas-mark__axis atlas-mark__axis--y"></span>
+        <strong>37.9161°N<br />139.0364°E</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">THE FIRST REGION</p>
+          <h2>新潟から始めます。</h2>
+        </div>
+        <p>
+          海、川、港、農業、製造業、そして都市機能。新潟市は、地方で暮らすことの豊かさと現実を同時に観察できる場所です。
+        </p>
+      </div>
+      <a class="region-card" href="/niigata/">
+        <div>
+          <span class="region-card__index">01</span>
+          <p class="eyebrow">NIIGATA / ACTIVE</p>
+          <h3>新潟県・新潟市</h3>
+          <p>
+            住む、食べる、働く、走る。移住前に知りたい生活のレイヤーを整備中。
+          </p>
+        </div>
+        <span class="region-card__status">OPEN ATLAS ↗</span>
+      </a>
+      <div class="future-regions">
+        <span>02 / NEXT REGION</span>
+        <span>03 / NEXT REGION</span>
+        <span>04 / NEXT REGION</span>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

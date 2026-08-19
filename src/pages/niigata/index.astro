@@ -1,0 +1,87 @@
+---
+import TopicCard from '@/components/TopicCard.astro';
+import { topics } from '@/data/topics';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="新潟移住・生活ガイド"
+  description="新潟で暮らすことを、住まい、食、仕事、支援制度、ランニングから具体的に考えるLife Atlasの地域ページ。"
+>
+  <section class="niigata-hero">
+    <div class="shell">
+      <div class="niigata-hero__meta">
+        <p class="eyebrow">REGION 01 / NIIGATA</p>
+        <span>37.9161°N</span>
+        <span>139.0364°E</span>
+      </div>
+      <div class="niigata-hero__grid">
+        <div>
+          <h1>新潟で暮らす、を<br /><span>立体的に考える。</span></h1>
+          <p class="hero-lead">
+            旅行では見えない毎日のこと。家を選ぶ、働く、食べる、移動する。現地で確かめた情報と公式資料を重ねていきます。
+          </p>
+        </div>
+        <div
+          class="niigata-landscape"
+          aria-label="海、山、街を表した抽象風景"
+          role="img"
+        >
+          <span class="niigata-landscape__sun"></span>
+          <span class="niigata-landscape__mountain"></span>
+          <span class="niigata-landscape__water"></span>
+          <strong>NIIGATA<br />LIFE LAYERS</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">EXPLORE BY LAYER</p>
+          <h2>生活を、層に分けて読む。</h2>
+        </div>
+        <p>
+          ひとつのランキングで結論を出しません。あなたの優先順位に合わせて、必要な生活レイヤーを行き来できます。
+        </p>
+      </div>
+      <div class="topic-grid">
+        {topics.map((topic) => <TopicCard topic={topic} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="shell project-grid">
+      <div>
+        <p class="eyebrow">FIELD PROJECTS</p>
+        <h2>調べるだけでなく、<br />現地で試す。</h2>
+      </div>
+      <div class="project-list">
+        <a href="https://ruharuhachan.github.io/niigata-mansion-compare/">
+          <span>01 / HOUSING DATA</span>
+          <strong>新潟マンション比較</strong>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="https://ruharuhachan.github.io/niigata-pairing-lab/">
+          <span>02 / FOOD CULTURE</span>
+          <strong>新潟ペアリングラボ</strong>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell evidence-panel">
+      <p class="eyebrow">SOURCE POLICY</p>
+      <h2>新しい情報ほど、確認日が大切。</h2>
+      <p>
+        支援制度、価格、営業時間、募集状況は変わります。Life
+        Atlasでは、公式情報・現地観察・仮説を分け、確認日と出典を残します。
+      </p>
+    </div>
+  </section>
+</BaseLayout>

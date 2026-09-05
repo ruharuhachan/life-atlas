@@ -1,0 +1,183 @@
+name: Apply mobile-specific image crops
+
+on:
+  push:
+    branches:
+      - agent/mobile-cropped-images
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: agent/mobile-cropped-images
+      - name: Setup Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version-file: .nvmrc
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.22.0 --activate
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Patch homepage
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/pages/index.astro')
+          text = path.read_text()
+
+          def replace_once(old, new):
+              global text
+              if text.count(old) != 1:
+                  raise SystemExit(f'Expected exactly one match, found {text.count(old)} for: {old[:80]!r}')
+              text = text.replace(old, new, 1)
+
+          replace_once(
+              "import { topics } from '@/data/topics';\n",
+              "import { topics } from '@/data/topics';\n\nconst mobileCrop = (src: string, width: number, height: number) => {\n  const url = new URL(src);\n  url.searchParams.set('fit', 'crop');\n  url.searchParams.set('w', String(width));\n  url.searchParams.set('h', String(height));\n  url.searchParams.set('q', '80');\n  return url.toString();\n};\n",
+          )
+
+          replace_once(
+              '''      <img
+        src="https://images.unsplash.com/photo-1694118038967-f33679183e51?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=88&w=2400"
+        alt="新潟市の街と日本海を望む都市景観"
+        fetchpriority="high"
+      />''',
+              '''      <picture class="portal-media">
+        <source
+          media="(max-width: 760px)"
+          srcset="https://images.unsplash.com/photo-1694118038967-f33679183e51?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=82&w=900&h=675"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1694118038967-f33679183e51?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=88&w=2400"
+          alt="新潟市の街と日本海を望む都市景観"
+          fetchpriority="high"
+        />
+      </picture>''',
+          )
+
+          replace_once(
+              '''              <img
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
+                style={`object-position: ${image.position ?? 'center'};`}
+              />''',
+              '''              <picture class="portal-media">
+                <source
+                  media="(max-width: 760px)"
+                  srcset={mobileCrop(image.src, 960, 540)}
+                />
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading="lazy"
+                  style={`object-position: ${image.position ?? 'center'};`}
+                />
+              </picture>''',
+          )
+
+          replace_once(
+              '''  .portal-hero > img,
+  .portal-card > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 800ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  .portal-hero:hover > img,
+  .portal-card:hover > img {
+    transform: scale(1.025);
+  }''',
+              '''  .portal-media {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .portal-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 800ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  .portal-hero:hover .portal-media img,
+  .portal-card:hover .portal-media img {
+    transform: scale(1.025);
+  }''',
+          )
+
+          replace_once(
+              '''    .portal-hero,
+    .portal-hero__content {
+      min-height: 56svh;
+    }
+
+    .portal-hero__content {
+      padding-block: 1rem 1.35rem;
+    }''',
+              '''    .portal-hero {
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+    }
+
+    .portal-hero__content {
+      min-height: 0;
+      height: 100%;
+      padding-block: 0.9rem 1rem;
+    }''',
+          )
+
+          replace_once(
+              '''    .portal-card,
+    .portal-card--wide {
+      grid-column: auto;
+      min-height: 36svh;
+      padding: 1rem;
+    }
+
+    .portal-card--wide {
+      min-height: 40svh;
+    }''',
+              '''    .portal-card,
+    .portal-card--wide {
+      grid-column: auto;
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+      padding: 0.9rem;
+    }''',
+          )
+
+          replace_once(
+              '''    .portal-hero > img,
+    .portal-card > img,
+    .portal-card__arrow {''',
+              '''    .portal-media img,
+    .portal-card__arrow {''',
+          )
+
+          path.write_text(text)
+          PY
+      - name: Format homepage
+        run: pnpm exec prettier src/pages/index.astro --write
+      - name: Remove temporary workflow and commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/apply-mobile-crops.yml
+          git add src/pages/index.astro
+          git commit -m "Use mobile-specific image crops"
+          git push origin HEAD:agent/mobile-cropped-images

@@ -434,18 +434,37 @@ const imagery: Record<
       grid-template-columns: 1fr;
     }
 
+    .portal-hero,
     .portal-hero__content {
-      min-height: calc(100svh - 5rem);
-      padding-block: 1.5rem 2.4rem;
+      min-height: 72svh;
+    }
+
+    .portal-hero__content {
+      padding-block: 1.25rem 1.8rem;
     }
 
     .portal-hero h1 {
-      font-size: clamp(4.2rem, 20vw, 7rem);
+      font-size: clamp(3.4rem, 16vw, 5.4rem);
     }
 
     .portal-hero__footer {
       align-items: start;
-      gap: 1.2rem;
+      gap: 0.9rem;
+      margin-top: 1.6rem;
+    }
+
+    .portal-hero__footer p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .portal-intro {
+      padding: 4rem 0;
+    }
+
+    .portal-intro h2,
+    .portal-next h2 {
+      font-size: clamp(2.6rem, 12vw, 4rem);
     }
 
     .portal-services {
@@ -455,16 +474,31 @@ const imagery: Record<
     .portal-card,
     .portal-card--wide {
       grid-column: auto;
-      min-height: 78svh;
+      min-height: 54svh;
+      padding: 1.25rem;
+    }
+
+    .portal-card--wide {
+      min-height: 60svh;
     }
 
     .portal-card__content {
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .portal-card__content h3,
     .portal-card--wide .portal-card__content h3 {
-      font-size: clamp(2rem, 9vw, 3rem);
+      font-size: clamp(1.55rem, 7vw, 2.25rem);
+      line-height: 1.16;
+    }
+
+    .portal-card__arrow {
+      width: 2.8rem;
+      font-size: 1.1rem;
+    }
+
+    .portal-next {
+      padding: 4.5rem 0;
     }
 
     .portal-next__grid {

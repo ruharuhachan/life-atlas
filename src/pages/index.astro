@@ -56,7 +56,8 @@ const imagery: Record<
         <h1>どこで、<br />どう暮らす？</h1>
         <div class="portal-hero__footer">
           <p>
-            住まい、食、仕事、制度、移動。<br />観光では見えない「生活」から、街を選ぶ。
+            住まい、食、仕事、制度、移動。<br
+            />観光では見えない「生活」から、街を選ぶ。
           </p>
           <span class="portal-arrow">新潟のアトラスを開く <b>↗</b></span>
         </div>
@@ -71,44 +72,49 @@ const imagery: Record<
           <h2 id="portal-services-heading">暮らしを、<br />ひとつずつ開く。</h2>
         </div>
         <p>
-          気になる写真から、そのまま生活のレイヤーへ。Life Atlasは地域を「観光地」ではなく、毎日を過ごす場所として見ていきます。
+          気になる写真から、そのまま生活のレイヤーへ。Life
+          Atlasは地域を「観光地」ではなく、毎日を過ごす場所として見ていきます。
         </p>
       </div>
     </section>
 
     <section class="portal-services" aria-label="新潟の生活テーマ">
-      {topics.map((topic, index) => {
-        const image = imagery[topic.slug];
-        const wide = index === 0 || index === 3;
+      {
+        topics.map((topic, index) => {
+          const image = imagery[topic.slug];
+          const wide = index === 0 || index === 3;
 
-        return (
-          <a
-            class:list={['portal-card', { 'portal-card--wide': wide }]}
-            href={`/niigata/${topic.slug}/`}
-            aria-label={`${topic.label}を見る`}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
-              style={`object-position: ${image.position ?? 'center'};`}
-            />
-            <span class="portal-card__shade" aria-hidden="true"></span>
-            <div class="portal-card__top">
-              <span>{topic.number}</span>
-              <span>{topic.english}</span>
-            </div>
-            <div class="portal-card__content">
-              <div>
-                <p>{topic.label}</p>
-                <h3>{topic.description}</h3>
+          return (
+            <a
+              class:list={['portal-card', { 'portal-card--wide': wide }]}
+              href={`/niigata/${topic.slug}/`}
+              aria-label={`${topic.label}を見る`}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
+                style={`object-position: ${image.position ?? 'center'};`}
+              />
+              <span class="portal-card__shade" aria-hidden="true" />
+              <div class="portal-card__top">
+                <span>{topic.number}</span>
+                <span>{topic.english}</span>
               </div>
-              <span class="portal-card__arrow" aria-hidden="true">↗</span>
-            </div>
-            <small class="portal-card__credit">{image.credit}</small>
-          </a>
-        );
-      })}
+              <div class="portal-card__content">
+                <div>
+                  <p>{topic.label}</p>
+                  <h3>{topic.description}</h3>
+                </div>
+                <span class="portal-card__arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </div>
+              <small class="portal-card__credit">{image.credit}</small>
+            </a>
+          );
+        })
+      }
     </section>
 
     <section class="portal-next">
@@ -165,7 +171,12 @@ const imagery: Record<
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgb(4 12 11 / 18%) 0%, rgb(4 12 11 / 10%) 35%, rgb(4 12 11 / 68%) 100%),
+      linear-gradient(
+        180deg,
+        rgb(4 12 11 / 18%) 0%,
+        rgb(4 12 11 / 10%) 35%,
+        rgb(4 12 11 / 68%) 100%
+      ),
       linear-gradient(90deg, rgb(4 12 11 / 44%) 0%, transparent 58%);
   }
 
@@ -298,12 +309,22 @@ const imagery: Record<
   .portal-card__shade {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgb(3 10 9 / 36%) 0%, transparent 40%, rgb(3 10 9 / 76%) 100%);
+    background: linear-gradient(
+      180deg,
+      rgb(3 10 9 / 36%) 0%,
+      transparent 40%,
+      rgb(3 10 9 / 76%) 100%
+    );
     transition: background 350ms ease;
   }
 
   .portal-card:hover .portal-card__shade {
-    background: linear-gradient(180deg, rgb(3 10 9 / 28%) 0%, transparent 42%, rgb(3 10 9 / 66%) 100%);
+    background: linear-gradient(
+      180deg,
+      rgb(3 10 9 / 28%) 0%,
+      transparent 42%,
+      rgb(3 10 9 / 66%) 100%
+    );
   }
 
   .portal-card__top,

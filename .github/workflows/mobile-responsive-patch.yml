@@ -22,55 +22,11 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
 
           path = Path('src/pages/index.astro')
           text = path.read_text()
-          old = '''  @media (max-width: 760px) {
-            .portal-hero__footer,
-            .portal-intro__grid,
-            .portal-next__grid {
-              grid-template-columns: 1fr;
-            }
-
-            .portal-hero__content {
-              min-height: calc(100svh - 5rem);
-              padding-block: 1.5rem 2.4rem;
-            }
-
-            .portal-hero h1 {
-              font-size: clamp(4.2rem, 20vw, 7rem);
-            }
-
-            .portal-hero__footer {
-              align-items: start;
-              gap: 1.2rem;
-            }
-
-            .portal-services {
-              grid-template-columns: 1fr;
-            }
-
-            .portal-card,
-            .portal-card--wide {
-              grid-column: auto;
-              min-height: 78svh;
-            }
-
-            .portal-card__content {
-              gap: 1rem;
-            }
-
-            .portal-card__content h3,
-            .portal-card--wide .portal-card__content h3 {
-              font-size: clamp(2rem, 9vw, 3rem);
-            }
-
-            .portal-next__grid {
-              gap: 2rem;
-            }
-          }
-          '''
-          new = '''  @media (max-width: 760px) {
+          replacement = '''  @media (max-width: 760px) {
             .portal-hero__footer,
             .portal-intro__grid,
             .portal-next__grid {
@@ -148,12 +104,14 @@ jobs:
               gap: 2rem;
             }
           }
-          '''
-          old = old.replace('          ', '')
-          new = new.replace('          ', '')
-          if old not in text:
-              raise SystemExit('Expected mobile style block not found')
-          path.write_text(text.replace(old, new))
+
+'''
+          replacement = re.sub(r'^ {10}', '', replacement, flags=re.MULTILINE)
+          pattern = r'  @media \(max-width: 760px\) \{.*?(?=  @media \(prefers-reduced-motion: reduce\))'
+          updated, count = re.subn(pattern, replacement, text, count=1, flags=re.DOTALL)
+          if count != 1:
+              raise SystemExit(f'Expected one mobile media block, found {count}')
+          path.write_text(updated)
           PY
       - name: Commit tuning
         run: |

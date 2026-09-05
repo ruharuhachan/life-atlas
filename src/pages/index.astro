@@ -1,62 +1,461 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { topics } from '@/data/topics';
+
+const imagery: Record<
+  string,
+  { src: string; alt: string; credit: string; position?: string }
+> = {
+  housing: {
+    src: 'https://images.unsplash.com/photo-1694116865008-e3df30f5c47d?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=82&w=2000',
+    alt: '新潟市万代の水辺と都市景観',
+    credit: 'Pourya Gohari / Unsplash',
+    position: 'center 48%',
+  },
+  food: {
+    src: 'https://images.unsplash.com/photo-1722253639683-a68b1a28dcfb?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=82&w=2000',
+    alt: '新潟の日本酒が並ぶ棚',
+    credit: 'Johnny / Unsplash',
+    position: 'center 55%',
+  },
+  work: {
+    src: 'https://images.unsplash.com/photo-1694118038967-f33679183e51?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=82&w=2000',
+    alt: '新潟市の街と日本海を望む都市景観',
+    credit: 'Pourya Gohari / Unsplash',
+    position: 'center 42%',
+  },
+  support: {
+    src: 'https://images.unsplash.com/photo-1698406283879-232b17e54a8d?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=82&w=2000',
+    alt: '実りを迎えた日本の田んぼ',
+    credit: 'Ronin / Unsplash',
+    position: 'center 52%',
+  },
+  run: {
+    src: 'https://images.unsplash.com/photo-1694117086916-755d623a8c12?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=82&w=2000',
+    alt: '新潟市の水辺にある公園と遊歩道',
+    credit: 'Pourya Gohari / Unsplash',
+    position: 'center 58%',
+  },
+};
 ---
 
 <BaseLayout
   title="Life Atlas"
-  description="暮らす場所を、感覚だけで決めないための地域生活メディア。最初の地域は新潟です。"
+  description="暮らす場所を、感覚だけで決めないための地域生活メディア。住まい、食、仕事、制度、街の動線を写真とデータからひらきます。"
 >
-  <section class="atlas-hero">
-    <div class="shell atlas-hero__grid">
-      <div>
-        <p class="eyebrow">LOCAL LIFE, MAPPED.</p>
-        <h1>暮らす場所を、<br /><span>感覚だけで決めない。</span></h1>
-        <p class="hero-lead">
-          住まい、食、仕事、支援制度、移動、走る場所。観光では見えにくい「生活」を重ねて、地域を一枚の地図にします。
-        </p>
-        <a class="button button--primary" href="/niigata/"
-          >新潟のアトラスを開く <span>→</span></a
-        >
+  <main class="portal">
+    <a class="portal-hero" href="/niigata/" aria-label="新潟のアトラスを開く">
+      <img
+        src="https://images.unsplash.com/photo-1694118038967-f33679183e51?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=88&w=2400"
+        alt="新潟市の街と日本海を望む都市景観"
+        fetchpriority="high"
+      />
+      <span class="portal-hero__shade" aria-hidden="true"></span>
+      <div class="portal-hero__content shell">
+        <p class="portal-kicker">LIFE ATLAS / NIIGATA</p>
+        <h1>どこで、<br />どう暮らす？</h1>
+        <div class="portal-hero__footer">
+          <p>
+            住まい、食、仕事、制度、移動。<br />観光では見えない「生活」から、街を選ぶ。
+          </p>
+          <span class="portal-arrow">新潟のアトラスを開く <b>↗</b></span>
+        </div>
       </div>
-      <div
-        class="atlas-mark"
-        aria-label="Life Atlas の抽象的な地図表現"
-        role="img"
-      >
-        <span class="atlas-mark__axis atlas-mark__axis--x"></span>
-        <span class="atlas-mark__axis atlas-mark__axis--y"></span>
-        <strong>37.9161°N<br />139.0364°E</strong>
-      </div>
-    </div>
-  </section>
+      <small class="portal-credit">PHOTO / POURYA GOHARI · UNSPLASH</small>
+    </a>
 
-  <section class="section">
-    <div class="shell">
-      <div class="section-heading">
+    <section class="portal-intro" aria-labelledby="portal-services-heading">
+      <div class="shell portal-intro__grid">
         <div>
-          <p class="eyebrow">THE FIRST REGION</p>
-          <h2>新潟から始めます。</h2>
+          <p class="portal-kicker">EXPLORE YOUR LIFE</p>
+          <h2 id="portal-services-heading">暮らしを、<br />ひとつずつ開く。</h2>
         </div>
         <p>
-          海、川、港、農業、製造業、そして都市機能。新潟市は、地方で暮らすことの豊かさと現実を同時に観察できる場所です。
+          気になる写真から、そのまま生活のレイヤーへ。Life Atlasは地域を「観光地」ではなく、毎日を過ごす場所として見ていきます。
         </p>
       </div>
-      <a class="region-card" href="/niigata/">
+    </section>
+
+    <section class="portal-services" aria-label="新潟の生活テーマ">
+      {topics.map((topic, index) => {
+        const image = imagery[topic.slug];
+        const wide = index === 0 || index === 3;
+
+        return (
+          <a
+            class:list={['portal-card', { 'portal-card--wide': wide }]}
+            href={`/niigata/${topic.slug}/`}
+            aria-label={`${topic.label}を見る`}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              style={`object-position: ${image.position ?? 'center'};`}
+            />
+            <span class="portal-card__shade" aria-hidden="true"></span>
+            <div class="portal-card__top">
+              <span>{topic.number}</span>
+              <span>{topic.english}</span>
+            </div>
+            <div class="portal-card__content">
+              <div>
+                <p>{topic.label}</p>
+                <h3>{topic.description}</h3>
+              </div>
+              <span class="portal-card__arrow" aria-hidden="true">↗</span>
+            </div>
+            <small class="portal-card__credit">{image.credit}</small>
+          </a>
+        );
+      })}
+    </section>
+
+    <section class="portal-next">
+      <div class="shell portal-next__grid">
+        <p class="portal-kicker">ATLAS 01 / NIIGATA</p>
         <div>
-          <span class="region-card__index">01</span>
-          <p class="eyebrow">NIIGATA / ACTIVE</p>
-          <h3>新潟県・新潟市</h3>
+          <h2>最初の地域は、新潟。</h2>
           <p>
-            住む、食べる、働く、走る。移住前に知りたい生活のレイヤーを整備中。
+            一つの街を深く見てから、次の地域へ。確認した情報と、自分たちが歩いて見たことを分けながら、生活の解像度を上げていきます。
           </p>
+          <a href="/niigata/">新潟の全体を見る <span>→</span></a>
         </div>
-        <span class="region-card__status">OPEN ATLAS ↗</span>
-      </a>
-      <div class="future-regions">
-        <span>02 / NEXT REGION</span>
-        <span>03 / NEXT REGION</span>
-        <span>04 / NEXT REGION</span>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 </BaseLayout>
+
+<style>
+  .portal {
+    background: #0d1716;
+    color: #fff;
+  }
+
+  .portal a {
+    color: inherit;
+  }
+
+  .portal-hero {
+    position: relative;
+    display: block;
+    min-height: calc(100svh - 5rem);
+    overflow: hidden;
+    color: #fff;
+    background: #132321;
+    text-decoration: none;
+  }
+
+  .portal-hero > img,
+  .portal-card > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 800ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  }
+
+  .portal-hero:hover > img,
+  .portal-card:hover > img {
+    transform: scale(1.025);
+  }
+
+  .portal-hero__shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgb(4 12 11 / 18%) 0%, rgb(4 12 11 / 10%) 35%, rgb(4 12 11 / 68%) 100%),
+      linear-gradient(90deg, rgb(4 12 11 / 44%) 0%, transparent 58%);
+  }
+
+  .portal-hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: calc(100svh - 5rem);
+    flex-direction: column;
+    justify-content: space-between;
+    padding-block: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .portal-kicker {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+  }
+
+  .portal-hero h1 {
+    max-width: 9ch;
+    margin-top: auto;
+    font-family: var(--sans);
+    font-size: clamp(4rem, 11vw, 9.5rem);
+    font-weight: 600;
+    letter-spacing: -0.075em;
+    line-height: 0.9;
+  }
+
+  .portal-hero__footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 2rem;
+    margin-top: clamp(2.5rem, 6vw, 6rem);
+  }
+
+  .portal-hero__footer p {
+    max-width: 36rem;
+    margin: 0;
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    line-height: 1.8;
+  }
+
+  .portal-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.1rem;
+    font-size: 0.83rem;
+    font-weight: 800;
+  }
+
+  .portal-arrow b {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  .portal-credit,
+  .portal-card__credit {
+    position: absolute;
+    z-index: 2;
+    font-family: var(--mono);
+    font-size: 0.53rem;
+    letter-spacing: 0.08em;
+    opacity: 0.68;
+  }
+
+  .portal-credit {
+    right: 0.8rem;
+    bottom: 0.65rem;
+  }
+
+  .portal-intro {
+    padding: clamp(5rem, 10vw, 9rem) 0;
+    background: #f4f1e9;
+    color: #122624;
+  }
+
+  .portal-intro__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.55fr);
+    align-items: end;
+    gap: clamp(3rem, 9vw, 10rem);
+  }
+
+  .portal-intro h2,
+  .portal-next h2 {
+    margin-top: 1rem;
+    font-family: var(--sans);
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 600;
+    letter-spacing: -0.065em;
+    line-height: 0.95;
+  }
+
+  .portal-intro__grid > p {
+    margin: 0;
+    color: #50605e;
+    font-size: 1rem;
+    line-height: 2;
+  }
+
+  .portal-services {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: rgb(255 255 255 / 14%);
+  }
+
+  .portal-card {
+    position: relative;
+    display: flex;
+    min-height: min(70vw, 46rem);
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(1.4rem, 3vw, 2.5rem);
+    background: #21302e;
+    text-decoration: none;
+  }
+
+  .portal-card--wide {
+    grid-column: span 2;
+    min-height: min(58vw, 48rem);
+  }
+
+  .portal-card__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(3 10 9 / 36%) 0%, transparent 40%, rgb(3 10 9 / 76%) 100%);
+    transition: background 350ms ease;
+  }
+
+  .portal-card:hover .portal-card__shade {
+    background: linear-gradient(180deg, rgb(3 10 9 / 28%) 0%, transparent 42%, rgb(3 10 9 / 66%) 100%);
+  }
+
+  .portal-card__top,
+  .portal-card__content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .portal-card__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+  }
+
+  .portal-card__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 2rem;
+  }
+
+  .portal-card__content p {
+    margin: 0 0 0.65rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .portal-card__content h3 {
+    max-width: 24ch;
+    font-family: var(--sans);
+    font-size: clamp(1.7rem, 3.7vw, 3.7rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 1.18;
+  }
+
+  .portal-card--wide .portal-card__content h3 {
+    max-width: 28ch;
+    font-size: clamp(2.2rem, 4.6vw, 4.8rem);
+  }
+
+  .portal-card__arrow {
+    display: grid;
+    width: clamp(3.4rem, 6vw, 5.4rem);
+    aspect-ratio: 1;
+    border: 1px solid rgb(255 255 255 / 72%);
+    border-radius: 50%;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    place-items: center;
+    transition:
+      color 250ms ease,
+      background 250ms ease,
+      transform 250ms ease;
+  }
+
+  .portal-card:hover .portal-card__arrow {
+    color: #102220;
+    background: #fff;
+    transform: rotate(45deg);
+  }
+
+  .portal-card__credit {
+    right: 0.6rem;
+    bottom: 0.45rem;
+  }
+
+  .portal-next {
+    padding: clamp(6rem, 12vw, 11rem) 0;
+    background: #dfe870;
+    color: #122624;
+  }
+
+  .portal-next__grid {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
+    gap: clamp(3rem, 8vw, 9rem);
+  }
+
+  .portal-next h2 {
+    max-width: 10ch;
+    margin-top: 0;
+  }
+
+  .portal-next p:not(.portal-kicker) {
+    max-width: 42rem;
+    margin: 2rem 0;
+    line-height: 2;
+  }
+
+  .portal-next a {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid currentcolor;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  @media (max-width: 760px) {
+    .portal-hero__footer,
+    .portal-intro__grid,
+    .portal-next__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .portal-hero__content {
+      min-height: calc(100svh - 5rem);
+      padding-block: 1.5rem 2.4rem;
+    }
+
+    .portal-hero h1 {
+      font-size: clamp(4.2rem, 20vw, 7rem);
+    }
+
+    .portal-hero__footer {
+      align-items: start;
+      gap: 1.2rem;
+    }
+
+    .portal-services {
+      grid-template-columns: 1fr;
+    }
+
+    .portal-card,
+    .portal-card--wide {
+      grid-column: auto;
+      min-height: 78svh;
+    }
+
+    .portal-card__content {
+      gap: 1rem;
+    }
+
+    .portal-card__content h3,
+    .portal-card--wide .portal-card__content h3 {
+      font-size: clamp(2rem, 9vw, 3rem);
+    }
+
+    .portal-next__grid {
+      gap: 2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portal-hero > img,
+    .portal-card > img,
+    .portal-card__arrow {
+      transition: none;
+    }
+  }
+</style>

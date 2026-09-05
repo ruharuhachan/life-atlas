@@ -1,0 +1,22 @@
+---
+import type { Topic } from '@/data/topics';
+
+interface Props {
+  topic: Topic;
+}
+
+const { topic } = Astro.props;
+---
+
+<a
+  class:list={['topic-card', 'topic-card--' + topic.color]}
+  href={'/niigata/' + topic.slug + '/'}
+>
+  <span class="topic-card__number">{topic.number}</span>
+  <div>
+    <p class="eyebrow">{topic.english}</p>
+    <h3>{topic.label}</h3>
+    <p>{topic.description}</p>
+  </div>
+  <span class="topic-card__arrow" aria-hidden="true">↗</span>
+</a>

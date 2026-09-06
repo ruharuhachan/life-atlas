@@ -15,14 +15,22 @@
     "check": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "ci": "pnpm format:check && pnpm check && pnpm build"
+    "ci": "pnpm format:check && pnpm check && pnpm build && pnpm test",
+    "test": "node --test tests/routes.test.mjs"
   },
   "dependencies": {
+    "@astrojs/react": "6.0.5",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.2.2"
+    "astro": "^7.2.2",
+    "d3": "7.9.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@types/d3": "^7.4.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3"

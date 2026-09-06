@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RegionNav from '@/components/RegionNav.astro';
+const areas = [
+  {
+    name: '朝市・駅前',
+    text: '函館駅そばから、市場のある日常へ。海産物や青果、食堂の集まるエリアを知る。',
+    url: 'https://www.hakobura.jp/spots/694',
+  },
+  {
+    name: 'ベイエリア・元町',
+    text: '港沿いの赤レンガ倉庫から、坂のある街へ。飲食と街歩きを一緒に楽しむ入口。',
+    url: 'https://www.hakobura.jp/spots/899',
+  },
+  {
+    name: '五稜郭',
+    text: '公園を中心に、函館の別の表情を見る。公式のアクセス情報から街の位置関係を確かめる。',
+    url: 'https://www.hakobura.jp/spots/355',
+  },
+];
+---
+
+<BaseLayout
+  title="函館の食と街"
+  description="函館朝市、ベイエリア、五稜郭。函館の食と街を知るための公式ガイドへの入口。"
+>
+  <RegionNav region="hakodate" active="/hakodate/food/" />
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">HAKODATE / FOOD & THE CITY</p><h1>
+        食を入口に、街を歩く。
+      </h1>
+    </div><p>
+      個別のお店は、これから取材・調査します。<br
+      />まずは函館の公式ガイドから、気になるエリアへ。
+    </p>
+  </div>
+  <section class="section shell">
+    <div class="city-areas">
+      {
+        areas.map((a, i) => (
+          <article>
+            <>
+              <span>0{i + 1}</span>
+              <h3>{a.name}</h3>
+              <p>{a.text}</p>
+              <a
+                class="text-link"
+                href={a.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                公式ガイドで見る ↗
+              </a>
+            </>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+  <section class="quiet-section shell">
+    <a
+      class="link-row"
+      href="https://www.hakobura.jp/map"
+      target="_blank"
+      rel="noreferrer"
+      ><span
+        ><strong>地図から函館を知る</strong><small
+          >はこぶら・函館公式観光情報</small
+        ></span
+      ><span>↗</span></a
+    >
+  </section>
+</BaseLayout>

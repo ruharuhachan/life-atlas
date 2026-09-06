@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RegionNav from '@/components/RegionNav.astro';
+import RestaurantResearch from '@/legacy/components/RestaurantResearch';
+import { RESTAURANTS } from '@/legacy/data/restaurants';
+import { BREWERIES } from '@/legacy/data/breweries';
+import '@/styles/legacy-tools.css';
+import '@/styles/tool-refinements.css';
+---
+
+<BaseLayout
+  title="新潟の食と酒"
+  description="料理人の背景と公開情報から探す新潟の7店。エリア・利用場面で絞り込める飲食店リサーチと、酒蔵への入口。"
+>
+  <RegionNav active="/niigata/food/" />
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">NIIGATA / FOOD & DRINK</p><h1>
+        また行きたい、一軒へ。
+      </h1>
+    </div><a class="text-link" href="/niigata/map/?category=food"
+      >店を地図で見る ↗</a
+    >
+  </div>
+  <div class="legacy-tool food-tool shell">
+    <RestaurantResearch restaurants={RESTAURANTS} client:load />
+  </div>
+  <section class="section shell">
+    <div class="section-head">
+      <div><p class="eyebrow">LOCAL BREWERIES</p><h2>酒蔵を訪ねる。</h2></div><a
+        class="text-link"
+        href="/niigata/map/?category=brewery">酒蔵を地図で見る ↗</a
+      >
+    </div><div class="link-rows">
+      {
+        BREWERIES.map((b) => (
+          <a
+            class="link-row"
+            href={b.sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <>
+              <span>
+                <>
+                  <strong>{b.name}</strong>
+                  <small>
+                    {b.area} / {b.visitNote}
+                  </small>
+                </>
+              </span>
+              <span>↗</span>
+            </>
+          </a>
+        ))
+      }
+    </div><p class="data-note">
+      公開情報からの読みと訪問メモを区別し、確認日と参照元を掲載しています。価格・営業時間・見学条件は公式情報をご確認ください。
+    </p>
+  </section>
+</BaseLayout>

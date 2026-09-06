@@ -1,0 +1,481 @@
+@scope (.legacy-tool) {
+  :scope {
+    --map-ink: #1b2325;
+    --map-soft: #5a6568;
+    --map-mist: #e8eeee;
+    --map-paper: #fafafa;
+    --food-red: #964c36;
+    --food-red-dark: #723a29;
+    --food-blush: #f1e9e5;
+    --food-ink: #1b2325;
+    --ink: #1b2325;
+    --ink-soft: #5a6568;
+    --paper: #fafafa;
+    --cream: #f1f3f3;
+    --cream-deep: #e7ebeb;
+    --line: #dce1e1;
+    --teal: #1a605b;
+    --teal-dark: #134c47;
+    --teal-pale: #e5efec;
+    --coral: #a35237;
+    --gold: #a1843e;
+    --white: #fff;
+    --shadow: none;
+    --radius: 4px;
+    line-height: 1.75;
+  }
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+  p {
+    font-size: 16px;
+  }
+  button,
+  input,
+  select {
+    min-height: 42px;
+  }
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    outline: 3px solid #397fdb;
+    outline-offset: 3px;
+  }
+  .tool-tabs {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 18px 4vw;
+    background: #f1f3f3;
+    border-block: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .tool-tabs button {
+    margin-left: auto;
+    background: #1b2325;
+    color: white;
+    padding: 8px 18px;
+    border: 0;
+    border-radius: 2px;
+  }
+  .database-hero {
+    padding-top: 35px;
+    background: #fafafa;
+  }
+  .database-heading {
+    margin-bottom: 24px;
+  }
+  .database-heading h2 {
+    font-size: clamp(24px, 3vw, 38px);
+    letter-spacing: -0.05em;
+    line-height: 1.35;
+  }
+  .database-breadcrumb,
+  .database-heading .eyebrow {
+    display: none;
+  }
+  .database-intro p {
+    font-size: 14px;
+  }
+  .database-intro > div {
+    display: none;
+  }
+  .database-table-shell {
+    margin-top: 30px;
+  }
+  .database-table-head h2 {
+    font-size: 24px;
+  }
+  .database-table {
+    font-size: 14px;
+  }
+  .database-table th,
+  .database-table td {
+    padding: 15px;
+  }
+  .database-disclaimer {
+    font-size: 13px;
+  }
+  .hero {
+    min-height: 0;
+    padding-block: 40px;
+    background: #e9eeee;
+    border-radius: 0;
+  }
+  .hero h2 {
+    font-size: 32px;
+    letter-spacing: -0.05em;
+  }
+  .hero-grid {
+    display: none;
+  }
+  .hero-copy > p {
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  .hero-ledger {
+    box-shadow: none;
+    border-radius: 3px;
+  }
+  .content-section {
+    padding-block: 50px;
+  }
+  .section-heading h2 {
+    font-size: 30px;
+    line-height: 1.4;
+  }
+  .property-card {
+    border-radius: 3px;
+    box-shadow: none;
+  }
+  .signal-card,
+  .weight-panel,
+  .comparison-shell,
+  .payment-cards > article,
+  .meaning-card,
+  .floor-note {
+    border-radius: 3px;
+    box-shadow: none;
+  }
+  .signal-card strong {
+    font-size: 24px;
+  }
+  .decision-callout {
+    display: none;
+  }
+  .comparison-table {
+    font-size: 14px;
+  }
+  .section-number {
+    font-size: 32px;
+  }
+  .hero:before,
+  .hero:after {
+    display: none;
+  }
+  .place-atlas {
+    margin: 0;
+  }
+  .atlas-toolbar {
+    border-radius: 0;
+    padding: 18px;
+    gap: 16px;
+    background: #f1f3f3;
+  }
+  .atlas-kind-filter {
+    flex-wrap: wrap;
+  }
+  .atlas-kind-filter > span {
+    display: none;
+  }
+  .atlas-kind-filter button {
+    font-size: 14px;
+    border-radius: 3px;
+  }
+  .atlas-search {
+    min-width: 180px;
+  }
+  .atlas-search input {
+    font-size: 16px;
+  }
+  .atlas-result-count {
+    display: none;
+  }
+  .atlas-workbench {
+    margin-top: 16px;
+    gap: 18px;
+  }
+  .atlas-map-card {
+    border-radius: 3px;
+    box-shadow: none;
+  }
+  .atlas-selected {
+    border-radius: 3px;
+    box-shadow: none;
+  }
+  .atlas-selected h2 {
+    font-size: 23px;
+  }
+  .atlas-selected p,
+  .atlas-selected address {
+    font-size: 14px;
+  }
+  .atlas-selected-facts span {
+    font-size: 12px;
+  }
+  .atlas-selected-facts b {
+    font-size: 14px;
+  }
+  .atlas-place-list button {
+    border-radius: 0;
+    font-size: 14px;
+  }
+  .atlas-place-list small {
+    font-size: 12px;
+  }
+  .atlas-selected-links a {
+    font-size: 14px;
+  }
+  .atlas-map-guide {
+    font-size: 10px;
+  }
+  .atlas-attribution {
+    font-size: 11px;
+  }
+  .food-research {
+    padding: 15px 0 50px;
+  }
+  .food-research-heading {
+    display: none;
+  }
+  .food-filters {
+    padding: 20px 0;
+    margin-bottom: 26px;
+    border-top: 1px solid var(--line);
+  }
+  .food-filters button {
+    font-size: 14px;
+    min-height: 44px;
+  }
+  .food-filters > div > span {
+    font-size: 12px;
+  }
+  .food-filters > p {
+    font-size: 14px;
+  }
+  .restaurant-grid {
+    gap: 30px;
+  }
+  .restaurant-card {
+    border-radius: 0;
+    box-shadow: none;
+    background: white;
+    border: 1px solid var(--line);
+    padding: 28px;
+  }
+  .restaurant-card h3 {
+    font-size: 27px;
+  }
+  .restaurant-card-top {
+    font-size: 12px;
+  }
+  .restaurant-card-top small {
+    font-size: 12px;
+  }
+  .restaurant-en {
+    font: 400 25px var(--display);
+    letter-spacing: 0.03em;
+    margin-top: 28px;
+    color: #7a898b;
+  }
+  .restaurant-lead {
+    font-size: 16px;
+    margin-block: 16px;
+  }
+  .restaurant-meta {
+    margin-top: 20px;
+  }
+  .restaurant-meta span {
+    font-size: 12px;
+  }
+  .restaurant-meta b {
+    font-size: 14px;
+  }
+  .restaurant-story {
+    margin-top: 20px;
+  }
+  .restaurant-story p {
+    font-size: 15px;
+  }
+  .restaurant-story span {
+    font-size: 12px;
+  }
+  .restaurant-sources {
+    font-size: 12px;
+  }
+  .restaurant-card details {
+    border-top: 1px solid var(--line);
+    margin-top: 24px;
+    padding-top: 18px;
+  }
+  .restaurant-card summary {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  .restaurant-card summary:after {
+    content: '＋';
+  }
+  .restaurant-card details[open] summary:after {
+    content: '−';
+  }
+  .restaurant-card summary:focus-visible {
+    outline: 3px solid #397fdb;
+  }
+  .restaurant-card .urban-lens {
+    background: #f1f3f3;
+  }
+  .relocation-hero {
+    padding-block: 35px;
+    background: #f1f3f3;
+  }
+  .relocation-hero h1 {
+    font-size: 38px;
+  }
+  .relocation-hero .database-breadcrumb {
+    display: none;
+  }
+  .relocation-orientation {
+    border-radius: 3px;
+  }
+  .relocation-checks,
+  .relocation-support,
+  .relocation-steps,
+  .relocation-sources {
+    padding-block: 50px;
+  }
+  @media (max-width: 760px) {
+    .tool-tabs {
+      gap: 12px 20px;
+      padding: 14px 20px;
+    }
+    .tool-tabs button {
+      margin-left: 0;
+    }
+    .database-hero {
+      padding: 24px 20px;
+    }
+    .database-heading {
+      display: block;
+    }
+    .database-intro {
+      margin-top: 16px;
+    }
+    .database-heading h2 {
+      font-size: 25px;
+    }
+    .database-intro p {
+      font-size: 14px;
+    }
+    .content-section {
+      padding: 35px 20px;
+    }
+    .section-heading h2 {
+      font-size: 25px;
+    }
+    .hero {
+      padding: 30px 20px;
+    }
+    .hero h2 {
+      font-size: 28px;
+    }
+    .hero-ledger {
+      display: none;
+    }
+    .atlas-toolbar {
+      padding: 12px;
+    }
+    .atlas-search {
+      width: 100%;
+    }
+    .atlas-workbench {
+      grid-template-columns: 1fr;
+    }
+    .atlas-map-card svg {
+      height: 440px;
+    }
+    .atlas-rail {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    .atlas-place-list {
+      max-height: 270px;
+    }
+    .atlas-map-guide {
+      display: none;
+    }
+    .atlas-selected {
+      padding: 20px;
+    }
+    .restaurant-grid {
+      grid-template-columns: 1fr;
+    }
+    .restaurant-card {
+      padding: 23px;
+    }
+    .restaurant-card h3 {
+      font-size: 24px;
+    }
+    .food-filters {
+      padding-top: 5px;
+    }
+    .food-filters > div {
+      gap: 6px;
+    }
+    .food-filters button {
+      padding: 8px 10px;
+    }
+    .food-research {
+      padding-top: 0;
+    }
+    .food-filters > p {
+      margin-top: 12px;
+    }
+    .restaurant-story p {
+      font-size: 15px;
+    }
+    .sources-section {
+      padding-inline: 20px;
+    }
+    .relocation-hero,
+    .relocation-checks,
+    .relocation-support,
+    .relocation-steps,
+    .relocation-sources {
+      padding-inline: 20px;
+    }
+    .relocation-hero h1 {
+      font-size: 29px;
+    }
+  }
+}
+.map-tool {
+  padding-bottom: 15px;
+}
+
+@scope (.legacy-tool) {
+  input[type='range'] {
+    min-height: 0;
+    height: 6px;
+  }
+  .food-filters > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .food-filters > div > span {
+    flex-basis: 100%;
+    margin-bottom: 4px;
+  }
+  .food-filters button {
+    white-space: nowrap;
+    flex: 0 0 auto;
+    word-break: keep-all;
+    padding: 9px 14px;
+  }
+  .food-filters button.active {
+    background: var(--food-red);
+    border-color: var(--food-red);
+    color: white;
+  }
+}

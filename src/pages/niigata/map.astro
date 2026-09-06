@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RegionNav from '@/components/RegionNav.astro';
+import PlaceAtlas from '@/legacy/components/PlaceAtlas';
+import { MAP_PLACES } from '@/legacy/data/places';
+import '@/styles/legacy-tools.css';
+import '@/styles/tool-refinements.css';
+---
+
+<BaseLayout
+  title="新潟の生活地図"
+  description="マンション・飲食店・酒蔵の34地点を、地図と検索で探索。地点の詳細、観測日、参照元まで確認できます。"
+>
+  <RegionNav active="/niigata/map/" />
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">NIIGATA / CITY MAP</p><h1>街を、地図で探す。</h1>
+    </div><p>
+      カテゴリを切り替え、気になる地点をタップ。<br
+      />地図と一覧から、店や住まいの位置関係を探せます。
+    </p>
+  </div>
+  <div class="legacy-tool map-tool shell">
+    <PlaceAtlas places={MAP_PLACES} client:load /><noscript
+      ><p>
+        地図の操作にはJavaScriptを有効にしてください。<a href="/niigata/food/"
+          >飲食店一覧</a
+        >と<a href="/niigata/housing/">物件一覧</a>は各ページで読めます。
+      </p></noscript
+    >
+  </div>
+  <div class="shell">
+    <p class="data-note">
+      2026年8月の観測記録。座標は住所の代表点で、建物入口の正確な位置とは異なる場合があります。販売・営業状況は参照元で確認してください。
+    </p>
+  </div>
+</BaseLayout>

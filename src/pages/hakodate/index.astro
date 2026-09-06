@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RegionNav from '@/components/RegionNav.astro';
+import { regions } from '@/data/regions';
+const r = regions[1];
+---
+
+<BaseLayout
+  title="函館"
+  description="坂と港の、その先の暮らし。函館の食、街歩き、住まいを考える入口。公式情報から地域の位置関係を知る。"
+>
+  <section class="region-cover">
+    <img
+      src={r.image}
+      alt={r.alt}
+      fetchpriority="high"
+      style={'object-position:' + r.position}
+    /><div class="region-cover-copy">
+      <p class="eyebrow">REGION 02 / 函館</p><h1>HAKODATE</h1><p>{r.title}</p>
+    </div><a
+      class="photo-credit"
+      href={r.source}
+      target="_blank"
+      rel="noreferrer">PHOTO: {r.credit} / Unsplash</a
+    >
+  </section>
+  <RegionNav region="hakodate" active="/hakodate/" />
+  <section class="section shell">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">GET TO KNOW HAKODATE</p><h2>まずは、街を知る。</h2>
+      </div><p>
+        港のそばか、街なかか。<br
+        />食と住まいを入口に、函館で過ごす場所を考える。
+      </p>
+    </div>
+    <div class="link-rows">
+      <a class="link-row" href="/hakodate/food/"
+        ><span
+          ><strong>食と街を知る</strong><small>朝市、ベイエリア、元町へ。</small
+          ></span
+        ><span>↗</span></a
+      ><a class="link-row" href="/hakodate/housing/"
+        ><span
+          ><strong>住まいを考える</strong><small
+            >生活エリアと移住の公式情報から。</small
+          ></span
+        ><span>↗</span></a
+      >
+    </div>
+  </section>
+  <section class="map-feature">
+    <div class="map-feature-copy">
+      <p class="eyebrow">READ THE CITY</p><h2>港、坂、街の距離を知る。</h2><p>
+        函館の掲載店・物件はこれから調査します。まずは公式の地図で、エリアと行きたい場所の位置関係を確かめられます。
+      </p><a
+        class="pill pill--dark"
+        href="https://www.hakobura.jp/map"
+        target="_blank"
+        rel="noreferrer">函館の公式地図 <span>↗</span></a
+      >
+    </div><div class="map-preview">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=140.699%2C41.750%2C140.774%2C41.803&layer=mapnik"
+        title="函館の港・元町・五稜郭の位置関係"
+        loading="lazy"></iframe>
+    </div>
+  </section>
+  <div class="region-next shell">
+    <p class="eyebrow">ANOTHER REGION / 次の街へ</p><a href="/niigata/"
+      >NIIGATA ↗</a
+    >
+  </div>
+</BaseLayout>

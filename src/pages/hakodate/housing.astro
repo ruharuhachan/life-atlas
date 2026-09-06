@@ -1,0 +1,58 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RegionNav from '@/components/RegionNav.astro';
+---
+
+<BaseLayout
+  title="函館の住まい"
+  description="函館で暮らすエリアを知る。函館市の移住定住情報とハザードマップへの入口。物件情報は現在調査前です。"
+>
+  <RegionNav region="hakodate" active="/hakodate/housing/" />
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">HAKODATE / FIND YOUR HOME</p><h1>
+        この街で、暮らすなら。
+      </h1>
+    </div><p>
+      物件の前に、生活するエリアを知る。<br
+      />市の公式情報から、住まいと移住の準備を始められます。
+    </p>
+  </div>
+  <section class="section shell">
+    <div class="empty-editorial">
+      <p class="eyebrow">函館のマンション掲載：0件</p><h2>
+        物件の比較は、調査が整ってから。
+      </h2><p>
+        函館の物件情報はまだ掲載していません。まずは移住定住ナビで地域ごとの暮らしを、ハザードマップで検討する場所の防災情報を確認できます。
+      </p><a
+        class="pill pill--dark"
+        href="https://www.city.hakodate.hokkaido.jp/uij-turn/"
+        target="_blank"
+        rel="noreferrer">函館市の移住定住ナビ ↗</a
+      >
+    </div>
+    <div class="link-rows">
+      <a
+        class="link-row"
+        href="https://www.hazardmap.city.hakodate.hokkaido.jp/"
+        target="_blank"
+        rel="noreferrer"
+        ><span
+          ><strong>防災情報を確かめる</strong><small
+            >函館市防災ハザードマップ</small
+          ></span
+        ><span>↗</span></a
+      ><a
+        class="link-row"
+        href="https://www.hakobura.jp/map"
+        target="_blank"
+        rel="noreferrer"
+        ><span
+          ><strong>街の位置関係を見る</strong><small
+            >函館公式観光デジタルマップ</small
+          ></span
+        ><span>↗</span></a
+      >
+    </div>
+  </section>
+</BaseLayout>

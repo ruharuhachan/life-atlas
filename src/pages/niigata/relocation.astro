@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import RegionNav from '@/components/RegionNav.astro';
+import RelocationApp from '@/legacy/relocation/RelocationApp';
+import '@/styles/legacy-tools.css';
+import '@/styles/tool-refinements.css';
+---
+
+<BaseLayout
+  title="新潟への移住準備"
+  description="新潟への移住前に確認する仕事・住まい・移動・防災。以前の移住準備ガイドと公式情報へのリンク。"
+>
+  <RegionNav active="/niigata/relocation/" />
+  <div class="shell">
+    <p class="data-note">
+      以下は2026年8月に整理した移住準備ガイドです。制度の募集状況・金額・要件は、各公式ページで最新情報をご確認ください。
+    </p>
+  </div>
+  <div class="legacy-tool relocation-tool"><RelocationApp /></div>
+</BaseLayout>

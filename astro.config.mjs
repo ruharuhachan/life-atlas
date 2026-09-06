@@ -1,4 +1,5 @@
 import sitemap from '@astrojs/sitemap';
+import react from '@astrojs/react';
 import { defineConfig } from 'astro/config';
 import process from 'node:process';
 
@@ -8,7 +9,7 @@ export default defineConfig({
   site,
   output: 'static',
   compressHTML: true,
-  integrations: [sitemap()],
+  integrations: [sitemap(), react()],
   markdown: {
     shikiConfig: { theme: 'github-light' },
   },

@@ -1,79 +1,52 @@
 ---
 import { topics, type Topic } from '@/data/topics';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-
+import RegionNav from '@/components/RegionNav.astro';
 export function getStaticPaths() {
-  return topics.map((topic) => ({
-    params: { topic: topic.slug },
-    props: { topic },
-  }));
+  return topics
+    .filter((t) => ['work', 'run'].includes(t.slug))
+    .map((topic) => ({ params: { topic: topic.slug }, props: { topic } }));
 }
-
 interface Props {
   topic: Topic;
 }
-
 const { topic } = Astro.props;
 ---
 
 <BaseLayout title={topic.label + '｜新潟'} description={topic.description}>
-  <section class:list={['topic-hero', 'topic-hero--' + topic.color]}>
-    <div class="shell">
-      <a class="back-link" href="/niigata/">← 新潟のトップへ</a>
-      <div class="topic-hero__grid">
-        <div>
-          <p class="eyebrow">{topic.english} / NIIGATA</p>
-          <h1>{topic.label}</h1>
-        </div>
-        <p>{topic.lead}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell">
-      <div class="status-line">
-        <span>STATUS</span>
-        <strong>準備中・順次公開</strong>
-        <p>
-          公開前の情報は掲載せず、出典と確認日がそろったものから追加します。
-        </p>
-      </div>
-      <div class="point-grid">
-        {
-          topic.points.map((point, index) => (
-            <article>
-              <span>0{index + 1}</span>
-              <h2>{point.title}</h2>
+  <RegionNav />
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">NIIGATA / {topic.english}</p><h1>{topic.label}</h1>
+    </div><p>{topic.lead}</p>
+  </div>
+  <section class="section shell">
+    <div class="city-areas">
+      {
+        topic.points.map((point, i) => (
+          <article>
+            <>
+              <span>0{i + 1}</span>
+              <h3>{point.title}</h3>
               <p>{point.description}</p>
-            </article>
-          ))
-        }
-      </div>
-      {
-        topic.slug === 'housing' && (
-          <a
-            class="related-project"
-            href="https://ruharuhachan.github.io/niigata-mansion-compare/"
-          >
-            <span>RELATED PROJECT</span>
-            <strong>新潟マンション比較を見る</strong>
-            <span aria-hidden="true">↗</span>
-          </a>
-        )
+            </>
+          </article>
+        ))
       }
-      {
-        topic.slug === 'food' && (
-          <a
-            class="related-project"
-            href="https://ruharuhachan.github.io/niigata-pairing-lab/"
-          >
-            <span>RELATED PROJECT</span>
-            <strong>新潟ペアリングラボを見る</strong>
-            <span aria-hidden="true">↗</span>
-          </a>
-        )
-      }
+    </div><div class="link-rows">
+      <a class="link-row" href="/niigata/map/"
+        ><span
+          ><strong>生活地図で街を見る</strong><small
+            >住まいと店の位置関係を確認。</small
+          ></span
+        ><span>↗</span></a
+      ><a class="link-row" href="/niigata/relocation/"
+        ><span
+          ><strong>移住の準備をする</strong><small
+            >仕事・移動・支援制度の確認へ。</small
+          ></span
+        ><span>↗</span></a
+      >
     </div>
   </section>
 </BaseLayout>

@@ -1,0 +1,31 @@
+---
+interface Props {
+  region?: 'niigata' | 'hakodate';
+  active?: string;
+}
+const { region = 'niigata', active = '' } = Astro.props;
+const links =
+  region === 'niigata'
+    ? [
+        ['新潟トップ', '/niigata/'],
+        ['食', '/niigata/food/'],
+        ['住まい', '/niigata/housing/'],
+        ['地図', '/niigata/map/'],
+        ['移住準備', '/niigata/relocation/'],
+      ]
+    : [
+        ['函館トップ', '/hakodate/'],
+        ['食と街を知る', '/hakodate/food/'],
+        ['住まいを考える', '/hakodate/housing/'],
+      ];
+---
+
+<nav class="region-subnav" aria-label="地域内のナビゲーション">
+  <strong>{region.toUpperCase()}</strong>{
+    links.map(([label, href]) => (
+      <a href={href} aria-current={active === href ? 'page' : undefined}>
+        {label}
+      </a>
+    ))
+  }
+</nav>

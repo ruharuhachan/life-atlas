@@ -137,19 +137,6 @@ const imagery: Record<
         })
       }
     </section>
-
-    <section class="portal-next">
-      <div class="shell portal-next__grid">
-        <p class="portal-kicker">ATLAS 01 / NIIGATA</p>
-        <div>
-          <h2>最初の地域は、新潟。</h2>
-          <p>
-            一つの街を深く見てから、次の地域へ。確認した情報と、自分たちが歩いて見たことを分けながら、生活の解像度を上げていきます。
-          </p>
-          <a href="/niigata/">新潟の全体を見る <span>→</span></a>
-        </div>
-      </div>
-    </section>
   </main>
 </BaseLayout>
 
@@ -289,8 +276,7 @@ const imagery: Record<
     gap: clamp(3rem, 9vw, 10rem);
   }
 
-  .portal-intro h2,
-  .portal-next h2 {
+  .portal-intro h2 {
     margin-top: 1rem;
     font-family: var(--sans);
     font-size: clamp(3rem, 7vw, 6.5rem);
@@ -419,42 +405,9 @@ const imagery: Record<
     bottom: 0.45rem;
   }
 
-  .portal-next {
-    padding: clamp(6rem, 12vw, 11rem) 0;
-    background: #dfe870;
-    color: #122624;
-  }
-
-  .portal-next__grid {
-    display: grid;
-    grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
-    gap: clamp(3rem, 8vw, 9rem);
-  }
-
-  .portal-next h2 {
-    max-width: 10ch;
-    margin-top: 0;
-  }
-
-  .portal-next p:not(.portal-kicker) {
-    max-width: 42rem;
-    margin: 2rem 0;
-    line-height: 2;
-  }
-
-  .portal-next a {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    border-bottom: 1px solid currentcolor;
-    font-weight: 800;
-    text-decoration: none;
-  }
-
   @media (max-width: 760px) {
     .portal-hero__footer,
-    .portal-intro__grid,
-    .portal-next__grid {
+    .portal-intro__grid {
       grid-template-columns: 1fr;
     }
 
@@ -492,8 +445,7 @@ const imagery: Record<
       padding: 2.75rem 0;
     }
 
-    .portal-intro h2,
-    .portal-next h2 {
+    .portal-intro h2 {
       font-size: clamp(2.2rem, 10vw, 3.2rem);
     }
 
@@ -545,19 +497,6 @@ const imagery: Record<
     .portal-card__credit,
     .portal-credit {
       font-size: 0.44rem;
-    }
-
-    .portal-next {
-      padding: 3.25rem 0;
-    }
-
-    .portal-next p:not(.portal-kicker) {
-      margin: 1.25rem 0;
-      line-height: 1.75;
-    }
-
-    .portal-next__grid {
-      gap: 1.5rem;
     }
   }
 

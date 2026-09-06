@@ -4,7 +4,7 @@ export const regions = [
     name: '新潟',
     english: 'NIIGATA',
     number: '01',
-    prefecture: 'NIIGATA, JAPAN',
+    prefecture: 'NIIGATA CITY, JAPAN',
     title: '水辺の街で、日々を味わう。',
     image: '/images/niigata.webp',
     mobile: '/images/niigata-mobile.webp',

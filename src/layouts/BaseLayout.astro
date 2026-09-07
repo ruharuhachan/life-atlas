@@ -34,6 +34,7 @@ const path = Astro.url.pathname;
       type="font/ttf"
       crossorigin
     />
+    <link rel="preload" href="/life-atlas-logo.svg" as="image" />
     <meta property="og:type" content="website" /><meta
       property="og:locale"
       content="ja_JP"
@@ -53,9 +54,20 @@ const path = Astro.url.pathname;
     <header
       class:list={['atlas-header', { 'atlas-header--overlay': immersive }]}
     >
-      <a class="atlas-brand" href="/" aria-label="Life Atlas トップ"
-        >LIFE ATLAS<span>食と住まいから、街を知る。</span></a
+      <a
+        class="atlas-brand"
+        href="/"
+        aria-label="Life Atlas トップ"
+        style={immersive ? 'filter:brightness(0) invert(1)' : undefined}
       >
+        <img
+          src="/life-atlas-logo.svg"
+          alt="Life Atlas"
+          width="700"
+          height="219"
+          style="display:block;width:clamp(128px,14vw,188px);height:auto"
+        />
+      </a>
       <nav aria-label="メインナビゲーション">
         <a href="/" aria-current={path === '/' ? 'page' : undefined}
           >地域を選ぶ</a
@@ -76,7 +88,21 @@ const path = Astro.url.pathname;
     <footer
       class:list={['atlas-footer', { 'atlas-footer--minimal': immersive }]}
     >
-      <a class="footer-wordmark" href="/">LIFE ATLAS</a>
+      <a
+        class="footer-wordmark"
+        href="/"
+        aria-label="Life Atlas トップ"
+        style={immersive ? 'filter:brightness(0) invert(1)' : undefined}
+      >
+        <img
+          src="/life-atlas-logo.svg"
+          alt="Life Atlas"
+          width="700"
+          height="219"
+          loading="lazy"
+          style="display:block;width:150px;height:auto"
+        />
+      </a>
       <nav aria-label="フッターナビゲーション">
         <a href="/niigata/">新潟</a><a href="/hakodate/">函館</a><a
           href="/niigata/map/">新潟の地図</a

@@ -41,7 +41,13 @@ export default function GooglePlaceRating(props: Props) {
     return () => {
       cancelled = true;
     };
-  }, [props.placeId, props.name, props.address, props.latitude, props.longitude]);
+  }, [
+    props.placeId,
+    props.name,
+    props.address,
+    props.latitude,
+    props.longitude,
+  ]);
 
   const sourceUrl = rating?.sourceUrl ?? props.fallbackMapsUrl;
 
@@ -55,7 +61,9 @@ export default function GooglePlaceRating(props: Props) {
           <strong>
             {rating?.score == null ? '評価なし' : rating.score.toFixed(1)}
           </strong>
-          {rating?.reviewCount != null && <span>（{rating.reviewCount}件）</span>}
+          {rating?.reviewCount != null && (
+            <span>（{rating.reviewCount}件）</span>
+          )}
         </>
       )}
       <div className="google-maps-attribution">

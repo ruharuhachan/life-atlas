@@ -1,6 +1,6 @@
 name: Beer Atlas 店舗追加
 description: Copilot店舗追加エージェントに渡すための実店舗情報を入力します
-title: "[Beer Atlas] 店舗追加: "
+title: '[Beer Atlas] 店舗追加: '
 body:
   - type: markdown
     attributes:

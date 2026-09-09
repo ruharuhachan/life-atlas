@@ -10,9 +10,7 @@
     "longitude": 139.6647,
     "latitude": 35.6057,
     "manufacturerId": "asahi",
-    "certifications": [
-      "asahi-extra-cold"
-    ],
+    "certifications": ["asahi-extra-cold"],
     "officialCertified": false,
     "externalRatings": {
       "google": {
@@ -80,9 +78,7 @@
     "longitude": 139.6722229,
     "latitude": 35.6086458,
     "manufacturerId": "asahi",
-    "certifications": [
-      "asahi-extra-cold"
-    ],
+    "certifications": ["asahi-extra-cold"],
     "officialCertified": false,
     "externalRatings": {
       "google": {
@@ -209,9 +205,7 @@
     "prefectureId": "JP-13",
     "searchAreaId": "tokyo-jiyugaoka",
     "neighborhoodId": "tokyo-jiyugaoka-1",
-    "brandIds": [
-      "sapporo-black-label"
-    ]
+    "brandIds": ["sapporo-black-label"]
   },
   {
     "id": "tsukidori-jiyugaoka",
@@ -289,8 +283,6 @@
     "prefectureId": "JP-13",
     "searchAreaId": "tokyo-jiyugaoka",
     "neighborhoodId": "tokyo-jiyugaoka-1",
-    "brandIds": [
-      "kirin-ichiban-shibori"
-    ]
+    "brandIds": ["kirin-ichiban-shibori"]
   }
 ]

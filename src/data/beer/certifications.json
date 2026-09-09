@@ -6,7 +6,8 @@
     "category": "quality",
     "isCertification": true,
     "officialSourceUrl": "https://www.asahibeer.co.jp/enjoy/umadaru/place.html",
-    "lastVerifiedAt": "2026-09-09"
+    "lastVerifiedAt": "2026-09-09",
+    "brandId": null
   },
   {
     "id": "asahi-extra-cold",
@@ -15,7 +16,8 @@
     "category": "temperature",
     "isCertification": false,
     "officialSourceUrl": "https://www.asahibeer.co.jp/superdry/extracold/",
-    "lastVerifiedAt": "2026-09-09"
+    "lastVerifiedAt": "2026-09-09",
+    "brandId": null
   },
   {
     "id": "asahi-super-cold",
@@ -24,7 +26,8 @@
     "category": "temperature",
     "isCertification": true,
     "officialSourceUrl": "https://www.asahibeer.co.jp/superdry/supercold/",
-    "lastVerifiedAt": "2026-09-09"
+    "lastVerifiedAt": "2026-09-09",
+    "brandId": null
   },
   {
     "id": "kirin-gokujo",
@@ -33,7 +36,8 @@
     "category": "quality",
     "isCertification": true,
     "officialSourceUrl": "https://products.kirin.co.jp/",
-    "lastVerifiedAt": "2026-09-09"
+    "lastVerifiedAt": "2026-09-09",
+    "brandId": null
   },
   {
     "id": "sapporo-perfect",
@@ -42,7 +46,8 @@
     "category": "quality",
     "isCertification": true,
     "officialSourceUrl": "https://blog.sapporobeer.jp/eat/27584/",
-    "lastVerifiedAt": "2026-09-09"
+    "lastVerifiedAt": "2026-09-09",
+    "brandId": "sapporo-black-label"
   },
   {
     "id": "suntory-tatsujin",
@@ -51,7 +56,8 @@
     "category": "quality",
     "isCertification": true,
     "officialSourceUrl": "https://www.suntory.co.jp/customer/faq/007245.html",
-    "lastVerifiedAt": "2026-09-09"
+    "lastVerifiedAt": "2026-09-09",
+    "brandId": null
   },
   {
     "id": "suntory-chotatsujin",
@@ -60,6 +66,47 @@
     "category": "quality",
     "isCertification": true,
     "officialSourceUrl": "https://www.suntory.co.jp/customer/faq/007245.html",
+    "lastVerifiedAt": "2026-09-09",
+    "brandId": null
+  },
+  {
+    "id": "sapporo-yebisu",
+    "manufacturerId": "sapporo",
+    "name": "絶品ヱビスの店",
+    "category": "quality",
+    "isCertification": true,
+    "brandId": "sapporo-yebisu",
+    "officialSourceUrl": "https://www.sapporobeer.jp/yebisu/communication/zeppin-yebisu/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-classic-perfect",
+    "manufacturerId": "sapporo",
+    "name": "パーフェクトクラシック",
+    "category": "quality",
+    "isCertification": true,
+    "brandId": "sapporo-classic",
+    "officialSourceUrl": "https://www.sapporobeer.jp/classic/perfectclassic/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-fuumi-perfect",
+    "manufacturerId": "sapporo",
+    "name": "パーフェクト風味爽快ニシテ",
+    "category": "quality",
+    "isCertification": true,
+    "brandId": "sapporo-fuumi",
+    "officialSourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-shizuoka-perfect",
+    "manufacturerId": "sapporo",
+    "name": "パーフェクト静岡麦酒",
+    "category": "quality",
+    "isCertification": true,
+    "brandId": "sapporo-shizuoka",
+    "officialSourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
     "lastVerifiedAt": "2026-09-09"
   }
 ]

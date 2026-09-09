@@ -43,7 +43,11 @@
       "provider": null,
       "sourceListUrl": null,
       "importedAt": null
-    }
+    },
+    "prefectureId": "JP-13",
+    "searchAreaId": "tokyo-jiyugaoka",
+    "neighborhoodId": "tokyo-jiyugaoka-1",
+    "brandIds": []
   },
   {
     "id": "demo-2",
@@ -89,7 +93,11 @@
       "provider": null,
       "sourceListUrl": null,
       "importedAt": null
-    }
+    },
+    "prefectureId": "JP-13",
+    "searchAreaId": "tokyo-jiyugaoka",
+    "neighborhoodId": "tokyo-jiyugaoka-2",
+    "brandIds": ["sapporo-black-label"]
   },
   {
     "id": "demo-3",
@@ -135,7 +143,11 @@
       "provider": null,
       "sourceListUrl": null,
       "importedAt": null
-    }
+    },
+    "prefectureId": "JP-13",
+    "searchAreaId": "tokyo-jiyugaoka",
+    "neighborhoodId": "tokyo-jiyugaoka-3",
+    "brandIds": []
   },
   {
     "id": "demo-4",
@@ -181,7 +193,11 @@
       "provider": null,
       "sourceListUrl": null,
       "importedAt": null
-    }
+    },
+    "prefectureId": "JP-13",
+    "searchAreaId": "tokyo-jiyugaoka",
+    "neighborhoodId": "tokyo-jiyugaoka-1",
+    "brandIds": []
   },
   {
     "id": "demo-5",
@@ -227,7 +243,11 @@
       "provider": null,
       "sourceListUrl": null,
       "importedAt": null
-    }
+    },
+    "prefectureId": "JP-13",
+    "searchAreaId": "tokyo-jiyugaoka",
+    "neighborhoodId": "tokyo-jiyugaoka-2",
+    "brandIds": []
   },
   {
     "id": "demo-6",
@@ -240,7 +260,7 @@
     "longitude": 139.67,
     "latitude": 35.6,
     "manufacturerId": "sapporo",
-    "certifications": ["sapporo-perfect"],
+    "certifications": ["sapporo-yebisu"],
     "officialCertified": true,
     "externalRatings": {
       "google": {
@@ -273,6 +293,10 @@
       "provider": null,
       "sourceListUrl": null,
       "importedAt": null
-    }
+    },
+    "prefectureId": "JP-13",
+    "searchAreaId": "tokyo-jiyugaoka",
+    "neighborhoodId": "tokyo-jiyugaoka-3",
+    "brandIds": ["sapporo-yebisu"]
   }
 ]

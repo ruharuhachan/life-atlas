@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { googleRating } from '@/data/beer/search';
+import brands from '@/data/beer/brands.json';
 import shops from '@/data/beer/shops.json';
 import makers from '@/data/beer/manufacturers.json';
 import certifications from '@/data/beer/certifications.json';
@@ -23,9 +24,14 @@ const { shop } = Astro.props;
       BEER ATLAS / SHOP GUIDE
     </p><h1>{shop.name}</h1><div class="beer-notice">
       店舗・所在地・認定状況は架空のサンプルです。Google口コミは未取得です。
-    </div><p>{shop.address}</p><h2>メーカー・提供品質</h2><p>
+    </div><p>{shop.address}</p><h2>メーカー・銘柄・提供品質</h2><p>
       {makers.find((m) => m.id === shop.manufacturerId)?.name}
     </p><div class="beer-tags">
+      {
+        shop.brandIds.map((id) => (
+          <span>{brands.find((b) => b.id === id)?.name}</span>
+        ))
+      }
       {
         shop.certifications.map((id) => (
           <span>{certifications.find((c) => c.id === id)?.name}</span>

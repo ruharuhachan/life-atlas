@@ -40,3 +40,34 @@ test('Google only: other provider scores cannot satisfy Google minimum; missing 
   );
   for (const shop of shops) assert.equal(meetsGoogleRating(shop, '4'), false);
 });
+
+test('brand availability never grants certification and options stay manufacturer-scoped', async () => {
+  const { brandsForManufacturer, matchesBeerSelection } =
+    await import('../src/data/beer/search.ts');
+  const brandOnly = { brandIds: ['sapporo-yebisu'], certifications: [] };
+  assert.equal(matchesBeerSelection(brandOnly, 'brand:sapporo-yebisu'), true);
+  assert.equal(matchesBeerSelection(brandOnly, 'sapporo-yebisu'), false);
+  assert.equal(matchesBeerSelection(brandOnly, 'brand:sapporo-classic'), false);
+  assert.ok(
+    brandsForManufacturer('sapporo').some((b) => b.name === '白穂乃香'),
+  );
+  assert.equal(brandsForManufacturer('asahi').length, 0);
+  assert.ok(
+    certificationsForManufacturer('sapporo').some(
+      (c) => c.name === 'パーフェクト風味爽快ニシテ',
+    ),
+  );
+});
+test('area selection covers prefecture, district, neighborhood and empty Tokyo districts', async () => {
+  const { matchesArea, regionForArea } =
+    await import('../src/data/beer/search.ts');
+  for (const s of shops) {
+    assert.equal(matchesArea(s, 'JP-13'), true);
+    assert.equal(matchesArea(s, s.searchAreaId), true);
+    assert.equal(matchesArea(s, s.neighborhoodId), true);
+    assert.equal(matchesArea(s, 'tokyo-shinjuku'), false);
+    assert.equal(regionForArea(s.neighborhoodId).id, s.searchAreaId);
+  }
+  assert.equal(regionForArea('tokyo-shinjuku').english, 'SHINJUKU');
+  assert.equal(regionForArea('JP-13').english, 'TOKYO');
+});

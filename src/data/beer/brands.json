@@ -1,0 +1,50 @@
+[
+  {
+    "id": "sapporo-black-label",
+    "manufacturerId": "sapporo",
+    "name": "サッポロ生ビール黒ラベル",
+    "limitedRegion": null,
+    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-yebisu",
+    "manufacturerId": "sapporo",
+    "name": "ヱビスビール",
+    "limitedRegion": null,
+    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-classic",
+    "manufacturerId": "sapporo",
+    "name": "サッポロ クラシック",
+    "limitedRegion": "北海道",
+    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-fuumi",
+    "manufacturerId": "sapporo",
+    "name": "風味爽快ニシテ",
+    "limitedRegion": "新潟県",
+    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-shizuoka",
+    "manufacturerId": "sapporo",
+    "name": "静岡麦酒",
+    "limitedRegion": "静岡県",
+    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-shirohonoka",
+    "manufacturerId": "sapporo",
+    "name": "白穂乃香",
+    "limitedRegion": null,
+    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "lastVerifiedAt": "2026-09-09"
+  }
+]

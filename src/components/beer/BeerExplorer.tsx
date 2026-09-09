@@ -3,9 +3,14 @@ import * as d3 from 'd3';
 import shops from '@/data/beer/shops.json';
 import makers from '@/data/beer/manufacturers.json';
 import certifications from '@/data/beer/certifications.json';
-import region from '@/data/beer/region.json';
+import areas from '@/data/beer/areas.json';
+import brands from '@/data/beer/brands.json';
 import {
   certificationsForManufacturer,
+  brandsForManufacturer,
+  matchesBeerSelection,
+  matchesArea,
+  regionForArea,
   changeManufacturer,
   googleRating,
   meetsGoogleRating,
@@ -14,7 +19,9 @@ type Shop = (typeof shops)[number];
 export default function BeerExplorer() {
   const [maker, setMaker] = useState('');
   const [cert, setCert] = useState('');
-  const [area, setArea] = useState('');
+  const [area, setArea] = useState(areas.defaultAreaId);
+  const region = regionForArea(area);
+  const areaHasShops = shops.some((s) => matchesArea(s, area));
   const [rating, setRating] = useState('');
   const [query, setQuery] = useState('');
   const [booking, setBooking] = useState(false);
@@ -25,6 +32,7 @@ export default function BeerExplorer() {
   );
   const mapRef = useRef<SVGSVGElement>(null);
   const availableCertifications = certificationsForManufacturer(maker);
+  const availableBrands = brandsForManufacturer(maker);
   function selectMaker(id: string) {
     const next = changeManufacturer(id);
     setMaker(next.manufacturerId);
@@ -35,8 +43,8 @@ export default function BeerExplorer() {
       shops.filter(
         (s) =>
           (!maker || s.manufacturerId === maker) &&
-          (!cert || s.certifications.includes(cert)) &&
-          (!area || s.area === area) &&
+          matchesBeerSelection(s, cert) &&
+          matchesArea(s, area) &&
           meetsGoogleRating(s, rating) &&
           (!booking || s.reservationAvailable) &&
           (!article || s.articleSlug) &&
@@ -49,7 +57,7 @@ export default function BeerExplorer() {
   function reset() {
     setMaker('');
     setCert('');
-    setArea('');
+    setArea(areas.defaultAreaId);
     setRating('');
     setQuery('');
     setBooking(false);
@@ -60,11 +68,13 @@ export default function BeerExplorer() {
     if (!mapRef.current) return;
     const svg = d3.select(mapRef.current);
     svg.selectAll('*').remove();
-    const projection = d3
-      .geoMercator()
-      .center([region.center[0], region.center[1]])
-      .scale(630000)
-      .translate([400, 235]);
+    const projection = d3.geoMercator().fitExtent(
+      [
+        [60, 60],
+        [740, 410],
+      ],
+      { type: 'MultiPoint', coordinates: region.extent },
+    );
     const path = d3.geoPath(projection);
     const grid = d3
       .geoGraticule()
@@ -72,7 +82,7 @@ export default function BeerExplorer() {
         [region.extent[0][0], region.extent[0][1]],
         [region.extent[1][0], region.extent[1][1]],
       ])
-      .step([0.005, 0.005]);
+      .step(region.id === 'JP-13' ? [0.05, 0.05] : [0.005, 0.005]);
     svg
       .append('path')
       .datum(grid())
@@ -85,8 +95,9 @@ export default function BeerExplorer() {
       const [x, y] = projection([p.coordinates[0], p.coordinates[1]])!;
       svg
         .append('text')
-        .attr('x', x + 20)
+        .attr('x', x)
         .attr('y', y - 28)
+        .attr('text-anchor', 'middle')
         .attr('fill', '#aab5b4')
         .attr('font-size', 16)
         .text(p.name);
@@ -125,7 +136,7 @@ export default function BeerExplorer() {
       .attr('font-size', 15)
       .attr('font-weight', 700)
       .text((s) => String(shops.indexOf(s) + 1).padStart(2, '0'));
-  }, [filtered, selected]);
+  }, [filtered, selected, region]);
   return (
     <section className="beer-explorer" aria-label="店舗検索">
       <div className="beer-filterbar">
@@ -151,11 +162,11 @@ export default function BeerExplorer() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="自由が丘、九品仏、奥沢…"
+              placeholder="店名・街の名前…"
             />
           </label>
           <label>
-            認定・提供品質
+            銘柄・認定
             <select
               value={cert}
               disabled={!maker}
@@ -164,20 +175,45 @@ export default function BeerExplorer() {
               <option value="">
                 {maker ? 'このメーカーのすべて' : 'メーカーを選択してください'}
               </option>
-              {availableCertifications.map((c) => (
-                <option value={c.id} key={c.id}>
-                  {c.name}
-                </option>
-              ))}
+              {availableBrands.length > 0 && (
+                <optgroup label="銘柄">
+                  {availableBrands.map((b) => (
+                    <option key={b.id} value={'brand:' + b.id}>
+                      {b.name}
+                      {b.limitedRegion ? `（${b.limitedRegion}限定）` : ''}
+                    </option>
+                  ))}
+                </optgroup>
+              )}
+              <optgroup label="認定・品質提供">
+                {availableCertifications.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </optgroup>
             </select>
           </label>
           <label>
             エリア
             <select value={area} onChange={(e) => setArea(e.target.value)}>
-              <option value="">自由が丘周辺・すべて</option>
-              {region.areas.map((a) => (
-                <option key={a}>{a}</option>
-              ))}
+              <option value="JP-13">東京都の登録エリアすべて</option>
+              {areas.areas.map((a) =>
+                a.neighborhoods.length ? (
+                  <optgroup key={a.id} label={a.name}>
+                    <option value={a.id}>{a.name}・すべて</option>
+                    {a.neighborhoods.map((n) => (
+                      <option key={n.id} value={n.id}>
+                        {n.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                ) : (
+                  <option key={a.id} value={a.id}>
+                    {a.name}
+                  </option>
+                ),
+              )}
             </select>
           </label>
           <label>
@@ -234,7 +270,7 @@ export default function BeerExplorer() {
             ref={mapRef}
             viewBox="0 0 800 470"
             role="group"
-            aria-label="自由が丘周辺のサンプル店舗位置図"
+            aria-label={`${region.name}のサンプル店舗位置図`}
           />
           <div className="beer-map-caption">
             緯度・経度に基づく位置図。店舗・所在地は架空です。
@@ -258,6 +294,9 @@ export default function BeerExplorer() {
               <h2>{selected.name}</h2>
               <p className="beer-demo-label">架空のサンプル店舗</p>
               <div className="beer-tags">
+                {selected.brandIds.map((id) => (
+                  <span key={id}>{brands.find((b) => b.id === id)?.name}</span>
+                ))}
                 {selected.certifications.map((id) => (
                   <span key={id}>
                     {certifications.find((c) => c.id === id)?.name}
@@ -308,10 +347,18 @@ export default function BeerExplorer() {
             </>
           ) : (
             <div className="beer-empty">
-              <h2>条件に合う店舗がありません</h2>
-              <p>メーカーやエリアの条件を減らしてみてください。</p>
+              <h2>
+                {areaHasShops
+                  ? '条件に合う店舗がありません'
+                  : 'このエリアは店舗情報を準備中です'}
+              </h2>
+              <p>
+                {areaHasShops
+                  ? 'メーカーや銘柄・認定の条件を減らしてみてください。'
+                  : 'エリアを先に追加しています。自由が丘周辺ではサンプルを確認できます。'}
+              </p>
               <button className="beer-button" onClick={reset}>
-                すべての店舗を表示
+                自由が丘のサンプルに戻る
               </button>
             </div>
           )}

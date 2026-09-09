@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { googleRating } from '@/data/beer/search';
 import shops from '@/data/beer/shops.json';
 import makers from '@/data/beer/manufacturers.json';
 import certifications from '@/data/beer/certifications.json';
@@ -21,7 +22,7 @@ const { shop } = Astro.props;
     <a href="/beer/">← ビールの店舗検索へ</a><p class="beer-kicker">
       BEER ATLAS / SHOP GUIDE
     </p><h1>{shop.name}</h1><div class="beer-notice">
-      この店舗・所在地・認定・口コミ点数は架空のサンプルです。実在店の営業情報や評価ではありません。
+      店舗・所在地・認定状況は架空のサンプルです。Google口コミは未取得です。
     </div><p>{shop.address}</p><h2>メーカー・提供品質</h2><p>
       {makers.find((m) => m.id === shop.manufacturerId)?.name}
     </p><div class="beer-tags">
@@ -30,14 +31,33 @@ const { shop } = Astro.props;
           <span>{certifications.find((c) => c.id === id)?.name}</span>
         ))
       }
-    </div><p>
-      制度名と各社の正式な認定条件の対応は、公式情報の確認後に掲載します。特別な温度での提供と、店舗の品質認定は別の情報です。
+    </div><ul>
+      {
+        shop.certifications.map((id) => {
+          const c = certifications.find((c) => c.id === id);
+          return (
+            c && (
+              <li>
+                <a href={c.officialSourceUrl} target="_blank" rel="noreferrer">
+                  {c.name}の公式情報 ↗
+                </a>
+              </li>
+            )
+          );
+        })
+      }
+    </ul><p>
+      認定・提供区分はメーカー別に管理しています。以下は制度の公式情報であり、このサンプル店舗が実際に認定されていることを示すものではありません。
     </p><h2>評価情報</h2><div class="beer-table-wrap">
       <table>
         <thead><tr><th>項目</th><th>状態</th></tr></thead><tbody
           ><tr
-            ><th>店舗全体の口コミ（サンプル）</th><td
-              >{shop.externalRatings.google.score?.toFixed(1) ?? '未取得'} / 5</td
+            ><th>Google口コミ</th><td
+              >{
+                googleRating(shop)?.score == null
+                  ? '未取得'
+                  : googleRating(shop)?.score?.toFixed(1) + ' / 5'
+              }</td
             ></tr
           ><tr><th>実際のGoogle評価・件数・取得日</th><td>未取得</td></tr><tr
             ><th>サーバー・衛生管理</th><td>未確認</td></tr

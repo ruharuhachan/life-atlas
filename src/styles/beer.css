@@ -579,3 +579,9 @@
 .beer-cover img {
   object-position: center 44%;
 }
+
+.beer-fields select:disabled {
+  color: #62696a;
+  background: #eef0f0;
+  cursor: not-allowed;
+}

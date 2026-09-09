@@ -27,8 +27,7 @@ if (addedShops.length === 0) {
   process.exit(0);
 }
 
-const standardRatingGate =
-  '- [x] Google Maps評価4.0以上を人間が手動確認';
+const standardRatingGate = '- [x] Google Maps評価4.0以上を人間が手動確認';
 const exceptionRatingGate =
   '- [x] Google Maps評価4.0未満だが例外掲載を人間が明示承認';
 
@@ -41,7 +40,10 @@ const requiredMarkers = [
 
 const failures = [];
 
-if (!prBody.includes(standardRatingGate) && !prBody.includes(exceptionRatingGate)) {
+if (
+  !prBody.includes(standardRatingGate) &&
+  !prBody.includes(exceptionRatingGate)
+) {
   failures.push(
     `PR本文に「${standardRatingGate}」または例外掲載承認のチェックが必要です。`,
   );

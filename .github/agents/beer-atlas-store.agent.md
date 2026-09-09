@@ -55,6 +55,7 @@ description: 入力された店舗情報と根拠URLからBeer Atlasの実店舗
 
 ```markdown
 ## Beer Atlas 店舗追加チェック
+
 - [x] Google Maps評価4.0以上を人間が手動確認
 - [ ] Google Maps評価4.0未満だが例外掲載を人間が明示承認
 - [x] Google評価点・口コミ件数をDBに保存していない

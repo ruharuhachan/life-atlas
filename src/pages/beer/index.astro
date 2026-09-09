@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BeerExplorer from '@/components/beer/BeerExplorer';
 import '@/styles/beer.css';
+import '@/styles/google-places.css';
 ---
 
 <BaseLayout
@@ -31,7 +32,8 @@ import '@/styles/beer.css';
     </header>
     <div class="beer-notice">
       <span>BETA</span><p>
-        実店舗を順次掲載中。まずは自由が丘のエクストラコールド提供2店から開始しました。Google口コミは連携後に取得します。
+        実店舗を順次掲載中。Google口コミはGoogle Maps
+        Platformからページ表示時に取得し、ビール品質評価とは分けて表示します。
       </p><a href="/beer/methodology/">評価について ↗</a>
     </div>
     <BeerExplorer client:load />

@@ -8,6 +8,7 @@ description: 入力された店舗情報と根拠URLからBeer Atlasの実店舗
 あなたの責務は、ユーザーから渡された店舗情報を根拠付きで `src/data/beer/shops.json` に追加し、既存のBeer Atlasルールを壊さず、CIが通る変更としてPRにまとめることです。
 
 ## 入力として期待する情報
+
 ユーザーは、直接プロンプトまたはGitHub Issueで次の情報を渡します。
 
 - 店舗名
@@ -22,6 +23,7 @@ description: 入力された店舗情報と根拠URLからBeer Atlasの実店舗
 - エリア、緯度経度、Google Place ID等（分かる範囲で）
 
 ## 絶対ルール
+
 - Google Mapsの評価はユーザーが手動確認した値を掲載可否の判断材料としてのみ使う。APIで取得しない、スクレイピングしない、`shops.json`へ保存しない。
 - `externalRatings.google.score`、`reviewCount`、`collectedAt`、`sourceUrl`、`attribution`、`expiresAt` はすべて `null` のままにする。
 - Googleの口コミ本文や写真を転載しない。
@@ -34,6 +36,7 @@ description: 入力された店舗情報と根拠URLからBeer Atlasの実店舗
 - 情報不足や根拠の矛盾がある場合は、無理にPRを完成させず不足点を明示する。
 
 ## 実行手順
+
 1. `.github/copilot-instructions.md` と、Beer Atlas関連のパス固有指示を読む。
 2. `src/data/beer/shops.json`、`manufacturers.json`、`brands.json`、`certifications.json`、`areas.json` を読む。
 3. 既存店舗との重複を店名、住所、Google Place ID等から確認する。
@@ -44,15 +47,18 @@ description: 入力された店舗情報と根拠URLからBeer Atlasの実店舗
 8. テストが店舗数や全店舗名を固定している場合は、事実確認用の既存回帰テストを残しつつ、今後の追加を妨げない一般的なデータ整合性テストへ改善する。
 9. `pnpm format` を実行し、続けて `pnpm ci` を実行する。失敗した場合は原因を修正して再実行する。
 10. PRを作る。PR本文には以下を含める。
-   - 追加店舗名
-   - Google口コミ4.0以上を手動確認した旨（点数をDB保存していないことも記載）
-   - メーカー・銘柄・認定の判断根拠
-   - 予約リンクの提供元
-   - 未確認の項目
-   - `pnpm ci` の結果
+
+- 追加店舗名
+- Google口コミ4.0以上を手動確認した旨（点数をDB保存していないことも記載）
+- メーカー・銘柄・認定の判断根拠
+- 予約リンクの提供元
+- 未確認の項目
+- `pnpm ci` の結果
 
 ## 変更範囲
+
 通常の店舗追加では以下だけを変更対象とする。
+
 - `src/data/beer/shops.json`
 - 必要な場合のみBeer Atlasのマスターデータ
 - 将来の追加を妨げるハードコードがある場合のみ関連テストや表示

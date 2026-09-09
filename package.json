@@ -14,7 +14,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format:check": "prettier --write . && git diff --exit-code",
     "ci": "pnpm format:check && pnpm check && pnpm build && pnpm test",
     "test": "node --test tests/*.test.mjs"
   },

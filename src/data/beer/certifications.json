@@ -1,22 +1,65 @@
 [
   {
-    "id": "official",
-    "name": "メーカー品質認定（サンプル）",
-    "category": "quality"
+    "id": "asahi-umadaru",
+    "manufacturerId": "asahi",
+    "name": "「うまい！樽生」認定店",
+    "category": "quality",
+    "isCertification": true,
+    "officialSourceUrl": "https://www.asahibeer.co.jp/enjoy/umadaru/place.html",
+    "lastVerifiedAt": "2026-09-09"
   },
   {
-    "id": "extra-cold",
-    "name": "エクストラコールド（サンプル）",
-    "category": "temperature"
+    "id": "asahi-extra-cold",
+    "manufacturerId": "asahi",
+    "name": "エクストラコールド",
+    "category": "temperature",
+    "isCertification": false,
+    "officialSourceUrl": "https://www.asahibeer.co.jp/superdry/extracold/",
+    "lastVerifiedAt": "2026-09-09"
   },
   {
-    "id": "perfect",
-    "name": "パーフェクト提供（サンプル）",
-    "category": "quality"
+    "id": "asahi-super-cold",
+    "manufacturerId": "asahi",
+    "name": "SUPER COLD認定店",
+    "category": "temperature",
+    "isCertification": true,
+    "officialSourceUrl": "https://www.asahibeer.co.jp/superdry/supercold/",
+    "lastVerifiedAt": "2026-09-09"
   },
   {
-    "id": "super-cold",
-    "name": "スーパーコールド（サンプル）",
-    "category": "temperature"
+    "id": "kirin-gokujo",
+    "manufacturerId": "kirin",
+    "name": "一番搾り 極上〈生〉認定店",
+    "category": "quality",
+    "isCertification": true,
+    "officialSourceUrl": "https://products.kirin.co.jp/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "sapporo-perfect",
+    "manufacturerId": "sapporo",
+    "name": "ザ・パーフェクト黒ラベル",
+    "category": "quality",
+    "isCertification": true,
+    "officialSourceUrl": "https://blog.sapporobeer.jp/eat/27584/",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "suntory-tatsujin",
+    "manufacturerId": "suntory",
+    "name": "神泡達人店",
+    "category": "quality",
+    "isCertification": true,
+    "officialSourceUrl": "https://www.suntory.co.jp/customer/faq/007245.html",
+    "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "suntory-chotatsujin",
+    "manufacturerId": "suntory",
+    "name": "神泡超達人店",
+    "category": "quality",
+    "isCertification": true,
+    "officialSourceUrl": "https://www.suntory.co.jp/customer/faq/007245.html",
+    "lastVerifiedAt": "2026-09-09"
   }
 ]

@@ -3,6 +3,13 @@ import * as d3 from 'd3';
 import shops from '@/data/beer/shops.json';
 import makers from '@/data/beer/manufacturers.json';
 import certifications from '@/data/beer/certifications.json';
+import region from '@/data/beer/region.json';
+import {
+  certificationsForManufacturer,
+  changeManufacturer,
+  googleRating,
+  meetsGoogleRating,
+} from '@/data/beer/search';
 type Shop = (typeof shops)[number];
 export default function BeerExplorer() {
   const [maker, setMaker] = useState('');
@@ -13,8 +20,16 @@ export default function BeerExplorer() {
   const [booking, setBooking] = useState(false);
   const [article, setArticle] = useState(false);
   const [official, setOfficial] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(shops[0].id);
+  const [selectedId, setSelectedId] = useState<string | null>(
+    shops[0]?.id ?? null,
+  );
   const mapRef = useRef<SVGSVGElement>(null);
+  const availableCertifications = certificationsForManufacturer(maker);
+  function selectMaker(id: string) {
+    const next = changeManufacturer(id);
+    setMaker(next.manufacturerId);
+    setCert(next.certificationId);
+  }
   const filtered = useMemo(
     () =>
       shops.filter(
@@ -22,9 +37,7 @@ export default function BeerExplorer() {
           (!maker || s.manufacturerId === maker) &&
           (!cert || s.certifications.includes(cert)) &&
           (!area || s.area === area) &&
-          (!rating ||
-            (s.externalRatings.google.score !== null &&
-              s.externalRatings.google.score >= Number(rating))) &&
+          meetsGoogleRating(s, rating) &&
           (!booking || s.reservationAvailable) &&
           (!article || s.articleSlug) &&
           (!official || s.officialCertified) &&
@@ -49,15 +62,15 @@ export default function BeerExplorer() {
     svg.selectAll('*').remove();
     const projection = d3
       .geoMercator()
-      .center([139.052, 37.918])
+      .center([region.center[0], region.center[1]])
       .scale(630000)
       .translate([400, 235]);
     const path = d3.geoPath(projection);
     const grid = d3
       .geoGraticule()
       .extent([
-        [139.015, 37.895],
-        [139.09, 37.94],
+        [region.extent[0][0], region.extent[0][1]],
+        [region.extent[1][0], region.extent[1][1]],
       ])
       .step([0.005, 0.005]);
     svg
@@ -68,11 +81,7 @@ export default function BeerExplorer() {
       .attr('stroke', '#344042')
       .attr('stroke-width', 0.6);
     // Geographic orientation landmarks only; no invented street or shoreline geometry.
-    [
-      { name: '古町', coordinates: [139.044, 37.926] },
-      { name: '万代', coordinates: [139.055, 37.918] },
-      { name: '新潟駅', coordinates: [139.061, 37.912] },
-    ].forEach((p) => {
+    region.landmarks.forEach((p) => {
       const [x, y] = projection([p.coordinates[0], p.coordinates[1]])!;
       svg
         .append('text')
@@ -121,14 +130,14 @@ export default function BeerExplorer() {
     <section className="beer-explorer" aria-label="店舗検索">
       <div className="beer-filterbar">
         <div className="beer-makers" role="group" aria-label="メーカーで絞る">
-          <button aria-pressed={!maker} onClick={() => setMaker('')}>
+          <button aria-pressed={!maker} onClick={() => selectMaker('')}>
             すべて
           </button>
           {makers.map((m) => (
             <button
               key={m.id}
               aria-pressed={maker === m.id}
-              onClick={() => setMaker(m.id)}
+              onClick={() => selectMaker(m.id)}
             >
               <span>{m.english}</span>
               {m.name}
@@ -142,14 +151,20 @@ export default function BeerExplorer() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="万代、古町…"
+              placeholder="自由が丘、九品仏、奥沢…"
             />
           </label>
           <label>
             認定・提供品質
-            <select value={cert} onChange={(e) => setCert(e.target.value)}>
-              <option value="">すべての区分</option>
-              {certifications.map((c) => (
+            <select
+              value={cert}
+              disabled={!maker}
+              onChange={(e) => setCert(e.target.value)}
+            >
+              <option value="">
+                {maker ? 'このメーカーのすべて' : 'メーカーを選択してください'}
+              </option>
+              {availableCertifications.map((c) => (
                 <option value={c.id} key={c.id}>
                   {c.name}
                 </option>
@@ -159,14 +174,14 @@ export default function BeerExplorer() {
           <label>
             エリア
             <select value={area} onChange={(e) => setArea(e.target.value)}>
-              <option value="">新潟市・全エリア</option>
-              {['古町', '万代', '新潟駅南'].map((a) => (
+              <option value="">自由が丘周辺・すべて</option>
+              {region.areas.map((a) => (
                 <option key={a}>{a}</option>
               ))}
             </select>
           </label>
           <label>
-            口コミ評価
+            Google口コミ
             <select value={rating} onChange={(e) => setRating(e.target.value)}>
               <option value="">指定なし</option>
               <option value="4">4.0以上</option>
@@ -212,14 +227,14 @@ export default function BeerExplorer() {
       <div className="beer-workspace">
         <div className="beer-map">
           <div className="beer-map-title">
-            <span>NIIGATA CITY</span>
+            <span>{region.english}</span>
             <span>位置図 / N ↑</span>
           </div>
           <svg
             ref={mapRef}
             viewBox="0 0 800 470"
             role="group"
-            aria-label="新潟市のサンプル店舗位置図"
+            aria-label="自由が丘周辺のサンプル店舗位置図"
           />
           <div className="beer-map-caption">
             緯度・経度に基づく位置図。店舗・所在地は架空です。
@@ -251,10 +266,12 @@ export default function BeerExplorer() {
               </div>
               <div className="beer-rating">
                 <div>
-                  <span>口コミ評価（サンプル）</span>
+                  <span>Google口コミ</span>
                   <strong>
-                    {selected.externalRatings.google.score?.toFixed(1) ?? '—'}
-                    <small> / 5</small>
+                    {googleRating(selected)?.score?.toFixed(1) ?? '未取得'}
+                    {googleRating(selected)?.score != null && (
+                      <small> / 5</small>
+                    )}
                   </strong>
                 </div>
                 <p>ビール品質の点数とは別の指標です。</p>
@@ -321,8 +338,8 @@ export default function BeerExplorer() {
                 </small>
                 <strong>{s.name}</strong>
                 <small>
-                  サンプル · 口コミ{' '}
-                  {s.externalRatings.google.score?.toFixed(1) ?? '未取得'}
+                  サンプル · Google口コミ{' '}
+                  {googleRating(s)?.score?.toFixed(1) ?? '未取得'}
                 </small>
               </span>
               <span aria-hidden="true">↗</span>

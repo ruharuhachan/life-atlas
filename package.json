@@ -16,7 +16,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "ci": "pnpm format:check && pnpm check && pnpm build && pnpm test",
-    "test": "node --test tests/routes.test.mjs"
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/react": "6.0.5",

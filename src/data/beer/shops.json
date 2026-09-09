@@ -22,8 +22,15 @@
         "expiresAt": null
       }
     },
-    "reservationAvailable": true,
-    "reservationUrl": "https://tabelog.com/tokyo/A1317/A131703/13005118/",
+    "reservationLinks": [
+      {
+        "providerId": "tabelog",
+        "label": "食べログ",
+        "url": "https://tabelog.com/tokyo/A1317/A131703/13005118/",
+        "affiliateUrl": null,
+        "affiliateNetwork": null
+      }
+    ],
     "websiteUrl": "https://www.taikourou.com/jiyugaoka/",
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Tai%20Kou%20Rou%20JIYUGAOKA",
     "articleSlug": null,
@@ -83,8 +90,15 @@
         "expiresAt": null
       }
     },
-    "reservationAvailable": true,
-    "reservationUrl": "https://autoreserve.com/ja/restaurants/tXnFvcAa2gNrkmeb9Tx2",
+    "reservationLinks": [
+      {
+        "providerId": "autoreserve",
+        "label": "AutoReserve",
+        "url": "https://autoreserve.com/ja/restaurants/tXnFvcAa2gNrkmeb9Tx2",
+        "affiliateUrl": null,
+        "affiliateNetwork": null
+      }
+    ],
     "websiteUrl": null,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%A8%E3%82%88%E7%94%B0%20%E8%87%AA%E7%94%B1%E3%81%8C%E4%B8%98",
     "articleSlug": null,

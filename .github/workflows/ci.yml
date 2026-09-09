@@ -33,10 +33,5 @@ jobs:
           corepack prepare pnpm@11.22.0 --activate
       - name: Install
         run: pnpm install --frozen-lockfile
-      - name: Show Prettier diff
-        run: |
-          pnpm format
-          git diff -- .github/agents/beer-atlas-store.agent.md .github/ISSUE_TEMPLATE/beer-atlas-shop.yml docs/beer-atlas-copilot-store-workflow.md scripts/validate-beer-atlas-pr.mjs
-          exit 1
       - name: Validate
         run: pnpm run ci

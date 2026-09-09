@@ -1,0 +1,128 @@
+name: Beer Atlas 店舗追加
+description: Copilot店舗追加エージェントに渡すための実店舗情報を入力します
+title: "[Beer Atlas] 店舗追加: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        このフォームを埋めた後、GitHub Copilot cloud agentで「Beer Atlas 店舗追加」エージェントを選び、このIssueを処理させてください。
+        Google口コミは人間がGoogle Maps上で手動確認してください。点数は掲載候補の判断にのみ使い、Beer AtlasのDBには保存しません。
+
+  - type: input
+    id: shop_name
+    attributes:
+      label: 店舗名
+      placeholder: 例）自由が丘牛タンいろ葉
+    validations:
+      required: true
+
+  - type: input
+    id: address
+    attributes:
+      label: 住所
+      placeholder: 例）東京都目黒区自由が丘1-12-9
+    validations:
+      required: true
+
+  - type: input
+    id: area
+    attributes:
+      label: Beer Atlasエリア
+      description: 分かる範囲で街・駅名を入力してください。内部IDはCopilotが既存マスターから選びます。
+      placeholder: 例）自由が丘
+    validations:
+      required: true
+
+  - type: input
+    id: google_maps_url
+    attributes:
+      label: Google Maps URL
+      placeholder: https://www.google.com/maps/...
+    validations:
+      required: true
+
+  - type: input
+    id: google_rating
+    attributes:
+      label: Google口コミ評価（手動確認）
+      description: 原則4.0以上。DBには保存しません。
+      placeholder: 例）4.2
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: google_confirmation
+    attributes:
+      label: Google口コミの確認
+      options:
+        - label: Google Mapsを人間が手動で確認し、原則4.0以上であることを確認した
+          required: true
+        - label: Google評価点・口コミ件数をBeer AtlasのDBへ保存しない方針を理解した
+          required: true
+
+  - type: dropdown
+    id: manufacturer
+    attributes:
+      label: 主なビールメーカー
+      options:
+        - アサヒ
+        - キリン
+        - サッポロ
+        - サントリー
+        - 不明・要確認
+    validations:
+      required: true
+
+  - type: textarea
+    id: beer_facts
+    attributes:
+      label: 提供銘柄・提供方法・認定情報
+      description: 分かっている事実だけを書いてください。認定か単なる提供か不明なら、その旨を書いてください。
+      placeholder: |
+        例）サッポロ黒ラベル生を提供。メーカー公式認定は未確認。
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence_urls
+    attributes:
+      label: 根拠URL
+      description: 公式店舗、メーカー、メニュー、食べログ、ホットペッパー等。1行1URL推奨。
+      placeholder: |
+        https://example.com/official-menu
+        https://tabelog.com/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reservation_urls
+    attributes:
+      label: ネット予約URL
+      description: 食べログ、ホットペッパー、一休、楽天系のみ。なければ「なし」。AutoReserveは入力しないでください。
+      placeholder: |
+        食べログ: https://tabelog.com/...
+        ホットペッパー: https://www.hotpepper.jp/...
+    validations:
+      required: true
+
+  - type: input
+    id: official_site
+    attributes:
+      label: 店舗公式サイト
+      placeholder: https://example.com/
+
+  - type: textarea
+    id: location_metadata
+    attributes:
+      label: 座標・Place ID等（任意）
+      description: 緯度経度やGoogle Place IDが分かる場合のみ入力してください。分からなければ空欄で構いません。
+      placeholder: |
+        latitude: 35.xxxxx
+        longitude: 139.xxxxx
+        googlePlaceId: ChIJ...
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 補足
+      description: 例外掲載、取材予定、記事化予定などがあれば記載してください。

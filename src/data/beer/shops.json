@@ -126,5 +126,85 @@
     "searchAreaId": "tokyo-jiyugaoka",
     "neighborhoodId": "tokyo-jiyugaoka-1",
     "brandIds": []
+  },
+  {
+    "id": "gyutan-iroha-jiyugaoka",
+    "slug": "gyutan-iroha-jiyugaoka",
+    "name": "自由が丘牛タンいろ葉",
+    "prefecture": "東京都",
+    "city": "目黒区",
+    "area": "自由が丘",
+    "address": "東京都目黒区自由が丘1-12-9 自由が丘センタービル",
+    "longitude": 139.6695900205487,
+    "latitude": 35.60805847047348,
+    "manufacturerId": "sapporo",
+    "certifications": [],
+    "officialCertified": false,
+    "externalRatings": {
+      "google": {
+        "score": null,
+        "reviewCount": null,
+        "collectedAt": null,
+        "sourceUrl": null,
+        "attribution": null,
+        "expiresAt": null
+      }
+    },
+    "reservationLinks": [
+      {
+        "providerId": "tabelog",
+        "label": "食べログ",
+        "url": "https://tabelog.com/tokyo/A1317/A131703/13209643/",
+        "affiliateUrl": null,
+        "affiliateNetwork": null
+      },
+      {
+        "providerId": "hotpepper",
+        "label": "ホットペッパーグルメ",
+        "url": "https://www.hotpepper.jp/strJ001294700/yoyaku/hpds/?ROUTE_KBN=20",
+        "affiliateUrl": null,
+        "affiliateNetwork": null
+      }
+    ],
+    "websiteUrl": "https://gyuutaniroha.owst.jp/",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E8%87%AA%E7%94%B1%E3%81%8C%E4%B8%98%E7%89%9B%E3%82%BF%E3%83%B3%E3%81%84%E3%82%8D%E8%91%89&query_place_id=ChIJ08jGdB_1GGARQSwIDZzd5nQ",
+    "articleSlug": null,
+    "lastVerifiedAt": "2026-09-09",
+    "sources": [
+      {
+        "label": "公式店舗情報",
+        "url": "https://gyuutaniroha.owst.jp/",
+        "kind": "official"
+      },
+      {
+        "label": "公式ドリンクメニュー（サッポロ黒ラベル生）",
+        "url": "https://gyuutaniroha.owst.jp/drinks",
+        "kind": "menu"
+      },
+      {
+        "label": "食べログ店舗情報・予約",
+        "url": "https://tabelog.com/tokyo/A1317/A131703/13209643/",
+        "kind": "listing"
+      }
+    ],
+    "isDemo": false,
+    "controls": {
+      "server": "未確認",
+      "glass": "未確認",
+      "temperature": "サッポロ黒ラベル生 提供確認",
+      "menu": "公開あり"
+    },
+    "externalIds": {
+      "googlePlaceId": "ChIJ08jGdB_1GGARQSwIDZzd5nQ"
+    },
+    "importMetadata": {
+      "provider": null,
+      "sourceListUrl": null,
+      "importedAt": null
+    },
+    "prefectureId": "JP-13",
+    "searchAreaId": "tokyo-jiyugaoka",
+    "neighborhoodId": "tokyo-jiyugaoka-1",
+    "brandIds": ["sapporo-black-label"]
   }
 ]

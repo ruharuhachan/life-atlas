@@ -1,0 +1,438 @@
+{
+  "defaultAreaId": "tokyo-jiyugaoka",
+  "prefectures": [
+    {
+      "id": "JP-13",
+      "name": "東京都"
+    }
+  ],
+  "overview": {
+    "id": "JP-13",
+    "name": "東京都の登録エリア",
+    "english": "TOKYO",
+    "extent": [
+      [139.28, 35.49],
+      [139.86, 35.77]
+    ],
+    "landmarks": []
+  },
+  "areas": [
+    {
+      "id": "tokyo-jiyugaoka",
+      "parentId": "JP-13",
+      "name": "自由が丘・九品仏・奥沢",
+      "english": "JIYUGAOKA",
+      "center": [139.663, 35.605],
+      "extent": [
+        [139.65, 35.5975],
+        [139.676, 35.6125]
+      ],
+      "landmarks": [
+        {
+          "name": "自由が丘駅",
+          "coordinates": [139.668, 35.607]
+        },
+        {
+          "name": "九品仏駅",
+          "coordinates": [139.661, 35.605]
+        },
+        {
+          "name": "奥沢駅",
+          "coordinates": [139.672, 35.604]
+        }
+      ],
+      "neighborhoods": [
+        {
+          "id": "tokyo-jiyugaoka-1",
+          "name": "自由が丘"
+        },
+        {
+          "id": "tokyo-jiyugaoka-2",
+          "name": "九品仏"
+        },
+        {
+          "id": "tokyo-jiyugaoka-3",
+          "name": "奥沢"
+        }
+      ]
+    },
+    {
+      "id": "tokyo-shibuya",
+      "parentId": "JP-13",
+      "name": "渋谷・原宿・表参道",
+      "english": "SHIBUYA",
+      "center": [139.705, 35.667],
+      "extent": [
+        [139.6875, 35.655],
+        [139.7225, 35.679]
+      ],
+      "landmarks": [
+        {
+          "name": "渋谷・原宿・表参道",
+          "coordinates": [139.705, 35.667]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-ebisu",
+      "parentId": "JP-13",
+      "name": "恵比寿・代官山・中目黒",
+      "english": "EBISU / NAKAMEGURO",
+      "center": [139.703, 35.644],
+      "extent": [
+        [139.685, 35.635],
+        [139.721, 35.653]
+      ],
+      "landmarks": [
+        {
+          "name": "恵比寿・代官山・中目黒",
+          "coordinates": [139.703, 35.644]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-shinjuku",
+      "parentId": "JP-13",
+      "name": "新宿・代々木・大久保",
+      "english": "SHINJUKU",
+      "center": [139.7, 35.695],
+      "extent": [
+        [139.681, 35.679],
+        [139.719, 35.711]
+      ],
+      "landmarks": [
+        {
+          "name": "新宿・代々木・大久保",
+          "coordinates": [139.7, 35.695]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-ikebukuro",
+      "parentId": "JP-13",
+      "name": "池袋・高田馬場",
+      "english": "IKEBUKURO",
+      "center": [139.705, 35.722],
+      "extent": [
+        [139.686, 35.707],
+        [139.724, 35.737]
+      ],
+      "landmarks": [
+        {
+          "name": "池袋・高田馬場",
+          "coordinates": [139.705, 35.722]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-ginza",
+      "parentId": "JP-13",
+      "name": "銀座・有楽町",
+      "english": "GINZA",
+      "center": [139.765, 35.672],
+      "extent": [
+        [139.752, 35.662],
+        [139.778, 35.682]
+      ],
+      "landmarks": [
+        {
+          "name": "銀座・有楽町",
+          "coordinates": [139.765, 35.672]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-tokyo-station",
+      "parentId": "JP-13",
+      "name": "東京駅・丸の内・日本橋",
+      "english": "TOKYO / NIHONBASHI",
+      "center": [139.774, 35.684],
+      "extent": [
+        [139.7565, 35.674],
+        [139.7915, 35.694]
+      ],
+      "landmarks": [
+        {
+          "name": "東京駅・丸の内・日本橋",
+          "coordinates": [139.774, 35.684]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-shimbashi",
+      "parentId": "JP-13",
+      "name": "新橋・浜松町・田町",
+      "english": "SHIMBASHI",
+      "center": [139.753, 35.65],
+      "extent": [
+        [139.7355, 35.6325],
+        [139.7705, 35.6675]
+      ],
+      "landmarks": [
+        {
+          "name": "新橋・浜松町・田町",
+          "coordinates": [139.753, 35.65]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-roppongi",
+      "parentId": "JP-13",
+      "name": "六本木・麻布・広尾",
+      "english": "ROPPONGI",
+      "center": [139.727, 35.655],
+      "extent": [
+        [139.709, 35.643],
+        [139.745, 35.667]
+      ],
+      "landmarks": [
+        {
+          "name": "六本木・麻布・広尾",
+          "coordinates": [139.727, 35.655]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-akasaka",
+      "parentId": "JP-13",
+      "name": "赤坂・永田町",
+      "english": "AKASAKA",
+      "center": [139.739, 35.675],
+      "extent": [
+        [139.724, 35.665],
+        [139.754, 35.685]
+      ],
+      "landmarks": [
+        {
+          "name": "赤坂・永田町",
+          "coordinates": [139.739, 35.675]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-kagurazaka",
+      "parentId": "JP-13",
+      "name": "神楽坂・飯田橋・四ツ谷",
+      "english": "KAGURAZAKA",
+      "center": [139.729, 35.695],
+      "extent": [
+        [139.709, 35.6825],
+        [139.749, 35.7075]
+      ],
+      "landmarks": [
+        {
+          "name": "神楽坂・飯田橋・四ツ谷",
+          "coordinates": [139.729, 35.695]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-ueno",
+      "parentId": "JP-13",
+      "name": "上野・浅草・日暮里",
+      "english": "UENO / ASAKUSA",
+      "center": [139.788, 35.718],
+      "extent": [
+        [139.7645, 35.703],
+        [139.8115, 35.733]
+      ],
+      "landmarks": [
+        {
+          "name": "上野・浅草・日暮里",
+          "coordinates": [139.788, 35.718]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-kanda",
+      "parentId": "JP-13",
+      "name": "神田・秋葉原・御茶ノ水",
+      "english": "KANDA",
+      "center": [139.768, 35.7],
+      "extent": [
+        [139.7505, 35.688],
+        [139.7855, 35.712]
+      ],
+      "landmarks": [
+        {
+          "name": "神田・秋葉原・御茶ノ水",
+          "coordinates": [139.768, 35.7]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-kinshicho",
+      "parentId": "JP-13",
+      "name": "錦糸町・両国",
+      "english": "KINSHICHO",
+      "center": [139.807, 35.697],
+      "extent": [
+        [139.787, 35.6845],
+        [139.827, 35.7095]
+      ],
+      "landmarks": [
+        {
+          "name": "錦糸町・両国",
+          "coordinates": [139.807, 35.697]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-shinagawa",
+      "parentId": "JP-13",
+      "name": "品川・大井町・蒲田",
+      "english": "SHINAGAWA / KAMATA",
+      "center": [139.734, 35.603],
+      "extent": [
+        [139.709, 35.563],
+        [139.759, 35.643]
+      ],
+      "landmarks": [
+        {
+          "name": "品川・大井町・蒲田",
+          "coordinates": [139.734, 35.603]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-meguro",
+      "parentId": "JP-13",
+      "name": "目黒・五反田・白金",
+      "english": "MEGURO / GOTANDA",
+      "center": [139.721, 35.634],
+      "extent": [
+        [139.706, 35.6215],
+        [139.736, 35.6465]
+      ],
+      "landmarks": [
+        {
+          "name": "目黒・五反田・白金",
+          "coordinates": [139.721, 35.634]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-sangenjaya",
+      "parentId": "JP-13",
+      "name": "三軒茶屋・二子玉川",
+      "english": "SANGENJAYA / FUTAKOTAMAGAWA",
+      "center": [139.646, 35.628],
+      "extent": [
+        [139.6085, 35.5955],
+        [139.6835, 35.6605]
+      ],
+      "landmarks": [
+        {
+          "name": "三軒茶屋・二子玉川",
+          "coordinates": [139.646, 35.628]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-shimokitazawa",
+      "parentId": "JP-13",
+      "name": "下北沢・代々木上原",
+      "english": "SHIMOKITAZAWA",
+      "center": [139.668, 35.667],
+      "extent": [
+        [139.648, 35.6545],
+        [139.688, 35.6795]
+      ],
+      "landmarks": [
+        {
+          "name": "下北沢・代々木上原",
+          "coordinates": [139.668, 35.667]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-nakano",
+      "parentId": "JP-13",
+      "name": "中野・高円寺・阿佐ケ谷",
+      "english": "NAKANO / KOENJI",
+      "center": [139.648, 35.706],
+      "extent": [
+        [139.618, 35.6935],
+        [139.678, 35.7185]
+      ],
+      "landmarks": [
+        {
+          "name": "中野・高円寺・阿佐ケ谷",
+          "coordinates": [139.648, 35.706]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-kichijoji",
+      "parentId": "JP-13",
+      "name": "吉祥寺・三鷹",
+      "english": "KICHIJOJI / MITAKA",
+      "center": [139.571, 35.702],
+      "extent": [
+        [139.5435, 35.687],
+        [139.5985, 35.717]
+      ],
+      "landmarks": [
+        {
+          "name": "吉祥寺・三鷹",
+          "coordinates": [139.571, 35.702]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-tachikawa",
+      "parentId": "JP-13",
+      "name": "立川・八王子",
+      "english": "TACHIKAWA / HACHIOJI",
+      "center": [139.365, 35.677],
+      "extent": [
+        [139.305, 35.6345],
+        [139.425, 35.7195]
+      ],
+      "landmarks": [
+        {
+          "name": "立川・八王子",
+          "coordinates": [139.365, 35.677]
+        }
+      ],
+      "neighborhoods": []
+    },
+    {
+      "id": "tokyo-machida",
+      "parentId": "JP-13",
+      "name": "町田",
+      "english": "MACHIDA",
+      "center": [139.447, 35.543],
+      "extent": [
+        [139.4245, 35.5255],
+        [139.4695, 35.5605]
+      ],
+      "landmarks": [
+        {
+          "name": "町田",
+          "coordinates": [139.447, 35.543]
+        }
+      ],
+      "neighborhoods": []
+    }
+  ]
+}

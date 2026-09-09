@@ -2,7 +2,6 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BeerExplorer from '@/components/beer/BeerExplorer';
 import '@/styles/beer.css';
-import '@/styles/google-places.css';
 ---
 
 <BaseLayout
@@ -32,8 +31,7 @@ import '@/styles/google-places.css';
     </header>
     <div class="beer-notice">
       <span>BETA</span><p>
-        実店舗を順次掲載中。Google口コミはGoogle Maps
-        Platformからページ表示時に取得し、ビール品質評価とは分けて表示します。
+        実店舗を順次掲載中。まずは自由が丘のエクストラコールド提供2店から開始しました。口コミはGoogle Mapsへの外部リンクで案内します。
       </p><a href="/beer/methodology/">評価について ↗</a>
     </div>
     <BeerExplorer client:load />
@@ -48,7 +46,7 @@ import '@/styles/google-places.css';
       <p class="beer-kicker">OUR APPROACH</p><h2>
         一杯の品質と、<br />その店の魅力を、ていねいに。
       </h2><p>
-        メーカーの認定・提供区分、Google口コミ、編集部の訪問記。それぞれの情報を分けて、あなたの店選びにつなぎます。
+        メーカーの認定・提供区分、外部口コミ、編集部の訪問記。それぞれの情報を分けて、あなたの店選びにつなぎます。
       </p><a href="/beer/methodology/">評価基準を読む ↗</a>
     </section>
   </div>

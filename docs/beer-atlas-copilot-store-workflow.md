@@ -54,6 +54,7 @@ Google口コミは4.0以上を原則の掲載候補基準としますが、そ�
 
 ```markdown
 ## Beer Atlas 店舗追加チェック
+
 - [x] Google Maps評価4.0以上を人間が手動確認
 - [ ] Google Maps評価4.0未満だが例外掲載を人間が明示承認
 - [x] Google評価点・口コミ件数をDBに保存していない

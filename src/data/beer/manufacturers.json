@@ -1,0 +1,22 @@
+[
+  {
+    "id": "asahi",
+    "name": "アサヒ",
+    "english": "ASAHI"
+  },
+  {
+    "id": "kirin",
+    "name": "キリン",
+    "english": "KIRIN"
+  },
+  {
+    "id": "sapporo",
+    "name": "サッポロ",
+    "english": "SAPPORO"
+  },
+  {
+    "id": "suntory",
+    "name": "サントリー",
+    "english": "SUNTORY"
+  }
+]

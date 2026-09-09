@@ -1,14 +1,14 @@
 [
   {
-    "id": "demo-1",
-    "slug": "demo-1",
-    "name": "自由が丘麦酒室",
+    "id": "taikourou-jiyugaoka",
+    "slug": "taikourou-jiyugaoka",
+    "name": "Tai Kou Rou JIYUGAOKA",
     "prefecture": "東京都",
-    "city": "目黒区",
+    "city": "世田谷区",
     "area": "自由が丘",
-    "address": "東京都・自由が丘（架空の所在地）",
-    "longitude": 139.669,
-    "latitude": 35.609,
+    "address": "東京都世田谷区奥沢6-31-17",
+    "longitude": 139.6647,
+    "latitude": 35.6057,
     "manufacturerId": "asahi",
     "certifications": ["asahi-extra-cold"],
     "officialCertified": false,
@@ -23,21 +23,32 @@
       }
     },
     "reservationAvailable": true,
-    "reservationUrl": null,
-    "websiteUrl": null,
-    "googleMapsUrl": null,
-    "articleSlug": "demo-first-glass",
-    "lastVerifiedAt": null,
-    "sources": [],
-    "isDemo": true,
+    "reservationUrl": "https://tabelog.com/tokyo/A1317/A131703/13005118/",
+    "websiteUrl": "https://www.taikourou.com/jiyugaoka/",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Tai%20Kou%20Rou%20JIYUGAOKA",
+    "articleSlug": null,
+    "lastVerifiedAt": "2026-09-09",
+    "sources": [
+      {
+        "label": "公式店舗情報",
+        "url": "https://www.taikourou.com/jiyugaoka/info.html",
+        "kind": "official"
+      },
+      {
+        "label": "エクストラコールド提供情報",
+        "url": "https://tabelog.com/tokyo/A1317/A131703/13005118/",
+        "kind": "menu"
+      }
+    ],
+    "isDemo": false,
     "controls": {
       "server": "未確認",
       "glass": "未確認",
-      "temperature": "未確認",
-      "menu": "サンプル：公開あり"
+      "temperature": "エクストラコールド提供確認",
+      "menu": "公開あり"
     },
     "externalIds": {
-      "googlePlaceId": null
+      "googlePlaceId": "ChIJPVP-ox71GGARhKK-zc4CBk4"
     },
     "importMetadata": {
       "provider": null,
@@ -50,118 +61,18 @@
     "brandIds": []
   },
   {
-    "id": "demo-2",
-    "slug": "demo-2",
-    "name": "九品仏ビアカウンター",
-    "prefecture": "東京都",
-    "city": "世田谷区",
-    "area": "九品仏",
-    "address": "東京都・九品仏（架空の所在地）",
-    "longitude": 139.659,
-    "latitude": 35.605,
-    "manufacturerId": "sapporo",
-    "certifications": ["sapporo-perfect"],
-    "officialCertified": true,
-    "externalRatings": {
-      "google": {
-        "score": null,
-        "reviewCount": null,
-        "collectedAt": null,
-        "sourceUrl": null,
-        "attribution": null,
-        "expiresAt": null
-      }
-    },
-    "reservationAvailable": false,
-    "reservationUrl": null,
-    "websiteUrl": null,
-    "googleMapsUrl": null,
-    "articleSlug": null,
-    "lastVerifiedAt": null,
-    "sources": [],
-    "isDemo": true,
-    "controls": {
-      "server": "未確認",
-      "glass": "未確認",
-      "temperature": "未確認",
-      "menu": "未確認"
-    },
-    "externalIds": {
-      "googlePlaceId": null
-    },
-    "importMetadata": {
-      "provider": null,
-      "sourceListUrl": null,
-      "importedAt": null
-    },
-    "prefectureId": "JP-13",
-    "searchAreaId": "tokyo-jiyugaoka",
-    "neighborhoodId": "tokyo-jiyugaoka-2",
-    "brandIds": ["sapporo-black-label"]
-  },
-  {
-    "id": "demo-3",
-    "slug": "demo-3",
-    "name": "奥沢ラガースタンド",
-    "prefecture": "東京都",
-    "city": "世田谷区",
-    "area": "奥沢",
-    "address": "東京都・奥沢（架空の所在地）",
-    "longitude": 139.674,
-    "latitude": 35.602,
-    "manufacturerId": "kirin",
-    "certifications": ["kirin-gokujo"],
-    "officialCertified": true,
-    "externalRatings": {
-      "google": {
-        "score": null,
-        "reviewCount": null,
-        "collectedAt": null,
-        "sourceUrl": null,
-        "attribution": null,
-        "expiresAt": null
-      }
-    },
-    "reservationAvailable": true,
-    "reservationUrl": null,
-    "websiteUrl": null,
-    "googleMapsUrl": null,
-    "articleSlug": null,
-    "lastVerifiedAt": null,
-    "sources": [],
-    "isDemo": true,
-    "controls": {
-      "server": "未確認",
-      "glass": "未確認",
-      "temperature": "未確認",
-      "menu": "サンプル：公開あり"
-    },
-    "externalIds": {
-      "googlePlaceId": null
-    },
-    "importMetadata": {
-      "provider": null,
-      "sourceListUrl": null,
-      "importedAt": null
-    },
-    "prefectureId": "JP-13",
-    "searchAreaId": "tokyo-jiyugaoka",
-    "neighborhoodId": "tokyo-jiyugaoka-3",
-    "brandIds": []
-  },
-  {
-    "id": "demo-4",
-    "slug": "demo-4",
-    "name": "自由が丘テーブル",
+    "id": "toyoda-jiyugaoka",
+    "slug": "toyoda-jiyugaoka",
+    "name": "とよ田",
     "prefecture": "東京都",
     "city": "目黒区",
     "area": "自由が丘",
-    "address": "東京都・自由が丘（架空の所在地）",
-    "longitude": 139.665,
-    "latitude": 35.609,
-    "manufacturerId": "suntory",
-    "certifications": ["suntory-chotatsujin"],
-    "officialCertified": true,
+    "address": "東京都目黒区緑ヶ丘2-17-12 CREALterrace 2F",
+    "longitude": 139.6722229,
+    "latitude": 35.6086458,
+    "manufacturerId": "asahi",
+    "certifications": ["asahi-extra-cold"],
+    "officialCertified": false,
     "externalRatings": {
       "google": {
         "score": null,
@@ -173,18 +84,29 @@
       }
     },
     "reservationAvailable": true,
-    "reservationUrl": null,
+    "reservationUrl": "https://autoreserve.com/ja/restaurants/tXnFvcAa2gNrkmeb9Tx2",
     "websiteUrl": null,
-    "googleMapsUrl": null,
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%A8%E3%82%88%E7%94%B0%20%E8%87%AA%E7%94%B1%E3%81%8C%E4%B8%98",
     "articleSlug": null,
-    "lastVerifiedAt": null,
-    "sources": [],
-    "isDemo": true,
+    "lastVerifiedAt": "2026-09-09",
+    "sources": [
+      {
+        "label": "店舗・営業時間情報",
+        "url": "https://tabelog.com/tokyo/A1317/A131703/13278985/",
+        "kind": "listing"
+      },
+      {
+        "label": "エクストラコールド掲載ドリンクメニュー",
+        "url": "https://tabelog.com/tokyo/A1317/A131703/13278985/dtlmenu/drink/",
+        "kind": "menu"
+      }
+    ],
+    "isDemo": false,
     "controls": {
       "server": "未確認",
       "glass": "未確認",
-      "temperature": "未確認",
-      "menu": "サンプル：公開あり"
+      "temperature": "エクストラコールド提供確認",
+      "menu": "公開あり"
     },
     "externalIds": {
       "googlePlaceId": null
@@ -198,105 +120,5 @@
     "searchAreaId": "tokyo-jiyugaoka",
     "neighborhoodId": "tokyo-jiyugaoka-1",
     "brandIds": []
-  },
-  {
-    "id": "demo-5",
-    "slug": "demo-5",
-    "name": "九品仏ビール食堂",
-    "prefecture": "東京都",
-    "city": "世田谷区",
-    "area": "九品仏",
-    "address": "東京都・九品仏（架空の所在地）",
-    "longitude": 139.655,
-    "latitude": 35.602,
-    "manufacturerId": "asahi",
-    "certifications": ["asahi-super-cold"],
-    "officialCertified": true,
-    "externalRatings": {
-      "google": {
-        "score": null,
-        "reviewCount": null,
-        "collectedAt": null,
-        "sourceUrl": null,
-        "attribution": null,
-        "expiresAt": null
-      }
-    },
-    "reservationAvailable": false,
-    "reservationUrl": null,
-    "websiteUrl": null,
-    "googleMapsUrl": null,
-    "articleSlug": null,
-    "lastVerifiedAt": null,
-    "sources": [],
-    "isDemo": true,
-    "controls": {
-      "server": "未確認",
-      "glass": "未確認",
-      "temperature": "未確認",
-      "menu": "未確認"
-    },
-    "externalIds": {
-      "googlePlaceId": null
-    },
-    "importMetadata": {
-      "provider": null,
-      "sourceListUrl": null,
-      "importedAt": null
-    },
-    "prefectureId": "JP-13",
-    "searchAreaId": "tokyo-jiyugaoka",
-    "neighborhoodId": "tokyo-jiyugaoka-2",
-    "brandIds": []
-  },
-  {
-    "id": "demo-6",
-    "slug": "demo-6",
-    "name": "奥沢の一杯",
-    "prefecture": "東京都",
-    "city": "世田谷区",
-    "area": "奥沢",
-    "address": "東京都・奥沢（架空の所在地）",
-    "longitude": 139.67,
-    "latitude": 35.6,
-    "manufacturerId": "sapporo",
-    "certifications": ["sapporo-yebisu"],
-    "officialCertified": true,
-    "externalRatings": {
-      "google": {
-        "score": null,
-        "reviewCount": null,
-        "collectedAt": null,
-        "sourceUrl": null,
-        "attribution": null,
-        "expiresAt": null
-      }
-    },
-    "reservationAvailable": true,
-    "reservationUrl": null,
-    "websiteUrl": null,
-    "googleMapsUrl": null,
-    "articleSlug": null,
-    "lastVerifiedAt": null,
-    "sources": [],
-    "isDemo": true,
-    "controls": {
-      "server": "未確認",
-      "glass": "未確認",
-      "temperature": "未確認",
-      "menu": "サンプル：公開あり"
-    },
-    "externalIds": {
-      "googlePlaceId": null
-    },
-    "importMetadata": {
-      "provider": null,
-      "sourceListUrl": null,
-      "importedAt": null
-    },
-    "prefectureId": "JP-13",
-    "searchAreaId": "tokyo-jiyugaoka",
-    "neighborhoodId": "tokyo-jiyugaoka-3",
-    "brandIds": ["sapporo-yebisu"]
   }
 ]

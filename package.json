@@ -14,7 +14,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "format": "prettier --write .",
-    "format:check": "echo '---METHOD---' && prettier src/pages/beer/methodology.astro && echo '---SITEPOLICY---' && prettier src/pages/site-policy.astro && exit 1",
+    "format:check": "prettier --check .",
     "ci": "pnpm format:check && pnpm check && pnpm build && pnpm test",
     "test": "node --test tests/*.test.mjs"
   },

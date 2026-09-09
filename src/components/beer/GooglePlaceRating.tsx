@@ -4,6 +4,7 @@ import {
   googlePlacesConfigured,
   type LiveGoogleRating,
 } from '@/lib/googlePlaces';
+import '@/styles/google-places.css';
 
 interface Props {
   placeId: string | null;

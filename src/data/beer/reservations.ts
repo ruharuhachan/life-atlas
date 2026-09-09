@@ -6,6 +6,28 @@ export interface ReservationLink {
   affiliateNetwork: string | null;
 }
 
+export const TRUSTED_RESERVATION_PROVIDER_IDS = [
+  'tabelog',
+  'hotpepper',
+  'ikyu',
+  'rakuten',
+] as const;
+
+export type TrustedReservationProviderId =
+  (typeof TRUSTED_RESERVATION_PROVIDER_IDS)[number];
+
+export function isTrustedReservationProvider(providerId: string) {
+  return (TRUSTED_RESERVATION_PROVIDER_IDS as readonly string[]).includes(
+    providerId,
+  );
+}
+
+export function trustedReservationLinks(
+  links: readonly ReservationLink[],
+): ReservationLink[] {
+  return links.filter((link) => isTrustedReservationProvider(link.providerId));
+}
+
 export function reservationHref(link: ReservationLink) {
   return link.affiliateUrl?.trim() || link.url;
 }

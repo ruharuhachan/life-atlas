@@ -4,7 +4,7 @@
     "manufacturerId": "sapporo",
     "name": "サッポロ生ビール黒ラベル",
     "limitedRegion": null,
-    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "sourceUrl": "https://www.sapporobeer.jp/product/beer/kurolabel/",
     "lastVerifiedAt": "2026-09-09"
   },
   {
@@ -12,7 +12,7 @@
     "manufacturerId": "sapporo",
     "name": "ヱビスビール",
     "limitedRegion": null,
-    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "sourceUrl": "https://www.sapporobeer.jp/product/beer/yebisu/",
     "lastVerifiedAt": "2026-09-09"
   },
   {
@@ -20,7 +20,7 @@
     "manufacturerId": "sapporo",
     "name": "サッポロ クラシック",
     "limitedRegion": "北海道",
-    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "sourceUrl": "https://www.sapporobeer.jp/product/beer/classic/",
     "lastVerifiedAt": "2026-09-09"
   },
   {
@@ -28,7 +28,7 @@
     "manufacturerId": "sapporo",
     "name": "風味爽快ニシテ",
     "limitedRegion": "新潟県",
-    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "sourceUrl": "https://www.sapporobeer.jp/product/beer/fuumisoukainishite/",
     "lastVerifiedAt": "2026-09-09"
   },
   {
@@ -36,7 +36,7 @@
     "manufacturerId": "sapporo",
     "name": "静岡麦酒",
     "limitedRegion": "静岡県",
-    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "sourceUrl": "https://www.sapporobeer.jp/product/business/shizuokabakushu/",
     "lastVerifiedAt": "2026-09-09"
   },
   {
@@ -44,15 +44,15 @@
     "manufacturerId": "sapporo",
     "name": "白穂乃香",
     "limitedRegion": null,
-    "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
+    "sourceUrl": "https://www.sapporobeer.jp/product/business/shirohonoka/",
     "lastVerifiedAt": "2026-09-09"
   },
   {
     "id": "kirin-ichiban-shibori",
     "manufacturerId": "kirin",
-    "name": "キリン一番搾り",
+    "name": "キリン一番搾り生ビール",
     "limitedRegion": null,
-    "sourceUrl": "https://map.yahoo.co.jp/v3/place/k08gF4Vv9qE/menu",
+    "sourceUrl": "https://www.kirin.co.jp/alcohol/beer/ichiban/",
     "lastVerifiedAt": "2026-09-09"
   }
 ]

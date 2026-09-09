@@ -13,6 +13,13 @@ const TRUSTED_RESERVATION_PROVIDERS = new Set([
   'rakuten',
 ]);
 
+const OFFICIAL_BRAND_SOURCE_DOMAINS = {
+  asahi: ['asahibeer.co.jp'],
+  kirin: ['kirin.co.jp'],
+  sapporo: ['sapporobeer.jp'],
+  suntory: ['suntory.co.jp'],
+};
+
 const manufacturerIds = new Set(manufacturers.map((item) => item.id));
 const brandById = new Map(brands.map((item) => [item.id, item]));
 const certificationById = new Map(
@@ -24,6 +31,28 @@ const areaById = new Map(areas.areas.map((item) => [item.id, item]));
 function assertHttps(value, label) {
   assert.match(value, /^https:\/\//, `${label} must be an HTTPS URL`);
 }
+
+function isOfficialDomain(hostname, allowedDomains) {
+  return allowedDomains.some(
+    (domain) => hostname === domain || hostname.endsWith(`.${domain}`),
+  );
+}
+
+test('brand master uses manufacturer official sources', () => {
+  for (const brand of brands) {
+    assertHttps(brand.sourceUrl, `${brand.id}.sourceUrl`);
+    const allowedDomains = OFFICIAL_BRAND_SOURCE_DOMAINS[brand.manufacturerId];
+    assert.ok(
+      allowedDomains,
+      `no official source domain policy for manufacturer: ${brand.manufacturerId}`,
+    );
+    const hostname = new URL(brand.sourceUrl).hostname;
+    assert.ok(
+      isOfficialDomain(hostname, allowedDomains),
+      `${brand.id}.sourceUrl must use an official ${brand.manufacturerId} domain, got ${hostname}`,
+    );
+  }
+});
 
 test('shop records satisfy Beer Atlas data invariants', () => {
   assert.ok(shops.length >= 3);

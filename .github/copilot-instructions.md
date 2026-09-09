@@ -24,16 +24,26 @@
 - Advertising, affiliate status, sponsorship, and reservation availability must not change manufacturer facts, editorial ranking, or certification status.
 - Do not copy third-party review text, photos, or copyrighted descriptions into Beer Atlas.
 
+## Master-data evidence rules
+
+- `brands.json` must use manufacturer-official product or brand pages for `sourceUrl`.
+- Store-specific menu/listing pages may support a store's `brandIds` through `shops.json.sources`, but they must not be used as the brand master's `sourceUrl`.
+- Do not create a new brand master if a manufacturer-official source cannot be verified.
+- New certification-program masters should likewise use manufacturer-official evidence; third-party listings alone are insufficient to establish an official certification program.
+
 ## Store-addition workflow
 
 For routine Beer Atlas store additions, prefer the repository custom agent in `.github/agents/beer-atlas-store.agent.md` and the structured issue form under `.github/ISSUE_TEMPLATE/beer-atlas-shop.yml`.
 
 When adding a store:
 
-1. Read the current `shops.json`, `manufacturers.json`, `brands.json`, `certifications.json`, and `areas.json` before editing.
-2. Validate the supplied factual evidence and map it to existing master IDs.
-3. Add the minimum store record needed. Keep unknown controls as `未確認` rather than guessing.
-4. Add only trusted reservation links.
-5. Keep Google rating/count fields null.
-6. Run `pnpm ci` and fix all failures.
-7. In the pull request summary, list the evidence used, what was intentionally left unverified, and any editorial assumptions.
+1. Start from the minimum human input: store name, Google Maps URL or address, and manually confirmed Google rating. Research the remaining public facts yourself when accessible instead of demanding a fully populated template.
+2. Read the current `shops.json`, `manufacturers.json`, `brands.json`, `certifications.json`, and `areas.json` before editing.
+3. Validate the supplied factual evidence and map it to existing master IDs.
+4. Add the minimum store record needed. Keep unknown controls as `未確認` rather than guessing.
+5. Add only trusted reservation links.
+6. Keep Google rating/count fields null.
+7. Run `pnpm ci` and fix all failures.
+8. For PRs that add a store, include the exact checklist required by `scripts/validate-beer-atlas-pr.mjs`; CI will fail if the manual Google-rating gate, no-storage rule, certification separation, reservation allowlist, or successful `pnpm ci` confirmation is missing.
+9. In the pull request summary, list the evidence used, what was intentionally left unverified, and any editorial assumptions.
+10. Do not merge a store-addition PR yourself. Wait for CI success and human final review.

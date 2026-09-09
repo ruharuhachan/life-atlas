@@ -88,7 +88,7 @@ body:
     attributes:
       label: ネット予約URL（任意）
       description: 食べログ、ホットペッパー、一休、楽天系のみ。AutoReserveは使用しません。
-      placeholder: 食べログ: https://tabelog.com/...
+      placeholder: '食べログ: https://tabelog.com/...'
 
   - type: input
     id: official_site

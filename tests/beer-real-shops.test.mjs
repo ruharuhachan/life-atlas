@@ -21,7 +21,7 @@ test('Jiyugaoka starts with the two verified Extra Cold venues', () => {
   }
 });
 
-test('Google review fields remain empty until Google data is connected', () => {
+test('Google review values are not cached in repository data', () => {
   for (const shop of shops) {
     const google = shop.externalRatings.google;
     assert.equal(google.score, null);

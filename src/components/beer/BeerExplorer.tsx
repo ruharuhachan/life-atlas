@@ -12,11 +12,15 @@ import {
   matchesArea,
   regionForArea,
   changeManufacturer,
-  googleRating,
-  meetsGoogleRating,
 } from '@/data/beer/search';
+import {
+  fetchLiveGoogleRating,
+  googlePlacesConfigured,
+  type LiveGoogleRating,
+} from '@/lib/googlePlaces';
 
 type Shop = (typeof shops)[number];
+type RatingStatus = 'loading' | 'ready' | 'unconfigured' | 'error';
 const DEFAULT_AREA_ID = 'tokyo-jiyugaoka-1';
 
 export default function BeerExplorer() {
@@ -31,6 +35,12 @@ export default function BeerExplorer() {
   const [selectedId, setSelectedId] = useState<string | null>(
     shops[0]?.id ?? null,
   );
+  const [liveRatings, setLiveRatings] = useState<
+    Record<string, LiveGoogleRating>
+  >({});
+  const [ratingStatus, setRatingStatus] = useState<RatingStatus>(
+    googlePlacesConfigured ? 'loading' : 'unconfigured',
+  );
   const mapRef = useRef<SVGSVGElement>(null);
 
   const region = regionForArea(area);
@@ -44,23 +54,61 @@ export default function BeerExplorer() {
     setCert(next.certificationId);
   }
 
+  useEffect(() => {
+    if (!googlePlacesConfigured) return;
+    let cancelled = false;
+
+    Promise.all(
+      shops.map(async (shop) => {
+        try {
+          const live = await fetchLiveGoogleRating({
+            placeId: shop.externalIds.googlePlaceId,
+            name: shop.name,
+            address: shop.address,
+            latitude: shop.latitude,
+            longitude: shop.longitude,
+            fallbackMapsUrl: shop.googleMapsUrl,
+          });
+          return [shop.id, live] as const;
+        } catch {
+          return [shop.id, null] as const;
+        }
+      }),
+    ).then((entries) => {
+      if (cancelled) return;
+      const next: Record<string, LiveGoogleRating> = {};
+      for (const [id, live] of entries) {
+        if (live) next[id] = live;
+      }
+      setLiveRatings(next);
+      setRatingStatus(Object.keys(next).length > 0 ? 'ready' : 'error');
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const filtered = useMemo(
     () =>
-      shops.filter(
-        (s) =>
+      shops.filter((s) => {
+        const liveScore = liveRatings[s.id]?.score;
+        return (
           (!maker || s.manufacturerId === maker) &&
           matchesBeerSelection(s, cert) &&
           matchesArea(s, area) &&
-          meetsGoogleRating(s, rating) &&
+          (!rating || (liveScore != null && liveScore >= Number(rating))) &&
           (!booking || s.reservationAvailable) &&
           (!article || s.articleSlug) &&
           (!official || s.officialCertified) &&
-          (!query || (s.name + s.address).includes(query.trim())),
-      ),
-    [maker, cert, area, rating, query, booking, article, official],
+          (!query || (s.name + s.address).includes(query.trim()))
+        );
+      }),
+    [maker, cert, area, rating, query, booking, article, official, liveRatings],
   );
 
   const selected = filtered.find((s) => s.id === selectedId) ?? filtered[0];
+  const selectedRating = selected ? liveRatings[selected.id] : null;
 
   function reset() {
     setMaker('');
@@ -237,11 +285,27 @@ export default function BeerExplorer() {
 
           <label>
             Google口コミ
-            <select value={rating} onChange={(e) => setRating(e.target.value)}>
-              <option value="">指定なし</option>
-              <option value="4">4.0以上</option>
-              <option value="4.3">4.3以上</option>
-              <option value="4.5">4.5以上</option>
+            <select
+              value={rating}
+              disabled={ratingStatus !== 'ready'}
+              onChange={(e) => setRating(e.target.value)}
+            >
+              <option value="">
+                {ratingStatus === 'ready'
+                  ? '指定なし'
+                  : ratingStatus === 'loading'
+                    ? 'Google Mapsから読込中…'
+                    : ratingStatus === 'unconfigured'
+                      ? 'Google連携の設定待ち'
+                      : '現在取得できません'}
+              </option>
+              {ratingStatus === 'ready' && (
+                <>
+                  <option value="4">4.0以上</option>
+                  <option value="4.3">4.3以上</option>
+                  <option value="4.5">4.5以上</option>
+                </>
+              )}
             </select>
           </label>
         </div>
@@ -279,7 +343,9 @@ export default function BeerExplorer() {
         <p aria-live="polite">
           <strong>{filtered.length}</strong> 件 <span>／ 実店舗</span>
         </p>
-        <span>地図の番号を選ぶと、店舗の情報が表示されます</span>
+        <span>
+          地図の番号を選ぶと店舗情報を表示 · 口コミデータ: Google Maps
+        </span>
       </div>
 
       <div className="beer-workspace">
@@ -334,13 +400,44 @@ export default function BeerExplorer() {
                 <div>
                   <span>Google口コミ</span>
                   <strong>
-                    {googleRating(selected)?.score?.toFixed(1) ?? '未取得'}
-                    {googleRating(selected)?.score != null && (
-                      <small> / 5</small>
-                    )}
+                    {selectedRating?.score != null
+                      ? selectedRating.score.toFixed(1)
+                      : ratingStatus === 'loading'
+                        ? '読込中'
+                        : ratingStatus === 'unconfigured'
+                          ? '設定待ち'
+                          : '未取得'}
+                    {selectedRating?.score != null && <small> / 5</small>}
                   </strong>
                 </div>
-                <p>ビール品質の点数とは別の指標です。</p>
+                <p>
+                  {selectedRating?.reviewCount != null &&
+                    `${selectedRating.reviewCount}件 · `}
+                  ビール品質の点数とは別の指標です。{' '}
+                  <a
+                    href={selectedRating?.sourceUrl ?? selected.googleMapsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Google Maps ↗
+                  </a>
+                </p>
+                {selectedRating?.attributions.map((item) => (
+                  <p key={`${item.provider}-${item.providerURI ?? ''}`}>
+                    提供元:{' '}
+                    {item.providerURI ? (
+                      <a
+                        href={item.providerURI}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {item.provider}
+                      </a>
+                    ) : (
+                      item.provider
+                    )}
+                  </p>
+                ))}
               </div>
 
               <dl className="beer-facts">
@@ -391,35 +488,44 @@ export default function BeerExplorer() {
       </div>
 
       <div className="beer-list" aria-label="検索結果一覧">
-        {filtered.map((s) => (
-          <article
-            className={s.id === selected?.id ? 'is-selected' : ''}
-            key={s.id}
-          >
-            <button
-              className="beer-shop-select"
-              aria-pressed={s.id === selected?.id}
-              onClick={() => setSelectedId(s.id)}
+        {filtered.map((s) => {
+          const live = liveRatings[s.id];
+          return (
+            <article
+              className={s.id === selected?.id ? 'is-selected' : ''}
+              key={s.id}
             >
-              <span className="beer-number">
-                {String(shops.indexOf(s) + 1).padStart(2, '0')}
-              </span>
-              <span>
-                <small>
-                  {s.area} /{' '}
-                  {makers.find((m) => m.id === s.manufacturerId)?.name}
-                </small>
-                <strong>{s.name}</strong>
-                <small>
-                  実店舗 · Google口コミ{' '}
-                  {googleRating(s)?.score?.toFixed(1) ?? '未取得'}
-                </small>
-              </span>
-              <span aria-hidden="true">↗</span>
-            </button>
-            <a href={`/beer/shops/${s.slug}/`}>店舗詳細</a>
-          </article>
-        ))}
+              <button
+                className="beer-shop-select"
+                aria-pressed={s.id === selected?.id}
+                onClick={() => setSelectedId(s.id)}
+              >
+                <span className="beer-number">
+                  {String(shops.indexOf(s) + 1).padStart(2, '0')}
+                </span>
+                <span>
+                  <small>
+                    {s.area} /{' '}
+                    {makers.find((m) => m.id === s.manufacturerId)?.name}
+                  </small>
+                  <strong>{s.name}</strong>
+                  <small>
+                    Google Maps口コミ{' '}
+                    {live?.score != null
+                      ? `${live.score.toFixed(1)}${live.reviewCount != null ? `（${live.reviewCount}件）` : ''}`
+                      : ratingStatus === 'loading'
+                        ? '読み込み中…'
+                        : ratingStatus === 'unconfigured'
+                          ? '連携設定待ち'
+                          : '未取得'}
+                  </small>
+                </span>
+                <span aria-hidden="true">↗</span>
+              </button>
+              <a href={`/beer/shops/${s.slug}/`}>店舗詳細</a>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import '@/styles/legal.css';
+---
+
+<BaseLayout
+  title="プライバシーポリシー"
+  description="Life Atlasのプライバシーポリシー。"
+>
+  <article class="atlas-legal">
+    <h1>プライバシーポリシー</h1>
+    <p>
+      Life Atlasは、サイトの提供に必要な範囲で外部サービスを利用します。本ページでは、特にGoogle Maps Platformを利用する機能について説明します。
+    </p>
+
+    <h2>Google Maps Platformの利用</h2>
+    <p>
+      Beer Atlasでは、店舗のGoogle口コミ評価・口コミ件数等を表示するため、Google Maps PlatformのMaps JavaScript APIおよびPlaces機能を利用する場合があります。
+    </p>
+    <p>
+      これらの機能を読み込む際、IPアドレス、ブラウザ情報、参照元URLその他の技術情報がGoogleへ送信される場合があります。Googleによる情報の取扱いは、Googleのプライバシーポリシーに従います。
+    </p>
+
+    <h2>Google口コミデータの取扱い</h2>
+    <ul>
+      <li>口コミ評価点や口コミ件数は、原則としてページ表示時にGoogleから取得します。</li>
+      <li>Life Atlas側では、Google口コミの評価点や口コミ件数を恒久保存しません。</li>
+      <li>店舗を識別するGoogle Place IDは、Googleのポリシーで認められる範囲で保存する場合があります。</li>
+    </ul>
+
+    <h2>外部サービスの規約</h2>
+    <p>
+      Google Maps Platformの利用には、Googleの利用規約およびGoogle Maps Platformの利用条件が適用されます。
+    </p>
+    <ul>
+      <li>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
+          Google プライバシーポリシー ↗
+        </a>
+      </li>
+      <li>
+        <a href="https://cloud.google.com/maps-platform/terms" target="_blank" rel="noreferrer">
+          Google Maps Platform 利用規約 ↗
+        </a>
+      </li>
+    </ul>
+
+    <h2>改定</h2>
+    <p>
+      利用するサービスや機能の変更に応じて、本ポリシーを改定することがあります。
+    </p>
+  </article>
+</BaseLayout>

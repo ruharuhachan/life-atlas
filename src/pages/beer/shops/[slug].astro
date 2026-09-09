@@ -78,12 +78,13 @@ const { shop } = Astro.props;
         >
       </table>
     </div><p>
-      未確認は不適合を意味しません。Google以外の口コミ点数はBeer Atlasの口コミ評価には使用しません。
+      未確認は不適合を意味しません。Google以外の口コミ点数はBeer
+      Atlasの口コミ評価には使用しません。
     </p><a href="/beer/methodology/">評価基準を確認する ↗</a><h2>
       出典・確認日
     </h2><p>
-      最終確認日：{shop.lastVerifiedAt ?? '未確認'}<br />掲載元は店舗データの sources に記録しています。<br
-      />Google口コミ：未取得
+      最終確認日：{shop.lastVerifiedAt ?? '未確認'}<br />掲載元は店舗データの
+      sources に記録しています。<br />Google口コミ：未取得
     </p>{
       shop.articleSlug && (
         <>

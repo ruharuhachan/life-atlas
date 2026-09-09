@@ -90,15 +90,7 @@
         "expiresAt": null
       }
     },
-    "reservationLinks": [
-      {
-        "providerId": "autoreserve",
-        "label": "AutoReserve",
-        "url": "https://autoreserve.com/ja/restaurants/tXnFvcAa2gNrkmeb9Tx2",
-        "affiliateUrl": null,
-        "affiliateNetwork": null
-      }
-    ],
+    "reservationLinks": [],
     "websiteUrl": null,
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%A8%E3%82%88%E7%94%B0%20%E8%87%AA%E7%94%B1%E3%81%8C%E4%B8%98",
     "articleSlug": null,

@@ -1,6 +1,7 @@
 # Life Atlas / GitHub Copilot instructions
 
 ## Repository basics
+
 - This repository is an Astro site using React and D3.
 - Use Node.js 24 and pnpm 11 as declared by the repository.
 - Before finishing a change, run `pnpm ci`. If formatting fails, run `pnpm format` and then rerun `pnpm ci`.
@@ -8,6 +9,7 @@
 - Never invent facts, URLs, certifications, ratings, coordinates, store details, or source evidence. If evidence is insufficient, stop and state exactly what is missing.
 
 ## Beer Atlas core rules
+
 - Beer Atlas store data lives in `src/data/beer/shops.json` and its master data is under `src/data/beer/`.
 - One physical store is one store record. IDs and slugs must be stable, lowercase ASCII kebab-case.
 - Manufacturer, brand, certification, area and neighborhood references must use existing master IDs unless there is strong source evidence and the task explicitly requires a master-data addition.
@@ -23,9 +25,11 @@
 - Do not copy third-party review text, photos, or copyrighted descriptions into Beer Atlas.
 
 ## Store-addition workflow
+
 For routine Beer Atlas store additions, prefer the repository custom agent in `.github/agents/beer-atlas-store.agent.md` and the structured issue form under `.github/ISSUE_TEMPLATE/beer-atlas-shop.yml`.
 
 When adding a store:
+
 1. Read the current `shops.json`, `manufacturers.json`, `brands.json`, `certifications.json`, and `areas.json` before editing.
 2. Validate the supplied factual evidence and map it to existing master IDs.
 3. Add the minimum store record needed. Keep unknown controls as `未確認` rather than guessing.

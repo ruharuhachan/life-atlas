@@ -1,5 +1,5 @@
 ---
-applyTo: "src/data/beer/**,src/components/beer/**,src/pages/beer/**,tests/beer-*.test.mjs"
+applyTo: 'src/data/beer/**,src/components/beer/**,src/pages/beer/**,tests/beer-*.test.mjs'
 ---
 
 # Beer Atlas path-specific instructions

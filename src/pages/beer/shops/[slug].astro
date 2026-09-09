@@ -1,17 +1,19 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { googleRating } from '@/data/beer/search';
+import GooglePlaceRating from '@/components/beer/GooglePlaceRating';
 import brands from '@/data/beer/brands.json';
 import shops from '@/data/beer/shops.json';
 import makers from '@/data/beer/manufacturers.json';
 import certifications from '@/data/beer/certifications.json';
 import '@/styles/beer.css';
+
 export function getStaticPaths() {
   return shops.map((shop) => ({
     params: { slug: shop.slug },
     props: { shop },
   }));
 }
+
 const { shop } = Astro.props;
 ---
 
@@ -20,13 +22,17 @@ const { shop } = Astro.props;
   description="実店舗のビール提供情報。メーカーの認定・提供区分とGoogle口コミを分けて掲載。"
 >
   <article class="beer-document">
-    <a href="/beer/">← ビールの店舗検索へ</a><p class="beer-kicker">
-      BEER ATLAS / SHOP GUIDE
-    </p><h1>{shop.name}</h1><div class="beer-notice">
+    <a href="/beer/">← ビールの店舗検索へ</a>
+    <p class="beer-kicker">BEER ATLAS / SHOP GUIDE</p>
+    <h1>{shop.name}</h1>
+    <div class="beer-notice">
       実店舗の掲載情報です。提供状況や営業時間は変更されることがあるため、来店前に掲載元・店舗情報をご確認ください。
-    </div><p>{shop.address}</p><h2>メーカー・銘柄・提供品質</h2><p>
-      {makers.find((m) => m.id === shop.manufacturerId)?.name}
-    </p><div class="beer-tags">
+    </div>
+    <p>{shop.address}</p>
+
+    <h2>メーカー・銘柄・提供品質</h2>
+    <p>{makers.find((m) => m.id === shop.manufacturerId)?.name}</p>
+    <div class="beer-tags">
       {
         shop.brandIds.map((id) => (
           <span>{brands.find((b) => b.id === id)?.name}</span>
@@ -37,7 +43,8 @@ const { shop } = Astro.props;
           <span>{certifications.find((c) => c.id === id)?.name}</span>
         ))
       }
-    </div><ul>
+    </div>
+    <ul>
       {
         shop.certifications.map((id) => {
           const c = certifications.find((c) => c.id === id);
@@ -52,51 +59,71 @@ const { shop } = Astro.props;
           );
         })
       }
-    </ul><p>
+    </ul>
+    <p>
       エクストラコールドはメーカー認定の加点ではなく、確認できた提供区分として表示しています。店舗の品質認定とは分けて扱います。
-    </p><h2>評価情報</h2><div class="beer-table-wrap">
+    </p>
+
+    <h2>評価情報</h2>
+    <div class="beer-table-wrap">
       <table>
-        <thead><tr><th>項目</th><th>状態</th></tr></thead><tbody
-          ><tr
-            ><th>Google口コミ</th><td
-              >{
-                googleRating(shop)?.score == null
-                  ? '未取得'
-                  : googleRating(shop)?.score?.toFixed(1) + ' / 5'
-              }</td
-            ></tr
-          ><tr><th>Google口コミ件数・取得日</th><td>未取得</td></tr><tr
-            ><th>サーバー・衛生管理</th><td>{shop.controls.server}</td></tr
-          ><tr><th>グラス管理</th><td>{shop.controls.glass}</td></tr><tr
-            ><th>温度・提供区分</th><td>{shop.controls.temperature}</td></tr
-          ><tr><th>メニュー・価格の公開</th><td>{shop.controls.menu}</td></tr
-          ><tr
-            ><th>ネット予約</th><td
-              >{shop.reservationAvailable ? '可' : '未確認'}</td
-            ></tr
-          ></tbody
-        >
+        <thead>
+          <tr><th>項目</th><th>状態</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Google口コミ</th>
+            <td>
+              <GooglePlaceRating
+                client:load
+                placeId={shop.externalIds.googlePlaceId}
+                name={shop.name}
+                address={shop.address}
+                latitude={shop.latitude}
+                longitude={shop.longitude}
+                fallbackMapsUrl={shop.googleMapsUrl}
+              />
+            </td>
+          </tr>
+          <tr><th>サーバー・衛生管理</th><td>{shop.controls.server}</td></tr>
+          <tr><th>グラス管理</th><td>{shop.controls.glass}</td></tr>
+          <tr><th>温度・提供区分</th><td>{shop.controls.temperature}</td></tr>
+          <tr><th>メニュー・価格の公開</th><td>{shop.controls.menu}</td></tr>
+          <tr>
+            <th>ネット予約</th>
+            <td>{shop.reservationAvailable ? '可' : '未確認'}</td>
+          </tr>
+        </tbody>
       </table>
-    </div><p>
-      未確認は不適合を意味しません。Google以外の口コミ点数はBeer
-      Atlasの口コミ評価には使用しません。
-    </p><a href="/beer/methodology/">評価基準を確認する ↗</a><h2>
-      出典・確認日
-    </h2><p>
-      最終確認日：{shop.lastVerifiedAt ?? '未確認'}<br />掲載元は店舗データの
-      sources に記録しています。<br />Google口コミ：未取得
-    </p>{
+    </div>
+    <p>
+      Google口コミはページ表示時にGoogle Maps Platformから取得し、Beer
+      Atlas側には評価点・件数を保存しません。未確認は不適合を意味しません。
+    </p>
+    <a href="/beer/methodology/">評価基準を確認する ↗</a>
+
+    <h2>出典・確認日</h2>
+    <p>最終確認日：{shop.lastVerifiedAt ?? '未確認'}</p>
+    <ul>
+      {
+        shop.sources.map((source) => (
+          <li>
+            <a href={source.url} target="_blank" rel="noreferrer">
+              {source.label} ↗
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
       shop.articleSlug && (
         <>
-          <>
-            <h2>編集部の記事</h2>
-            <p>
-              客観指標とは別に、店の雰囲気や一杯の体験を伝える記事を掲載します。
-            </p>
-            <a class="beer-button" href={`/beer/articles/${shop.articleSlug}/`}>
-              記事を読む ↗
-            </a>
-          </>
+          <h2>編集部の記事</h2>
+          <p>客観指標とは別に、店の雰囲気や一杯の体験を伝える記事を掲載します。</p>
+          <a class="beer-button" href={`/beer/articles/${shop.articleSlug}/`}>
+            記事を読む ↗
+          </a>
         </>
       )
     }

@@ -82,6 +82,10 @@ const path = Astro.url.pathname;
           aria-current={path.startsWith('/hakodate') ? 'true' : undefined}
           >函館</a
         >
+        <a
+          href="/beer/"
+          aria-current={path.startsWith('/beer') ? 'true' : undefined}>ビール</a
+        >
       </nav>
     </header>
     <main id="main-content"><slot /></main>
@@ -104,6 +108,7 @@ const path = Astro.url.pathname;
         />
       </a>
       <nav aria-label="フッターナビゲーション">
+        <a href="/beer/">ビール</a>
         <a href="/niigata/">新潟</a><a href="/hakodate/">函館</a><a
           href="/niigata/map/">新潟の地図</a
         >

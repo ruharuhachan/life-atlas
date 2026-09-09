@@ -1,0 +1,53 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BeerExplorer from '@/components/beer/BeerExplorer';
+import '@/styles/beer.css';
+---
+
+<BaseLayout
+  title="Beer Atlas — いい一杯を、探しに。"
+  description="4大メーカーの認定・提供品質から探すビールガイド。Life Atlasの店舗検索・初期デモ。"
+>
+  <div class="beer-shell">
+    <header class="beer-intro">
+      <div>
+        <p class="beer-kicker">LIFE ATLAS / BEER GUIDE</p><h1>
+          BEER ATLAS<span>いい一杯を、探しに。</span>
+        </h1><p>メーカーの認定から、その街の一軒へ。</p>
+      </div><figure class="beer-cover">
+        <img
+          src="/images/beer-cover.jpg"
+          alt="琥珀色のビールのイメージ写真"
+          width="1200"
+          height="800"
+        /><figcaption>
+          <a
+            href="https://unsplash.com/photos/clear-wine-glass-with-yellow-liquid-on-brown-wooden-table-D81usBRSmjw"
+            target="_blank"
+            rel="noreferrer">PHOTO: WALTER CHEUNG / UNSPLASH</a
+          >
+        </figcaption>
+      </figure>
+    </header>
+    <div class="beer-notice">
+      <span>PREVIEW</span><p>
+        現在は検索体験のデモです。店舗・認定・口コミ点数はすべてサンプルで、実在店の情報ではありません。
+      </p><a href="/beer/methodology/">評価について ↗</a>
+    </div>
+    <BeerExplorer client:load />
+    <noscript
+      ><p>
+        絞り込みと地図の操作にはJavaScriptが必要です。<a
+          href="/beer/shops/demo-1/">サンプル店舗の詳細はこちら</a
+        >。
+      </p></noscript
+    >
+    <section class="beer-principle">
+      <p class="beer-kicker">OUR APPROACH</p><h2>
+        一杯の品質と、<br />その店の魅力を、ていねいに。
+      </h2><p>
+        メーカーの認定、店舗全体の口コミ、編集部の訪問記。それぞれの情報を分けて、あなたの店選びにつなぎます。
+      </p><a href="/beer/methodology/">評価基準を読む ↗</a>
+    </section>
+  </div>
+</BaseLayout>

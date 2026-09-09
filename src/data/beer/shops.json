@@ -1,0 +1,218 @@
+[
+  {
+    "id": "demo-1",
+    "slug": "demo-1",
+    "name": "万代麦酒室",
+    "prefecture": "新潟県",
+    "city": "新潟市中央区",
+    "area": "万代",
+    "address": "新潟市中央区・万代（架空の所在地）",
+    "longitude": 139.056,
+    "latitude": 37.917,
+    "manufacturerId": "asahi",
+    "certifications": ["extra-cold"],
+    "officialCertified": false,
+    "externalRatings": {
+      "google": {
+        "score": 4.3,
+        "reviewCount": null,
+        "collectedAt": null,
+        "sourceUrl": null
+      }
+    },
+    "reservationAvailable": true,
+    "reservationUrl": null,
+    "websiteUrl": null,
+    "googleMapsUrl": null,
+    "articleSlug": "demo-first-glass",
+    "lastVerifiedAt": null,
+    "sources": [],
+    "isDemo": true,
+    "controls": {
+      "server": "未確認",
+      "glass": "未確認",
+      "temperature": "未確認",
+      "menu": "サンプル：公開あり"
+    }
+  },
+  {
+    "id": "demo-2",
+    "slug": "demo-2",
+    "name": "古町ビアカウンター",
+    "prefecture": "新潟県",
+    "city": "新潟市中央区",
+    "area": "古町",
+    "address": "新潟市中央区・古町（架空の所在地）",
+    "longitude": 139.045,
+    "latitude": 37.927,
+    "manufacturerId": "sapporo",
+    "certifications": ["perfect"],
+    "officialCertified": true,
+    "externalRatings": {
+      "google": {
+        "score": 4.5,
+        "reviewCount": null,
+        "collectedAt": null,
+        "sourceUrl": null
+      }
+    },
+    "reservationAvailable": false,
+    "reservationUrl": null,
+    "websiteUrl": null,
+    "googleMapsUrl": null,
+    "articleSlug": null,
+    "lastVerifiedAt": null,
+    "sources": [],
+    "isDemo": true,
+    "controls": {
+      "server": "未確認",
+      "glass": "未確認",
+      "temperature": "未確認",
+      "menu": "未確認"
+    }
+  },
+  {
+    "id": "demo-3",
+    "slug": "demo-3",
+    "name": "駅南ラガースタンド",
+    "prefecture": "新潟県",
+    "city": "新潟市中央区",
+    "area": "新潟駅南",
+    "address": "新潟市中央区・新潟駅南（架空の所在地）",
+    "longitude": 139.063,
+    "latitude": 37.909,
+    "manufacturerId": "kirin",
+    "certifications": ["official"],
+    "officialCertified": true,
+    "externalRatings": {
+      "google": {
+        "score": 4.1,
+        "reviewCount": null,
+        "collectedAt": null,
+        "sourceUrl": null
+      }
+    },
+    "reservationAvailable": true,
+    "reservationUrl": null,
+    "websiteUrl": null,
+    "googleMapsUrl": null,
+    "articleSlug": null,
+    "lastVerifiedAt": null,
+    "sources": [],
+    "isDemo": true,
+    "controls": {
+      "server": "未確認",
+      "glass": "未確認",
+      "temperature": "未確認",
+      "menu": "サンプル：公開あり"
+    }
+  },
+  {
+    "id": "demo-4",
+    "slug": "demo-4",
+    "name": "信濃川テーブル",
+    "prefecture": "新潟県",
+    "city": "新潟市中央区",
+    "area": "万代",
+    "address": "新潟市中央区・万代（架空の所在地）",
+    "longitude": 139.05,
+    "latitude": 37.919,
+    "manufacturerId": "suntory",
+    "certifications": ["official"],
+    "officialCertified": true,
+    "externalRatings": {
+      "google": {
+        "score": 4.4,
+        "reviewCount": null,
+        "collectedAt": null,
+        "sourceUrl": null
+      }
+    },
+    "reservationAvailable": true,
+    "reservationUrl": null,
+    "websiteUrl": null,
+    "googleMapsUrl": null,
+    "articleSlug": null,
+    "lastVerifiedAt": null,
+    "sources": [],
+    "isDemo": true,
+    "controls": {
+      "server": "未確認",
+      "glass": "未確認",
+      "temperature": "未確認",
+      "menu": "サンプル：公開あり"
+    }
+  },
+  {
+    "id": "demo-5",
+    "slug": "demo-5",
+    "name": "西堀ビール食堂",
+    "prefecture": "新潟県",
+    "city": "新潟市中央区",
+    "area": "古町",
+    "address": "新潟市中央区・古町（架空の所在地）",
+    "longitude": 139.041,
+    "latitude": 37.922,
+    "manufacturerId": "asahi",
+    "certifications": ["super-cold"],
+    "officialCertified": false,
+    "externalRatings": {
+      "google": {
+        "score": null,
+        "reviewCount": null,
+        "collectedAt": null,
+        "sourceUrl": null
+      }
+    },
+    "reservationAvailable": false,
+    "reservationUrl": null,
+    "websiteUrl": null,
+    "googleMapsUrl": null,
+    "articleSlug": null,
+    "lastVerifiedAt": null,
+    "sources": [],
+    "isDemo": true,
+    "controls": {
+      "server": "未確認",
+      "glass": "未確認",
+      "temperature": "未確認",
+      "menu": "未確認"
+    }
+  },
+  {
+    "id": "demo-6",
+    "slug": "demo-6",
+    "name": "けやき通りの一杯",
+    "prefecture": "新潟県",
+    "city": "新潟市中央区",
+    "area": "新潟駅南",
+    "address": "新潟市中央区・新潟駅南（架空の所在地）",
+    "longitude": 139.058,
+    "latitude": 37.908,
+    "manufacturerId": "sapporo",
+    "certifications": ["perfect"],
+    "officialCertified": true,
+    "externalRatings": {
+      "google": {
+        "score": 4.2,
+        "reviewCount": null,
+        "collectedAt": null,
+        "sourceUrl": null
+      }
+    },
+    "reservationAvailable": true,
+    "reservationUrl": null,
+    "websiteUrl": null,
+    "googleMapsUrl": null,
+    "articleSlug": null,
+    "lastVerifiedAt": null,
+    "sources": [],
+    "isDemo": true,
+    "controls": {
+      "server": "未確認",
+      "glass": "未確認",
+      "temperature": "未確認",
+      "menu": "サンプル：公開あり"
+    }
+  }
+]

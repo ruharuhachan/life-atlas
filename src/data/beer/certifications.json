@@ -1,0 +1,22 @@
+[
+  {
+    "id": "official",
+    "name": "メーカー品質認定（サンプル）",
+    "category": "quality"
+  },
+  {
+    "id": "extra-cold",
+    "name": "エクストラコールド（サンプル）",
+    "category": "temperature"
+  },
+  {
+    "id": "perfect",
+    "name": "パーフェクト提供（サンプル）",
+    "category": "quality"
+  },
+  {
+    "id": "super-cold",
+    "name": "スーパーコールド（サンプル）",
+    "category": "temperature"
+  }
+]

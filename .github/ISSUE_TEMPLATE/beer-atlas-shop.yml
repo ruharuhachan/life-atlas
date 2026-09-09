@@ -1,51 +1,38 @@
 name: Beer Atlas 店舗追加
-description: Copilot店舗追加エージェントに渡すための実店舗情報を入力します
+description: 最小限の情報からCopilot店舗追加エージェントに実店舗を調査・追加させます
 title: '[Beer Atlas] 店舗追加: '
 body:
   - type: markdown
     attributes:
       value: |
-        このフォームを埋めた後、GitHub Copilot cloud agentで「Beer Atlas 店舗追加」エージェントを選び、このIssueを処理させてください。
-        Google口コミは人間がGoogle Maps上で手動確認してください。点数は掲載候補の判断にのみ使い、Beer AtlasのDBには保存しません。
+        店舗名・場所の手がかり・Google口コミの手動確認だけで開始できます。
+        メーカー、銘柄、認定、公式サイト、予約URLなどはCopilotが公開情報から調査します。
+        Google口コミの点数は掲載候補の判断にのみ使い、Beer AtlasのDBには保存しません。
 
   - type: input
     id: shop_name
     attributes:
       label: 店舗名
-      placeholder: 例）自由が丘牛タンいろ葉
+      placeholder: 例）ひな鳥素揚げ 目黒 月鳥 自由が丘店
     validations:
       required: true
 
-  - type: input
-    id: address
+  - type: textarea
+    id: location_hint
     attributes:
-      label: 住所
-      placeholder: 例）東京都目黒区自由が丘1-12-9
-    validations:
-      required: true
-
-  - type: input
-    id: area
-    attributes:
-      label: Beer Atlasエリア
-      description: 分かる範囲で街・駅名を入力してください。内部IDはCopilotが既存マスターから選びます。
-      placeholder: 例）自由が丘
-    validations:
-      required: true
-
-  - type: input
-    id: google_maps_url
-    attributes:
-      label: Google Maps URL
-      placeholder: https://www.google.com/maps/...
+      label: Google Maps URL または住所
+      description: maps.app.goo.gl の短縮URLでも構いません。URLを展開できない場合は店舗名・住所からCopilotが特定を試みます。
+      placeholder: |
+        https://maps.app.goo.gl/...
+        または 東京都目黒区自由が丘1-3-24
     validations:
       required: true
 
   - type: input
     id: google_rating
     attributes:
-      label: Google口コミ評価（手動確認）
-      description: 原則4.0以上。DBには保存しません。
+      label: Google口コミ評価（人間が手動確認）
+      description: 原則4.0以上。値はDBには保存しません。
       placeholder: 例）4.2
     validations:
       required: true
@@ -53,76 +40,64 @@ body:
   - type: checkboxes
     id: google_confirmation
     attributes:
-      label: Google口コミの確認
+      label: 掲載ゲート
       options:
-        - label: Google Mapsを人間が手動で確認し、原則4.0以上であることを確認した
+        - label: Google Mapsを人間が手動で確認した
+          required: true
+        - label: 原則4.0以上であることを確認した（4.0未満は補足欄に例外掲載理由を記載）
           required: true
         - label: Google評価点・口コミ件数をBeer AtlasのDBへ保存しない方針を理解した
           required: true
 
+  - type: input
+    id: area
+    attributes:
+      label: エリア（任意）
+      description: 分かれば街・駅名を入力してください。内部IDはCopilotが既存マスターから選びます。
+      placeholder: 例）自由が丘
+
   - type: dropdown
     id: manufacturer
     attributes:
-      label: 主なビールメーカー
+      label: 主なビールメーカー（任意）
       options:
+        - 不明・Copilotに調査させる
         - アサヒ
         - キリン
         - サッポロ
         - サントリー
-        - 不明・要確認
-    validations:
-      required: true
 
   - type: textarea
     id: beer_facts
     attributes:
-      label: 提供銘柄・提供方法・認定情報
-      description: 分かっている事実だけを書いてください。認定か単なる提供か不明なら、その旨を書いてください。
-      placeholder: |
-        例）サッポロ黒ラベル生を提供。メーカー公式認定は未確認。
-    validations:
-      required: true
+      label: 分かっているビール情報（任意）
+      description: 銘柄・提供方法・認定など、知っていることだけで構いません。
+      placeholder: 例）一番搾り生を見た。公式認定かは不明。
 
   - type: textarea
     id: evidence_urls
     attributes:
-      label: 根拠URL
-      description: 公式店舗、メーカー、メニュー、食べログ、ホットペッパー等。1行1URL推奨。
+      label: 根拠URL（任意）
+      description: 公式店舗、メーカー、メニュー、食べログ、ホットペッパー等。なくてもCopilotが調査します。
       placeholder: |
         https://example.com/official-menu
         https://tabelog.com/...
-    validations:
-      required: true
 
   - type: textarea
     id: reservation_urls
     attributes:
-      label: ネット予約URL
-      description: 食べログ、ホットペッパー、一休、楽天系のみ。なければ「なし」。AutoReserveは入力しないでください。
-      placeholder: |
-        食べログ: https://tabelog.com/...
-        ホットペッパー: https://www.hotpepper.jp/...
-    validations:
-      required: true
+      label: ネット予約URL（任意）
+      description: 食べログ、ホットペッパー、一休、楽天系のみ。AutoReserveは使用しません。
+      placeholder: 食べログ: https://tabelog.com/...
 
   - type: input
     id: official_site
     attributes:
-      label: 店舗公式サイト
+      label: 店舗公式サイト（任意）
       placeholder: https://example.com/
-
-  - type: textarea
-    id: location_metadata
-    attributes:
-      label: 座標・Place ID等（任意）
-      description: 緯度経度やGoogle Place IDが分かる場合のみ入力してください。分からなければ空欄で構いません。
-      placeholder: |
-        latitude: 35.xxxxx
-        longitude: 139.xxxxx
-        googlePlaceId: ChIJ...
 
   - type: textarea
     id: notes
     attributes:
-      label: 補足
-      description: 例外掲載、取材予定、記事化予定などがあれば記載してください。
+      label: 補足（任意）
+      description: 例外掲載理由、取材予定、特に確認したい点など。

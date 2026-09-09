@@ -38,6 +38,7 @@ jobs:
       - name: Build
         env:
           SITE_URL: https://life-atlas.jp
+          PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_BROWSER_API_KEY }}
         run: pnpm build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b

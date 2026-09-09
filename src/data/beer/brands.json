@@ -46,5 +46,13 @@
     "limitedRegion": null,
     "sourceUrl": "https://tabelog.com/tieup/main/sapporobeer_rst/",
     "lastVerifiedAt": "2026-09-09"
+  },
+  {
+    "id": "kirin-ichiban-shibori",
+    "manufacturerId": "kirin",
+    "name": "キリン一番搾り",
+    "limitedRegion": null,
+    "sourceUrl": "https://map.yahoo.co.jp/v3/place/k08gF4Vv9qE/menu",
+    "lastVerifiedAt": "2026-09-09"
   }
 ]

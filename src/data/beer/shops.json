@@ -10,7 +10,9 @@
     "longitude": 139.6647,
     "latitude": 35.6057,
     "manufacturerId": "asahi",
-    "certifications": ["asahi-extra-cold"],
+    "certifications": [
+      "asahi-extra-cold"
+    ],
     "officialCertified": false,
     "externalRatings": {
       "google": {
@@ -78,7 +80,9 @@
     "longitude": 139.6722229,
     "latitude": 35.6086458,
     "manufacturerId": "asahi",
-    "certifications": ["asahi-extra-cold"],
+    "certifications": [
+      "asahi-extra-cold"
+    ],
     "officialCertified": false,
     "externalRatings": {
       "google": {
@@ -205,6 +209,88 @@
     "prefectureId": "JP-13",
     "searchAreaId": "tokyo-jiyugaoka",
     "neighborhoodId": "tokyo-jiyugaoka-1",
-    "brandIds": ["sapporo-black-label"]
+    "brandIds": [
+      "sapporo-black-label"
+    ]
+  },
+  {
+    "id": "tsukidori-jiyugaoka",
+    "slug": "tsukidori-jiyugaoka",
+    "name": "ひな鳥素揚げ 目黒 月鳥 自由が丘店",
+    "prefecture": "東京都",
+    "city": "目黒区",
+    "area": "自由が丘",
+    "address": "東京都目黒区自由が丘1-3-24",
+    "longitude": 139.670071,
+    "latitude": 35.60967,
+    "manufacturerId": "kirin",
+    "certifications": [],
+    "officialCertified": false,
+    "externalRatings": {
+      "google": {
+        "score": null,
+        "reviewCount": null,
+        "collectedAt": null,
+        "sourceUrl": null,
+        "attribution": null,
+        "expiresAt": null
+      }
+    },
+    "reservationLinks": [
+      {
+        "providerId": "tabelog",
+        "label": "食べログ",
+        "url": "https://tabelog.com/tokyo/A1317/A131703/13241535/",
+        "affiliateUrl": null,
+        "affiliateNetwork": null
+      }
+    ],
+    "websiteUrl": "https://tsukidori.com/",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%B2%E3%81%AA%E9%B3%A5%E7%B4%A0%E6%8F%9A%E3%81%92%20%E7%9B%AE%E9%BB%92%20%E6%9C%88%E9%B3%A5%20%E8%87%AA%E7%94%B1%E3%81%8C%E4%B8%98%E5%BA%97%20%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%9B%AE%E9%BB%92%E5%8C%BA%E8%87%AA%E7%94%B1%E3%81%8C%E4%B8%981-3-24",
+    "articleSlug": null,
+    "lastVerifiedAt": "2026-09-09",
+    "sources": [
+      {
+        "label": "自由が丘オフィシャルウェブサイト店舗情報",
+        "url": "https://www.jiyugaoka-abc.com/shopguide/gourmet/358300.html",
+        "kind": "listing"
+      },
+      {
+        "label": "公式メニュー",
+        "url": "https://tsukidori.com/menu/",
+        "kind": "menu"
+      },
+      {
+        "label": "Yahoo!マップ メニュー表（キリン一番搾り表記）",
+        "url": "https://map.yahoo.co.jp/v3/place/k08gF4Vv9qE/menu",
+        "kind": "menu"
+      },
+      {
+        "label": "食べログ店舗情報・予約",
+        "url": "https://tabelog.com/tokyo/A1317/A131703/13241535/",
+        "kind": "listing"
+      }
+    ],
+    "isDemo": false,
+    "controls": {
+      "server": "未確認",
+      "glass": "未確認",
+      "temperature": "未確認",
+      "menu": "公開あり"
+    },
+    "externalIds": {
+      "googlePlaceId": null
+    },
+    "importMetadata": {
+      "provider": null,
+      "sourceListUrl": null,
+      "importedAt": null
+    },
+    "prefectureId": "JP-13",
+    "searchAreaId": "tokyo-jiyugaoka",
+    "neighborhoodId": "tokyo-jiyugaoka-1",
+    "brandIds": [
+      "kirin-ichiban-shibori"
+    ]
   }
 ]

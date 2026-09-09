@@ -15,7 +15,9 @@ const TRUSTED_RESERVATION_PROVIDERS = new Set([
 
 const manufacturerIds = new Set(manufacturers.map((item) => item.id));
 const brandById = new Map(brands.map((item) => [item.id, item]));
-const certificationById = new Map(certifications.map((item) => [item.id, item]));
+const certificationById = new Map(
+  certifications.map((item) => [item.id, item]),
+);
 const prefectureIds = new Set(areas.prefectures.map((item) => item.id));
 const areaById = new Map(areas.areas.map((item) => [item.id, item]));
 
@@ -33,7 +35,11 @@ test('shop records satisfy Beer Atlas data invariants', () => {
     assert.match(shop.id, /^[a-z0-9-]+$/);
     assert.match(shop.slug, /^[a-z0-9-]+$/);
     assert.equal(ids.has(shop.id), false, `duplicate shop id: ${shop.id}`);
-    assert.equal(slugs.has(shop.slug), false, `duplicate shop slug: ${shop.slug}`);
+    assert.equal(
+      slugs.has(shop.slug),
+      false,
+      `duplicate shop slug: ${shop.slug}`,
+    );
     ids.add(shop.id);
     slugs.add(shop.slug);
 

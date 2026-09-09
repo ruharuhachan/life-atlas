@@ -58,10 +58,14 @@ let loaderPromise: Promise<GoogleMapsLike> | null = null;
 
 function loadGoogleMaps(): Promise<GoogleMapsLike> {
   if (!apiKey) {
-    return Promise.reject(new Error('Google Maps browser API key is not configured'));
+    return Promise.reject(
+      new Error('Google Maps browser API key is not configured'),
+    );
   }
   if (typeof window === 'undefined') {
-    return Promise.reject(new Error('Google Maps can only be loaded in a browser'));
+    return Promise.reject(
+      new Error('Google Maps can only be loaded in a browser'),
+    );
   }
   if (window.google?.maps?.importLibrary) {
     return Promise.resolve(window.google.maps);
@@ -73,7 +77,9 @@ function loadGoogleMaps(): Promise<GoogleMapsLike> {
       if (window.google?.maps?.importLibrary) {
         resolve(window.google.maps);
       } else {
-        reject(new Error('Google Maps JavaScript API loaded without importLibrary'));
+        reject(
+          new Error('Google Maps JavaScript API loaded without importLibrary'),
+        );
       }
     };
 

@@ -1,8 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BeerExplorer from '@/components/beer/BeerExplorer';
+import shops from '@/data/beer/shops.json';
 import '@/styles/beer.css';
 import '@/styles/beer-reservations.css';
+
+const jiyugaokaShopCount = shops.filter(
+  (shop) => shop.neighborhoodId === 'tokyo-jiyugaoka-1',
+).length;
 ---
 
 <BaseLayout
@@ -32,7 +37,9 @@ import '@/styles/beer-reservations.css';
     </header>
     <div class="beer-notice">
       <span>BETA</span><p>
-        自由が丘の実店舗3店から掲載中。メーカーの認定・提供情報を確認し、Google口コミは掲載候補選定時に手動で確認します。
+        自由が丘の実店舗{
+          jiyugaokaShopCount
+        }店から掲載中。メーカーの認定・提供情報を確認し、Google口コミは掲載候補選定時に手動で確認します。
       </p><a href="/beer/methodology/">評価について ↗</a>
     </div>
     <BeerExplorer client:load />

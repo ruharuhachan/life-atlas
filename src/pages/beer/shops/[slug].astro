@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import GooglePlaceRating from '@/components/beer/GooglePlaceRating';
 import brands from '@/data/beer/brands.json';
 import shops from '@/data/beer/shops.json';
 import makers from '@/data/beer/manufacturers.json';
@@ -19,7 +18,7 @@ const { shop } = Astro.props;
 
 <BaseLayout
   title={`${shop.name} — Beer Atlas`}
-  description="実店舗のビール提供情報。メーカーの認定・提供区分とGoogle口コミを分けて掲載。"
+  description="実店舗のビール提供情報。メーカーの認定・提供区分と外部口コミを分けて掲載。"
 >
   <article class="beer-document">
     <a href="/beer/">← ビールの店舗検索へ</a>
@@ -74,15 +73,9 @@ const { shop } = Astro.props;
           <tr>
             <th>Google口コミ</th>
             <td>
-              <GooglePlaceRating
-                client:load
-                placeId={shop.externalIds.googlePlaceId}
-                name={shop.name}
-                address={shop.address}
-                latitude={shop.latitude}
-                longitude={shop.longitude}
-                fallbackMapsUrl={shop.googleMapsUrl}
-              />
+              <a href={shop.googleMapsUrl} target="_blank" rel="noreferrer">
+                Google Mapsで口コミを見る ↗
+              </a>
             </td>
           </tr>
           <tr><th>サーバー・衛生管理</th><td>{shop.controls.server}</td></tr>
@@ -97,8 +90,8 @@ const { shop } = Astro.props;
       </table>
     </div>
     <p>
-      Google口コミはページ表示時にGoogle Maps Platformから取得し、Beer
-      Atlas側には評価点・件数を保存しません。未確認は不適合を意味しません。
+      Google口コミの点数・件数はBeer Atlas内に取得・保存せず、Google
+      Mapsへの外部リンクとして案内します。未確認は不適合を意味しません。
     </p>
     <a href="/beer/methodology/">評価基準を確認する ↗</a>
 

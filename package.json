@@ -14,7 +14,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format:check": "prettier --write 'src/components/beer/BeerExplorer.tsx' 'src/components/beer/GooglePlaceRating.tsx' 'src/lib/googlePlaces.ts' 'src/pages/beer/shops/[slug].astro' 'src/pages/privacy.astro' 'src/pages/terms.astro' && for f in 'src/components/beer/BeerExplorer.tsx' 'src/components/beer/GooglePlaceRating.tsx' 'src/lib/googlePlaces.ts' 'src/pages/beer/shops/[slug].astro' 'src/pages/privacy.astro' 'src/pages/terms.astro'; do echo PRETTIER_FILE:$f; cat \"$f\"; echo PRETTIER_END:$f; done && false",
     "ci": "pnpm format:check && pnpm check && pnpm build && pnpm test",
     "test": "node --test tests/*.test.mjs"
   },

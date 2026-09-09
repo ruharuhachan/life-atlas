@@ -16,14 +16,14 @@ const { shop } = Astro.props;
 ---
 
 <BaseLayout
-  title={`${shop.name}（サンプル）`}
-  description="架空店舗によるビールガイドの評価・詳細表示サンプル。"
+  title={`${shop.name} — Beer Atlas`}
+  description="実店舗のビール提供情報。メーカーの認定・提供区分とGoogle口コミを分けて掲載。"
 >
   <article class="beer-document">
     <a href="/beer/">← ビールの店舗検索へ</a><p class="beer-kicker">
       BEER ATLAS / SHOP GUIDE
     </p><h1>{shop.name}</h1><div class="beer-notice">
-      店舗・所在地・認定状況は架空のサンプルです。Google口コミは未取得です。
+      実店舗の掲載情報です。提供状況や営業時間は変更されることがあるため、来店前に掲載元・店舗情報をご確認ください。
     </div><p>{shop.address}</p><h2>メーカー・銘柄・提供品質</h2><p>
       {makers.find((m) => m.id === shop.manufacturerId)?.name}
     </p><div class="beer-tags">
@@ -45,7 +45,7 @@ const { shop } = Astro.props;
             c && (
               <li>
                 <a href={c.officialSourceUrl} target="_blank" rel="noreferrer">
-                  {c.name}の公式情報 ↗
+                  {c.name}のメーカー公式情報 ↗
                 </a>
               </li>
             )
@@ -53,7 +53,7 @@ const { shop } = Astro.props;
         })
       }
     </ul><p>
-      認定・提供区分はメーカー別に管理しています。以下は制度の公式情報であり、このサンプル店舗が実際に認定されていることを示すものではありません。
+      エクストラコールドはメーカー認定の加点ではなく、確認できた提供区分として表示しています。店舗の品質認定とは分けて扱います。
     </p><h2>評価情報</h2><div class="beer-table-wrap">
       <table>
         <thead><tr><th>項目</th><th>状態</th></tr></thead><tbody
@@ -65,25 +65,26 @@ const { shop } = Astro.props;
                   : googleRating(shop)?.score?.toFixed(1) + ' / 5'
               }</td
             ></tr
-          ><tr><th>実際のGoogle評価・件数・取得日</th><td>未取得</td></tr><tr
-            ><th>サーバー・衛生管理</th><td>未確認</td></tr
-          ><tr><th>グラス管理</th><td>未確認</td></tr><tr
-            ><th>温度・ガス圧・注ぎ方</th><td>未確認</td></tr
+          ><tr><th>Google口コミ件数・取得日</th><td>未取得</td></tr><tr
+            ><th>サーバー・衛生管理</th><td>{shop.controls.server}</td></tr
+          ><tr><th>グラス管理</th><td>{shop.controls.glass}</td></tr><tr
+            ><th>温度・提供区分</th><td>{shop.controls.temperature}</td></tr
           ><tr><th>メニュー・価格の公開</th><td>{shop.controls.menu}</td></tr
           ><tr
             ><th>ネット予約</th><td
-              >{shop.reservationAvailable ? '可（サンプル）' : '未確認'}</td
+              >{shop.reservationAvailable ? '可' : '未確認'}</td
             ></tr
           ></tbody
         >
       </table>
     </div><p>
-      未確認は不適合を意味しません。予約手段は利便性の情報として扱い、ビール品質の評価には加算しません。
+      未確認は不適合を意味しません。Google以外の口コミ点数はBeer
+      Atlasの口コミ評価には使用しません。
     </p><a href="/beer/methodology/">評価基準を確認する ↗</a><h2>
       出典・確認日
     </h2><p>
-      出典：なし（デモデータ）<br />最終確認日：未確認<br
-      />公式サイト・予約先：未登録
+      最終確認日：{shop.lastVerifiedAt ?? '未確認'}<br />掲載元は店舗データの
+      sources に記録しています。<br />Google口コミ：未取得
     </p>{
       shop.articleSlug && (
         <>
@@ -93,7 +94,7 @@ const { shop } = Astro.props;
               客観指標とは別に、店の雰囲気や一杯の体験を伝える記事を掲載します。
             </p>
             <a class="beer-button" href={`/beer/articles/${shop.articleSlug}/`}>
-              記事表示のサンプルを読む ↗
+              記事を読む ↗
             </a>
           </>
         </>

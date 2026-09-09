@@ -15,13 +15,14 @@ import {
   googleRating,
   meetsGoogleRating,
 } from '@/data/beer/search';
+
 type Shop = (typeof shops)[number];
+const DEFAULT_AREA_ID = 'tokyo-jiyugaoka-1';
+
 export default function BeerExplorer() {
   const [maker, setMaker] = useState('');
   const [cert, setCert] = useState('');
-  const [area, setArea] = useState(areas.defaultAreaId);
-  const region = regionForArea(area);
-  const areaHasShops = shops.some((s) => matchesArea(s, area));
+  const [area, setArea] = useState(DEFAULT_AREA_ID);
   const [rating, setRating] = useState('');
   const [query, setQuery] = useState('');
   const [booking, setBooking] = useState(false);
@@ -31,13 +32,18 @@ export default function BeerExplorer() {
     shops[0]?.id ?? null,
   );
   const mapRef = useRef<SVGSVGElement>(null);
+
+  const region = regionForArea(area);
+  const areaHasShops = shops.some((s) => matchesArea(s, area));
   const availableCertifications = certificationsForManufacturer(maker);
   const availableBrands = brandsForManufacturer(maker);
+
   function selectMaker(id: string) {
     const next = changeManufacturer(id);
     setMaker(next.manufacturerId);
     setCert(next.certificationId);
   }
+
   const filtered = useMemo(
     () =>
       shops.filter(
@@ -53,21 +59,25 @@ export default function BeerExplorer() {
       ),
     [maker, cert, area, rating, query, booking, article, official],
   );
+
   const selected = filtered.find((s) => s.id === selectedId) ?? filtered[0];
+
   function reset() {
     setMaker('');
     setCert('');
-    setArea(areas.defaultAreaId);
+    setArea(DEFAULT_AREA_ID);
     setRating('');
     setQuery('');
     setBooking(false);
     setArticle(false);
     setOfficial(false);
   }
+
   useEffect(() => {
     if (!mapRef.current) return;
     const svg = d3.select(mapRef.current);
     svg.selectAll('*').remove();
+
     const projection = d3.geoMercator().fitExtent(
       [
         [60, 60],
@@ -83,6 +93,7 @@ export default function BeerExplorer() {
         [region.extent[1][0], region.extent[1][1]],
       ])
       .step(region.id === 'JP-13' ? [0.05, 0.05] : [0.005, 0.005]);
+
     svg
       .append('path')
       .datum(grid())
@@ -90,7 +101,7 @@ export default function BeerExplorer() {
       .attr('fill', 'none')
       .attr('stroke', '#344042')
       .attr('stroke-width', 0.6);
-    // Geographic orientation landmarks only; no invented street or shoreline geometry.
+
     region.landmarks.forEach((p) => {
       const [x, y] = projection([p.coordinates[0], p.coordinates[1]])!;
       svg
@@ -102,6 +113,7 @@ export default function BeerExplorer() {
         .attr('font-size', 16)
         .text(p.name);
     });
+
     const points = svg
       .selectAll<SVGGElement, Shop>('g.pin')
       .data(filtered)
@@ -113,7 +125,7 @@ export default function BeerExplorer() {
       )
       .attr('role', 'button')
       .attr('tabindex', 0)
-      .attr('aria-label', (s) => `${s.name}（サンプル）の評価を見る`)
+      .attr('aria-label', (s) => `${s.name}の情報を見る`)
       .attr('aria-pressed', (s) => String(selected?.id === s.id))
       .on('click', (_e, s) => setSelectedId(s.id))
       .on('keydown', (e: KeyboardEvent, s) => {
@@ -122,12 +134,14 @@ export default function BeerExplorer() {
           setSelectedId(s.id);
         }
       });
+
     points
       .append('circle')
       .attr('r', 23)
       .attr('fill', (s) => (s.id === selected?.id ? '#eebf68' : '#fafafa'))
       .attr('stroke', '#172022')
       .attr('stroke-width', 4);
+
     points
       .append('text')
       .attr('text-anchor', 'middle')
@@ -137,6 +151,7 @@ export default function BeerExplorer() {
       .attr('font-weight', 700)
       .text((s) => String(shops.indexOf(s) + 1).padStart(2, '0'));
   }, [filtered, selected, region]);
+
   return (
     <section className="beer-explorer" aria-label="店舗検索">
       <div className="beer-filterbar">
@@ -155,6 +170,7 @@ export default function BeerExplorer() {
             </button>
           ))}
         </div>
+
         <div className="beer-fields">
           <label>
             店名・エリア
@@ -165,6 +181,7 @@ export default function BeerExplorer() {
               placeholder="店名・街の名前…"
             />
           </label>
+
           <label>
             銘柄・認定
             <select
@@ -194,6 +211,7 @@ export default function BeerExplorer() {
               </optgroup>
             </select>
           </label>
+
           <label>
             エリア
             <select value={area} onChange={(e) => setArea(e.target.value)}>
@@ -216,6 +234,7 @@ export default function BeerExplorer() {
               )}
             </select>
           </label>
+
           <label>
             Google口コミ
             <select value={rating} onChange={(e) => setRating(e.target.value)}>
@@ -226,6 +245,7 @@ export default function BeerExplorer() {
             </select>
           </label>
         </div>
+
         <div className="beer-options">
           <label>
             <input
@@ -254,12 +274,14 @@ export default function BeerExplorer() {
           <button onClick={reset}>条件をクリア</button>
         </div>
       </div>
+
       <div className="beer-result-head">
         <p aria-live="polite">
-          <strong>{filtered.length}</strong> 件 <span>／ サンプル店舗</span>
+          <strong>{filtered.length}</strong> 件 <span>／ 実店舗</span>
         </p>
-        <span>地図の番号を選ぶと、店舗の評価が表示されます</span>
+        <span>地図の番号を選ぶと、店舗の情報が表示されます</span>
       </div>
+
       <div className="beer-workspace">
         <div className="beer-map">
           <div className="beer-map-title">
@@ -270,12 +292,13 @@ export default function BeerExplorer() {
             ref={mapRef}
             viewBox="0 0 800 470"
             role="group"
-            aria-label={`${region.name}のサンプル店舗位置図`}
+            aria-label={`${region.name}の掲載店舗位置図`}
           />
           <div className="beer-map-caption">
-            緯度・経度に基づく位置図。店舗・所在地は架空です。
+            住所をもとにした案内用の位置図です。提供状況は確認日をご確認ください。
           </div>
         </div>
+
         <aside
           className="beer-selection"
           aria-label="選択中の店舗"
@@ -292,7 +315,10 @@ export default function BeerExplorer() {
                 {makers.find((m) => m.id === selected.manufacturerId)?.name}
               </p>
               <h2>{selected.name}</h2>
-              <p className="beer-demo-label">架空のサンプル店舗</p>
+              <p className="beer-demo-label">
+                実店舗 · {selected.lastVerifiedAt ?? '未確認'} 確認
+              </p>
+
               <div className="beer-tags">
                 {selected.brandIds.map((id) => (
                   <span key={id}>{brands.find((b) => b.id === id)?.name}</span>
@@ -303,6 +329,7 @@ export default function BeerExplorer() {
                   </span>
                 ))}
               </div>
+
               <div className="beer-rating">
                 <div>
                   <span>Google口コミ</span>
@@ -315,24 +342,22 @@ export default function BeerExplorer() {
                 </div>
                 <p>ビール品質の点数とは別の指標です。</p>
               </div>
+
               <dl className="beer-facts">
                 <div>
-                  <dt>共通基準への適合</dt>
-                  <dd>未評価</dd>
+                  <dt>提供情報</dt>
+                  <dd>{selected.controls.temperature}</dd>
                 </div>
                 <div>
                   <dt>ネット予約</dt>
-                  <dd>
-                    {selected.reservationAvailable
-                      ? '可（サンプル）'
-                      : '未確認'}
-                  </dd>
+                  <dd>{selected.reservationAvailable ? '可' : '未確認'}</dd>
                 </div>
                 <div>
                   <dt>最終確認日</dt>
-                  <dd>未確認</dd>
+                  <dd>{selected.lastVerifiedAt ?? '未確認'}</dd>
                 </div>
               </dl>
+
               <a className="beer-button" href={`/beer/shops/${selected.slug}/`}>
                 店舗の評価・詳細を見る <span>↗</span>
               </a>
@@ -341,7 +366,7 @@ export default function BeerExplorer() {
                   className="beer-article-link"
                   href={`/beer/articles/${selected.articleSlug}/`}
                 >
-                  サンプル記事を読む ↗
+                  記事を読む ↗
                 </a>
               )}
             </>
@@ -355,15 +380,16 @@ export default function BeerExplorer() {
               <p>
                 {areaHasShops
                   ? 'メーカーや銘柄・認定の条件を減らしてみてください。'
-                  : 'エリアを先に追加しています。自由が丘周辺ではサンプルを確認できます。'}
+                  : '現在は自由が丘の実店舗から掲載を始めています。'}
               </p>
               <button className="beer-button" onClick={reset}>
-                自由が丘のサンプルに戻る
+                自由が丘の実店舗を見る
               </button>
             </div>
           )}
         </aside>
       </div>
+
       <div className="beer-list" aria-label="検索結果一覧">
         {filtered.map((s) => (
           <article
@@ -385,7 +411,7 @@ export default function BeerExplorer() {
                 </small>
                 <strong>{s.name}</strong>
                 <small>
-                  サンプル · Google口コミ{' '}
+                  実店舗 · Google口コミ{' '}
                   {googleRating(s)?.score?.toFixed(1) ?? '未取得'}
                 </small>
               </span>

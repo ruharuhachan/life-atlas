@@ -15,7 +15,5 @@ export function isAffiliateReservation(link: ReservationLink) {
 }
 
 export function reservationRel(link: ReservationLink) {
-  return isAffiliateReservation(link)
-    ? 'sponsored noreferrer'
-    : 'noreferrer';
+  return isAffiliateReservation(link) ? 'sponsored noreferrer' : 'noreferrer';
 }

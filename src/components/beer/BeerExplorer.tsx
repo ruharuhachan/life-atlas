@@ -104,17 +104,7 @@ export default function BeerExplorer() {
           (!query || (s.name + s.address).includes(query.trim()))
         );
       }),
-    [
-      maker,
-      cert,
-      area,
-      rating,
-      query,
-      booking,
-      article,
-      official,
-      liveRatings,
-    ],
+    [maker, cert, area, rating, query, booking, article, official, liveRatings],
   );
 
   const selected = filtered.find((s) => s.id === selectedId) ?? filtered[0];
@@ -436,7 +426,11 @@ export default function BeerExplorer() {
                   <p key={`${item.provider}-${item.providerURI ?? ''}`}>
                     提供元:{' '}
                     {item.providerURI ? (
-                      <a href={item.providerURI} target="_blank" rel="noreferrer">
+                      <a
+                        href={item.providerURI}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         {item.provider}
                       </a>
                     ) : (

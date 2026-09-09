@@ -31,3 +31,25 @@ test('Google review values are intentionally not stored in repository data', () 
     assert.equal(google.sourceUrl, null);
   }
 });
+
+test('reservation links are provider-separated and affiliate-ready', () => {
+  for (const shop of shops) {
+    assert.ok(Array.isArray(shop.reservationLinks));
+    assert.ok(shop.reservationLinks.length > 0);
+    assert.equal('reservationUrl' in shop, false);
+    assert.equal('reservationAvailable' in shop, false);
+
+    for (const link of shop.reservationLinks) {
+      assert.ok(link.providerId);
+      assert.ok(link.label);
+      assert.match(link.url, /^https:\/\//);
+      assert.equal(link.affiliateUrl, null);
+      assert.equal(link.affiliateNetwork, null);
+    }
+  }
+
+  const taikourou = shops.find((shop) => shop.id === 'taikourou-jiyugaoka');
+  const toyoda = shops.find((shop) => shop.id === 'toyoda-jiyugaoka');
+  assert.equal(taikourou.reservationLinks[0].providerId, 'tabelog');
+  assert.equal(toyoda.reservationLinks[0].providerId, 'autoreserve');
+});

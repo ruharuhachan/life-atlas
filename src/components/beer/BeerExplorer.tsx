@@ -13,6 +13,11 @@ import {
   regionForArea,
   changeManufacturer,
 } from '@/data/beer/search';
+import {
+  isAffiliateReservation,
+  reservationHref,
+  reservationRel,
+} from '@/data/beer/reservations';
 
 type Shop = (typeof shops)[number];
 const DEFAULT_AREA_ID = 'tokyo-jiyugaoka-1';
@@ -48,7 +53,7 @@ export default function BeerExplorer() {
           (!maker || s.manufacturerId === maker) &&
           matchesBeerSelection(s, cert) &&
           matchesArea(s, area) &&
-          (!booking || s.reservationAvailable) &&
+          (!booking || s.reservationLinks.length > 0) &&
           (!article || s.articleSlug) &&
           (!official || s.officialCertified) &&
           (!query || (s.name + s.address).includes(query.trim())),
@@ -337,13 +342,40 @@ export default function BeerExplorer() {
                 </div>
                 <div>
                   <dt>ネット予約</dt>
-                  <dd>{selected.reservationAvailable ? '可' : '未確認'}</dd>
+                  <dd>
+                    {selected.reservationLinks.length > 0 ? '可' : '未確認'}
+                  </dd>
                 </div>
                 <div>
                   <dt>最終確認日</dt>
                   <dd>{selected.lastVerifiedAt ?? '未確認'}</dd>
                 </div>
               </dl>
+
+              {selected.reservationLinks.length > 0 && (
+                <div className="beer-reservation-links beer-reservation-links--compact">
+                  {selected.reservationLinks.map((link) => (
+                    <a
+                      className="beer-reservation-button"
+                      href={reservationHref(link)}
+                      target="_blank"
+                      rel={reservationRel(link)}
+                      key={`${selected.id}-${link.providerId}`}
+                    >
+                      <span>{link.label}で予約</span>
+                      <span>
+                        {isAffiliateReservation(link) && (
+                          <small className="beer-ad-label">広告</small>
+                        )}
+                        ↗
+                      </span>
+                    </a>
+                  ))}
+                  <p className="beer-affiliate-note">
+                    予約リンクにはアフィリエイトリンクを含む場合があります。
+                  </p>
+                </div>
+              )}
 
               <a className="beer-button" href={`/beer/shops/${selected.slug}/`}>
                 店舗の評価・詳細を見る <span>↗</span>
@@ -378,32 +410,47 @@ export default function BeerExplorer() {
       </div>
 
       <div className="beer-list" aria-label="検索結果一覧">
-        {filtered.map((s) => (
-          <article
-            className={s.id === selected?.id ? 'is-selected' : ''}
-            key={s.id}
-          >
-            <button
-              className="beer-shop-select"
-              aria-pressed={s.id === selected?.id}
-              onClick={() => setSelectedId(s.id)}
+        {filtered.map((s) => {
+          const primaryReservation = s.reservationLinks[0];
+          return (
+            <article
+              className={s.id === selected?.id ? 'is-selected' : ''}
+              key={s.id}
             >
-              <span className="beer-number">
-                {String(shops.indexOf(s) + 1).padStart(2, '0')}
-              </span>
-              <span>
-                <small>
-                  {s.area} /{' '}
-                  {makers.find((m) => m.id === s.manufacturerId)?.name}
-                </small>
-                <strong>{s.name}</strong>
-                <small>実店舗 · 口コミはGoogle Mapsで確認</small>
-              </span>
-              <span aria-hidden="true">↗</span>
-            </button>
-            <a href={`/beer/shops/${s.slug}/`}>店舗詳細</a>
-          </article>
-        ))}
+              <button
+                className="beer-shop-select"
+                aria-pressed={s.id === selected?.id}
+                onClick={() => setSelectedId(s.id)}
+              >
+                <span className="beer-number">
+                  {String(shops.indexOf(s) + 1).padStart(2, '0')}
+                </span>
+                <span>
+                  <small>
+                    {s.area} /{' '}
+                    {makers.find((m) => m.id === s.manufacturerId)?.name}
+                  </small>
+                  <strong>{s.name}</strong>
+                  <small>実店舗 · 口コミはGoogle Mapsで確認</small>
+                </span>
+                <span aria-hidden="true">↗</span>
+              </button>
+              <div className="beer-list-actions">
+                <a href={`/beer/shops/${s.slug}/`}>店舗詳細</a>
+                {primaryReservation && (
+                  <a
+                    href={reservationHref(primaryReservation)}
+                    target="_blank"
+                    rel={reservationRel(primaryReservation)}
+                  >
+                    {primaryReservation.label}で予約
+                    {isAffiliateReservation(primaryReservation) && '（広告）'} ↗
+                  </a>
+                )}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

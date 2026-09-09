@@ -4,7 +4,13 @@ import brands from '@/data/beer/brands.json';
 import shops from '@/data/beer/shops.json';
 import makers from '@/data/beer/manufacturers.json';
 import certifications from '@/data/beer/certifications.json';
+import {
+  isAffiliateReservation,
+  reservationHref,
+  reservationRel,
+} from '@/data/beer/reservations';
 import '@/styles/beer.css';
+import '@/styles/beer-reservations.css';
 
 export function getStaticPaths() {
   return shops.map((shop) => ({
@@ -63,6 +69,37 @@ const { shop } = Astro.props;
       エクストラコールドはメーカー認定の加点ではなく、確認できた提供区分として表示しています。店舗の品質認定とは分けて扱います。
     </p>
 
+    <h2>ネット予約</h2>
+    {
+      shop.reservationLinks.length > 0 ? (
+        <>
+          <div class="beer-reservation-links">
+            {shop.reservationLinks.map((link) => (
+              <a
+                class="beer-reservation-button"
+                href={reservationHref(link)}
+                target="_blank"
+                rel={reservationRel(link)}
+              >
+                <span>{link.label}で予約</span>
+                <span>
+                  {isAffiliateReservation(link) && (
+                    <small class="beer-ad-label">広告</small>
+                  )}
+                  ↗
+                </span>
+              </a>
+            ))}
+          </div>
+          <p class="beer-affiliate-note">
+            予約リンクにはアフィリエイトリンクを含む場合があります。掲載順位や評価には影響しません。
+          </p>
+        </>
+      ) : (
+        <p>ネット予約は未確認です。</p>
+      )
+    }
+
     <h2>評価情報</h2>
     <div class="beer-table-wrap">
       <table>
@@ -84,7 +121,7 @@ const { shop } = Astro.props;
           <tr><th>メニュー・価格の公開</th><td>{shop.controls.menu}</td></tr>
           <tr>
             <th>ネット予約</th>
-            <td>{shop.reservationAvailable ? '可' : '未確認'}</td>
+            <td>{shop.reservationLinks.length > 0 ? '可' : '未確認'}</td>
           </tr>
         </tbody>
       </table>

@@ -29,8 +29,8 @@ test('region entries and recovered routes are built', () => {
     'hakodate/housing/index.html',
   ])
     assert.ok(fs.existsSync(path.join(root, file)), file);
-  assert.match(read('index.html'), /NIIGATA/);
-  assert.match(read('index.html'), /HAKODATE/);
+  assert.match(read('relocation/index.html'), /NIIGATA/);
+  assert.match(read('relocation/index.html'), /HAKODATE/);
   assert.match(read('niigata/map/index.html'), /PlaceAtlas/);
   assert.match(read('niigata/housing/index.html'), /HousingApp/);
   assert.match(read('niigata/food/index.html'), /RestaurantResearch/);
@@ -77,4 +77,26 @@ test('public UI preserves requested removals and historical data labels', () => 
   assert.match(read('niigata/housing/index.html'), /観測記録/);
   assert.match(read('hakodate/housing/index.html'), /0件/);
   assert.equal(fs.readFileSync('public/CNAME', 'utf8').trim(), 'life-atlas.jp');
+});
+
+test('media navigation keeps relocation and beer destinations separate', () => {
+  for (const [file, excluded] of [
+    ['beer/index.html', '/relocation/'],
+    ['niigata/index.html', '/beer/'],
+    ['hakodate/index.html', '/beer/'],
+    ['relocation/index.html', '/beer/'],
+  ]) {
+    const header = read(file).match(/<header[\s\S]*?<\/header>/)[0];
+    assert.ok(!header.includes('href="' + excluded + '"'), file);
+  }
+  assert.match(read('index.html'), /href="\/relocation\/"/);
+  assert.match(read('index.html'), /href="\/beer\/"/);
+  assert.doesNotMatch(
+    read('beer/articles/index.html'),
+    /新潟のマンションを探す/,
+  );
+  assert.doesNotMatch(
+    read('relocation/articles/index.html'),
+    /ビールの店をどう評価するか/,
+  );
 });

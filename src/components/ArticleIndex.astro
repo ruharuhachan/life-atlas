@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+import { articles as allArticles } from '@/data/articles';
+import type { Media } from '@/data/navigation';
+interface Props {
+  media?: Media;
+}
+const { media = 'portal' } = Astro.props;
+const articles = allArticles.filter(
+  (article) => media === 'portal' || article.media === media,
+);
+const label =
+  media === 'beer' ? 'ビール' : media === 'relocation' ? '地方移住' : 'すべて';
+---
+
+<BaseLayout
+  title={label + 'の記事一覧'}
+  description={label + 'の記事・ガイドを読む。'}
+>
+  <section class="articles-page">
+    <p class="eyebrow">ARTICLES / {label}の記事一覧</p>
+    <h1>
+      {
+        media === 'beer'
+          ? '一杯を、もっと知る。'
+          : '街と暮らしを、ひとつずつ知る。'
+      }
+    </h1>
+    <div class="articles-list">
+      {
+        articles.map((article, index) => (
+          <a href={article.href}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <small>{article.category}</small>
+              <h2>{article.title}</h2>
+              <p>{article.summary}</p>
+            </div>
+            <b aria-hidden="true">↗</b>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .articles-page {
+    width: min(1120px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: clamp(64px, 10vw, 130px) 0;
+  }
+  h1 {
+    margin: 12px 0 clamp(58px, 9vw, 110px);
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1.05;
+    letter-spacing: -0.055em;
+  }
+  .articles-list {
+    border-top: 1px solid var(--ink);
+  }
+  .articles-list a {
+    position: relative;
+    padding: 28px 54px 28px 0;
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .articles-list a > span {
+    color: #8b9394;
+    font: 30px var(--display);
+  }
+  .articles-list small {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .articles-list h2 {
+    margin: 8px 0;
+    font-size: clamp(1.4rem, 3vw, 2.15rem);
+  }
+  .articles-list p {
+    color: var(--muted);
+  }
+  .articles-list b {
+    position: absolute;
+    top: 34px;
+    right: 4px;
+    font-size: 22px;
+    font-weight: 400;
+  }
+  @media (max-width: 700px) {
+    .articles-list a {
+      grid-template-columns: 42px 1fr;
+    }
+    .articles-list p {
+      font-size: 14px;
+    }
+  }
+</style>

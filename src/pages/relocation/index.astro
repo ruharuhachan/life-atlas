@@ -1,0 +1,151 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { regions } from '@/data/regions';
+---
+
+<BaseLayout
+  title="地方移住"
+  description="食と住まいから、街を知る。新潟と函館の風景から、あなたの暮らしたい街へ。"
+  immersive
+>
+  <section
+    class="region-carousel"
+    aria-roledescription="カルーセル"
+    aria-label="地域を選ぶ"
+  >
+    <h1 class="sr-only">食と住まいから、暮らしたい街を選ぶ。</h1>
+    <div
+      class="region-track"
+      tabindex="0"
+      aria-label="左右にスワイプして地域を選択"
+    >
+      {
+        regions.map((r, i) => (
+          <article
+            class="region-slide"
+            id={'region-' + r.slug}
+            aria-label={r.name}
+          >
+            <picture class="region-photo">
+              <>
+                <source media="(max-width: 700px)" srcset={r.mobile} />
+                <img
+                  src={r.image}
+                  alt={r.alt}
+                  fetchpriority={i === 0 ? 'high' : 'auto'}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  style={'object-position:' + r.position}
+                  width="2000"
+                  height="1333"
+                />
+              </>
+            </picture>
+            <div class="region-shade" />
+            <div class="region-slide-content">
+              <p class="region-coordinate">LIFE ATLAS / {r.prefecture}</p>
+              <h2 class="region-title">{r.english}</h2>
+              <p class="region-japanese">
+                {r.name}
+                <span>{r.title}</span>
+              </p>
+              <a class="pill pill--white" href={'/' + r.slug + '/'}>
+                {r.name}を知る <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <a
+              class="photo-credit"
+              href={r.source}
+              target="_blank"
+              rel="noreferrer"
+            >
+              PHOTO: {r.credit} / Unsplash
+            </a>
+          </article>
+        ))
+      }
+    </div>
+    <div class="carousel-bottom">
+      <span class="carousel-hint"
+        >地域を選ぶ <span aria-hidden="true">↔</span></span
+      >
+      <div class="region-switch" aria-label="地域の切り替え">
+        {
+          regions.map((r, i) => (
+            <button
+              type="button"
+              data-slide={i}
+              aria-pressed={i === 0}
+              aria-label={r.name + 'の写真を表示'}
+            >
+              <span>{r.number}</span> {r.name}
+            </button>
+          ))
+        }
+      </div>
+      <div class="carousel-arrows">
+        <button type="button" data-direction="-1" aria-label="前の地域"
+          >←</button
+        ><button type="button" data-direction="1" aria-label="次の地域"
+          >→</button
+        >
+      </div>
+    </div>
+    <p class="sr-only" id="carousel-status" aria-live="polite">
+      新潟、2地域中1番目
+    </p>
+  </section>
+</BaseLayout>
+<script>
+  const track = document.querySelector<HTMLElement>('.region-track');
+  const switches = [
+    ...document.querySelectorAll<HTMLButtonElement>('[data-slide]'),
+  ];
+  const slides = [...document.querySelectorAll<HTMLElement>('.region-slide')];
+  let current = 0;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function select(index: number) {
+    if (!track) return;
+    const next = (index + slides.length) % slides.length;
+    track.scrollTo({
+      left: slides[next].offsetLeft,
+      behavior: reduced.matches ? 'instant' : 'smooth',
+    });
+  }
+  switches.forEach((button, index) =>
+    button.addEventListener('click', () => select(index)),
+  );
+  document
+    .querySelectorAll<HTMLButtonElement>('[data-direction]')
+    .forEach((button) =>
+      button.addEventListener('click', () =>
+        select(current + Number(button.dataset.direction)),
+      ),
+    );
+  track?.addEventListener('keydown', (event) => {
+    if (event.target !== track) return;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+      event.preventDefault();
+      select(current + (event.key === 'ArrowRight' ? 1 : -1));
+    }
+  });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        current = slides.indexOf(entry.target as HTMLElement);
+        switches.forEach((button, index) =>
+          button.setAttribute('aria-pressed', String(index === current)),
+        );
+        const status = document.querySelector('#carousel-status');
+        if (status)
+          status.textContent =
+            slides[current].getAttribute('aria-label') +
+            '、2地域中' +
+            (current + 1) +
+            '番目';
+      });
+    },
+    { root: track, threshold: 0.6 },
+  );
+  slides.forEach((slide) => observer.observe(slide));
+</script>

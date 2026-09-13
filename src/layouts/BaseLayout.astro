@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import { mediaFor, mediaInfo, navigation } from '@/data/navigation';
 import SiteMenu from '@/components/SiteMenu.astro';
 interface Props {
   title: string;
@@ -7,7 +8,12 @@ interface Props {
   immersive?: boolean;
 }
 const { title, description, immersive = false } = Astro.props;
-const fullTitle = title === 'Life Atlas' ? title : title + ' | Life Atlas';
+const media = mediaFor(Astro.url.pathname);
+const identity = mediaInfo[media];
+const fullTitle =
+  title === identity.name || title.endsWith('｜' + identity.name)
+    ? title
+    : title + ' | ' + identity.name;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -56,17 +62,28 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     >
       <a
         class="atlas-brand"
-        href="/"
-        aria-label="Life Atlas トップ"
+        href={identity.home}
+        aria-label={identity.name + ' トップ'}
         style={immersive ? 'filter:brightness(0) invert(1)' : undefined}
       >
-        <img
-          src="/life-atlas-logo.svg"
-          alt="Life Atlas"
-          width="700"
-          height="219"
-          style="display:block;width:clamp(128px,14vw,188px);height:auto"
-        />
+        {
+          media === 'portal' ? (
+            <img
+              src="/life-atlas-logo.svg"
+              alt="Life Atlas"
+              width="700"
+              height="219"
+              style="display:block;width:clamp(128px,14vw,188px);height:auto"
+            />
+          ) : (
+            <span class="media-brand">
+              <>
+                <strong>{identity.name}</strong>
+                <small>by Life Atlas</small>
+              </>
+            </span>
+          )
+        }
       </a>
       <SiteMenu {immersive} />
     </header>
@@ -90,10 +107,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         />
       </a>
       <nav aria-label="フッターナビゲーション">
-        <a href="/beer/">ビール</a>
-        <a href="/niigata/">新潟</a><a href="/hakodate/">函館</a><a
-          href="/niigata/map/">新潟の地図</a
-        ><a href="/site-policy/">サイトポリシー</a>
+        {
+          navigation[media].map((item) => (
+            <a href={item.href}>
+              {item.label === 'ビールが美味しい店・認定店検索'
+                ? 'Beer Atlas'
+                : item.label}
+            </a>
+          ))
+        }
+        {media !== 'portal' && <a href="/">Life Atlasについて</a>}
+        <a href="/site-policy/">サイトポリシー</a>
       </nav>
       <small>© {new Date().getFullYear()} Life Atlas</small>
     </footer>

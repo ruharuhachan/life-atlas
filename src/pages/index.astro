@@ -1,151 +1,209 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { regions } from '@/data/regions';
 ---
 
 <BaseLayout
   title="Life Atlas"
-  description="食と住まいから、街を知る。新潟と函館の風景から、あなたの暮らしたい街へ。"
-  immersive
+  description="暮らしの選択に、手がかりを。Life Atlasは、地方移住とビールの専門メディアを届けます。"
 >
-  <section
-    class="region-carousel"
-    aria-roledescription="カルーセル"
-    aria-label="地域を選ぶ"
-  >
-    <h1 class="sr-only">食と住まいから、暮らしたい街を選ぶ。</h1>
-    <div
-      class="region-track"
-      tabindex="0"
-      aria-label="左右にスワイプして地域を選択"
+  <section class="portal-intro">
+    <p class="portal-kicker">LIFE ATLAS / A GUIDE TO YOUR EVERYDAY</p>
+    <h1>暮らしの選択に、<br /><em>手がかりを。</em></h1>
+    <div class="portal-about">
+      <p>住む街を考える。<br />美味しい一杯に出会う。</p><p>
+        Life Atlasは、暮らしの中の「知りたい」を掘り下げるメディアです。<br
+        />関心に合ったテーマから、あなたの選択に役立つ情報へ。
+      </p>
+    </div>
+    <a class="portal-about-link" href="/about/"
+      >Life Atlasについて <span aria-hidden="true">↗</span></a
     >
-      {
-        regions.map((r, i) => (
-          <article
-            class="region-slide"
-            id={'region-' + r.slug}
-            aria-label={r.name}
-          >
-            <picture class="region-photo">
-              <>
-                <source media="(max-width: 700px)" srcset={r.mobile} />
-                <img
-                  src={r.image}
-                  alt={r.alt}
-                  fetchpriority={i === 0 ? 'high' : 'auto'}
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  style={'object-position:' + r.position}
-                  width="2000"
-                  height="1333"
-                />
-              </>
-            </picture>
-            <div class="region-shade" />
-            <div class="region-slide-content">
-              <p class="region-coordinate">LIFE ATLAS / {r.prefecture}</p>
-              <h2 class="region-title">{r.english}</h2>
-              <p class="region-japanese">
-                {r.name}
-                <span>{r.title}</span>
-              </p>
-              <a class="pill pill--white" href={'/' + r.slug + '/'}>
-                {r.name}を知る <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-            <a
-              class="photo-credit"
-              href={r.source}
-              target="_blank"
-              rel="noreferrer"
-            >
-              PHOTO: {r.credit} / Unsplash
-            </a>
-          </article>
-        ))
-      }
+  </section>
+  <section class="portal-media" aria-labelledby="media-title">
+    <div class="portal-section-heading">
+      <p class="portal-kicker">OUR MEDIA</p><h2 id="media-title">
+        関心から、選ぶ。
+      </h2><span>01 — 02</span>
     </div>
-    <div class="carousel-bottom">
-      <span class="carousel-hint"
-        >地域を選ぶ <span aria-hidden="true">↔</span></span
-      >
-      <div class="region-switch" aria-label="地域の切り替え">
-        {
-          regions.map((r, i) => (
-            <button
-              type="button"
-              data-slide={i}
-              aria-pressed={i === 0}
-              aria-label={r.name + 'の写真を表示'}
+    <div class="portal-grid">
+      <a class="portal-card" href="/relocation/">
+        <div class="portal-photo">
+          <img
+            src="/images/niigata.webp"
+            alt="水辺から見る新潟の街並み"
+            width="2000"
+            height="1333"
+          /><span>01 / RELOCATION</span>
+        </div>
+        <div class="portal-card-copy">
+          <p>暮らす場所を考える</p><h3>
+            地方移住 <span aria-hidden="true">↗</span>
+          </h3><p>
+            住まい、仕事、食、日々の移動。<br
+            />新潟と函館から、暮らしたい街を探す。
+          </p>
+        </div>
+      </a>
+      <a class="portal-card portal-card--beer" href="/beer/">
+        <div class="portal-photo">
+          <img
+            src="/images/beer-cover.jpg"
+            alt="グラスに注がれたビール"
+            width="1200"
+            height="800"
+          /><span>02 / BEER ATLAS</span>
+        </div>
+        <div class="portal-card-copy">
+          <p>Beer Atlas</p><h3>
+            ビールが美味しい店・<br />認定店検索 <span aria-hidden="true"
+              >↗</span
             >
-              <span>{r.number}</span> {r.name}
-            </button>
-          ))
-        }
-      </div>
-      <div class="carousel-arrows">
-        <button type="button" data-direction="-1" aria-label="前の地域"
-          >←</button
-        ><button type="button" data-direction="1" aria-label="次の地域"
-          >→</button
-        >
-      </div>
+          </h3><p>
+            メーカーの認定情報や提供銘柄から、<br
+            />飲みたい一杯に出会える店を探す。
+          </p>
+        </div>
+      </a>
     </div>
-    <p class="sr-only" id="carousel-status" aria-live="polite">
-      新潟、2地域中1番目
-    </p>
   </section>
 </BaseLayout>
-<script>
-  const track = document.querySelector<HTMLElement>('.region-track');
-  const switches = [
-    ...document.querySelectorAll<HTMLButtonElement>('[data-slide]'),
-  ];
-  const slides = [...document.querySelectorAll<HTMLElement>('.region-slide')];
-  let current = 0;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  function select(index: number) {
-    if (!track) return;
-    const next = (index + slides.length) % slides.length;
-    track.scrollTo({
-      left: slides[next].offsetLeft,
-      behavior: reduced.matches ? 'instant' : 'smooth',
-    });
+<style>
+  .portal-intro,
+  .portal-media {
+    width: min(1280px, calc(100% - 48px));
+    margin: auto;
   }
-  switches.forEach((button, index) =>
-    button.addEventListener('click', () => select(index)),
-  );
-  document
-    .querySelectorAll<HTMLButtonElement>('[data-direction]')
-    .forEach((button) =>
-      button.addEventListener('click', () =>
-        select(current + Number(button.dataset.direction)),
-      ),
-    );
-  track?.addEventListener('keydown', (event) => {
-    if (event.target !== track) return;
-    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-      event.preventDefault();
-      select(current + (event.key === 'ArrowRight' ? 1 : -1));
+  .portal-intro {
+    padding: clamp(64px, 9vw, 132px) 0 80px;
+  }
+  .portal-kicker {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+  h1 {
+    font-size: clamp(40px, 7.5vw, 104px);
+    line-height: 1.2;
+    letter-spacing: -0.065em;
+    margin: 30px 0 44px;
+  }
+  h1 em {
+    font-style: normal;
+    color: #426258;
+  }
+  .portal-about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    line-height: 1.9;
+  }
+  .portal-about > p:first-child {
+    font-size: 22px;
+  }
+  .portal-about > p:last-child {
+    color: var(--muted);
+    max-width: 540px;
+  }
+  .portal-about-link {
+    display: inline-flex;
+    gap: 36px;
+    border-bottom: 1px solid var(--ink);
+    padding: 14px 0;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+  .portal-media {
+    padding-bottom: 100px;
+  }
+  .portal-section-heading {
+    border-top: 1px solid var(--ink);
+    padding: 24px 0 38px;
+    display: flex;
+    gap: 30px;
+    align-items: baseline;
+  }
+  .portal-section-heading h2 {
+    font-size: 26px;
+  }
+  .portal-section-heading > span {
+    margin-left: auto;
+    font: 12px var(--mono);
+  }
+  .portal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .portal-photo {
+    position: relative;
+    aspect-ratio: 1.5;
+    overflow: hidden;
+    background: #24382f;
+  }
+  .portal-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .portal-photo > span {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    background: #fafafa;
+    padding: 7px 12px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+  .portal-card:hover img {
+    transform: scale(1.025);
+  }
+  .portal-card-copy {
+    padding: 25px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .portal-card-copy > p {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .portal-card h3 {
+    position: relative;
+    font-size: clamp(24px, 2.5vw, 36px);
+    margin: 10px 0 20px;
+    padding-right: 30px;
+    letter-spacing: -0.04em;
+  }
+  .portal-card h3 span {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-weight: 400;
+  }
+  @media (max-width: 700px) {
+    .portal-about,
+    .portal-grid {
+      grid-template-columns: 1fr;
     }
-  });
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        current = slides.indexOf(entry.target as HTMLElement);
-        switches.forEach((button, index) =>
-          button.setAttribute('aria-pressed', String(index === current)),
-        );
-        const status = document.querySelector('#carousel-status');
-        if (status)
-          status.textContent =
-            slides[current].getAttribute('aria-label') +
-            '、2地域中' +
-            (current + 1) +
-            '番目';
-      });
-    },
-    { root: track, threshold: 0.6 },
-  );
-  slides.forEach((slide) => observer.observe(slide));
-</script>
+    .portal-intro {
+      padding-bottom: 56px;
+    }
+    .portal-section-heading {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .portal-section-heading .portal-kicker {
+      width: 100%;
+    }
+    .portal-grid {
+      gap: 44px;
+    }
+    .portal-media {
+      padding-bottom: 60px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .portal-photo img {
+      transition: none;
+    }
+  }
+</style>

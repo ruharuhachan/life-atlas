@@ -1,17 +1,9 @@
 ---
 const { immersive = false } = Astro.props;
 
-const menuItems = [
-  { label: 'About', note: 'Life Atlasについて', href: '/about/' },
-  { label: '地方移住', note: '暮らす場所を考える', href: '/niigata/' },
-  {
-    label: 'ビールが美味しい店・認定店検索',
-    note: 'Beer Atlas',
-    href: '/beer/',
-  },
-  { label: 'Articles', note: '記事一覧', href: '/articles/' },
-  { label: 'お問い合わせ', note: 'Contact', href: '/contact/' },
-];
+import { mediaFor, mediaInfo, navigation } from '@/data/navigation';
+const media = mediaFor(Astro.url.pathname);
+const menuItems = navigation[media];
 ---
 
 <button
@@ -36,7 +28,9 @@ const menuItems = [
       ))
     }
   </nav>
-  <p class="site-menu__foot">LIFE ATLAS / FIND YOUR PLACE</p>
+  <p class="site-menu__foot">
+    {mediaInfo[media].name} / {mediaInfo[media].note}
+  </p>
 </div>
 
 <script>
@@ -55,7 +49,13 @@ const menuItems = [
     menu.setAttribute('aria-hidden', String(!open));
     header.classList.toggle('atlas-header--menu-open', open);
     document.body.classList.toggle('menu-is-open', open);
+    document
+      .querySelectorAll<HTMLElement>('main, footer, .skip-link')
+      .forEach((element) => {
+        element.inert = open;
+      });
     if (open) links[0]?.focus();
+    else toggle.focus();
   };
 
   toggle?.addEventListener('click', () => {
@@ -63,6 +63,19 @@ const menuItems = [
   });
   links.forEach((link) => link.addEventListener('click', () => setOpen(false)));
   document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Tab' &&
+      toggle?.getAttribute('aria-expanded') === 'true'
+    ) {
+      const controls = [toggle, ...links];
+      const index = controls.indexOf(
+        document.activeElement as HTMLButtonElement,
+      );
+      event.preventDefault();
+      controls[
+        (index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length
+      ]?.focus();
+    }
     if (
       event.key === 'Escape' &&
       toggle?.getAttribute('aria-expanded') === 'true'

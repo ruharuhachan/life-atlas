@@ -1,0 +1,74 @@
+---
+const { immersive = false } = Astro.props;
+
+const menuItems = [
+  { label: 'About', note: 'Life Atlasについて', href: '/about/' },
+  { label: '地方移住', note: '暮らす場所を考える', href: '/niigata/' },
+  {
+    label: 'ビールが美味しい店・認定店検索',
+    note: 'Beer Atlas',
+    href: '/beer/',
+  },
+  { label: 'Articles', note: '記事一覧', href: '/articles/' },
+  { label: 'お問い合わせ', note: 'Contact', href: '/contact/' },
+];
+---
+
+<button
+  class:list={['menu-toggle', { 'menu-toggle--light': immersive }]}
+  type="button"
+  aria-label="メニューを開く"
+  aria-expanded="false"
+  aria-controls="site-menu"
+>
+  <span></span><span></span><span></span>
+</button>
+
+<div class="site-menu" id="site-menu" aria-hidden="true">
+  <nav class="site-menu__nav" aria-label="メインナビゲーション">
+    {
+      menuItems.map((item) => (
+        <a class="site-menu__link" href={item.href}>
+          <span>{item.label}</span>
+          <small>{item.note}</small>
+          <b aria-hidden="true">↗</b>
+        </a>
+      ))
+    }
+  </nav>
+  <p class="site-menu__foot">LIFE ATLAS / FIND YOUR PLACE</p>
+</div>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menu = document.querySelector<HTMLElement>('.site-menu');
+  const header = document.querySelector<HTMLElement>('.atlas-header');
+  const links = menu?.querySelectorAll<HTMLAnchorElement>('a') ?? [];
+
+  const setOpen = (open: boolean) => {
+    if (!toggle || !menu || !header) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute(
+      'aria-label',
+      open ? 'メニューを閉じる' : 'メニューを開く',
+    );
+    menu.setAttribute('aria-hidden', String(!open));
+    header.classList.toggle('atlas-header--menu-open', open);
+    document.body.classList.toggle('menu-is-open', open);
+    if (open) links[0]?.focus();
+  };
+
+  toggle?.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  links.forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      toggle?.getAttribute('aria-expanded') === 'true'
+    ) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+</script>

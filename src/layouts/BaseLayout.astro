@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import SiteMenu from '@/components/SiteMenu.astro';
 interface Props {
   title: string;
   description: string;
@@ -8,7 +9,6 @@ interface Props {
 const { title, description, immersive = false } = Astro.props;
 const fullTitle = title === 'Life Atlas' ? title : title + ' | Life Atlas';
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const path = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -68,25 +68,7 @@ const path = Astro.url.pathname;
           style="display:block;width:clamp(128px,14vw,188px);height:auto"
         />
       </a>
-      <nav aria-label="メインナビゲーション">
-        <a href="/" aria-current={path === '/' ? 'page' : undefined}
-          >地域を選ぶ</a
-        >
-        <a
-          href="/niigata/"
-          aria-current={path.startsWith('/niigata') ? 'true' : undefined}
-          >新潟</a
-        >
-        <a
-          href="/hakodate/"
-          aria-current={path.startsWith('/hakodate') ? 'true' : undefined}
-          >函館</a
-        >
-        <a
-          href="/beer/"
-          aria-current={path.startsWith('/beer') ? 'true' : undefined}>ビール</a
-        >
-      </nav>
+      <SiteMenu {immersive} />
     </header>
     <main id="main-content"><slot /></main>
     <footer

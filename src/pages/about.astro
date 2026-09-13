@@ -1,0 +1,77 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Life Atlasは、住まい、食、仕事、支援制度、移動などの情報を整理する地域生活メディアです。"
+>
+  <article class="simple-page">
+    <p class="eyebrow">ABOUT LIFE ATLAS</p>
+    <h1>暮らす場所を、<br />感覚だけで決めない。</h1>
+    <p class="simple-page__lead">
+      Life
+      Atlasは、住まい、食、仕事、支援制度、移動、走る場所を、出典と確認日を添えて整理する地域生活メディアです。
+    </p>
+    <div class="simple-page__grid">
+      <section>
+        <span>01</span><h2>街を立体的に見る</h2><p>
+          数字だけでも、雰囲気だけでもない。日々の暮らしに必要な情報を横断して、街の輪郭を伝えます。
+        </p>
+      </section>
+      <section>
+        <span>02</span><h2>根拠を分けて示す</h2><p>
+          公式情報と運営者の観察を分け、変化する情報には確認日を添えます。
+        </p>
+      </section>
+    </div>
+    <a class="pill pill--dark" href="/">街を選ぶ <span>↗</span></a>
+  </article>
+</BaseLayout>
+
+<style>
+  .simple-page {
+    width: min(1120px, calc(100% - 40px));
+    min-height: 70vh;
+    margin: 0 auto;
+    padding: clamp(64px, 10vw, 130px) 0;
+  }
+  h1 {
+    max-width: 900px;
+    margin: 12px 0 34px;
+    font-size: clamp(3rem, 8vw, 7.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.055em;
+  }
+  .simple-page__lead {
+    max-width: 760px;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+  }
+  .simple-page__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin: 80px 0 52px;
+  }
+  section {
+    padding-top: 20px;
+    border-top: 1px solid var(--ink);
+  }
+  section > span {
+    font: 40px var(--display);
+    color: #8b9394;
+  }
+  h2 {
+    margin: 18px 0 10px;
+  }
+  section p {
+    color: var(--muted);
+  }
+  @media (max-width: 700px) {
+    .simple-page__grid {
+      grid-template-columns: 1fr;
+      margin-top: 56px;
+    }
+  }
+</style>

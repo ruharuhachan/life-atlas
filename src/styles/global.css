@@ -100,7 +100,7 @@ select:focus-visible,
   border-bottom: 1px solid var(--line);
   background: var(--paper);
   position: relative;
-  z-index: 20;
+  z-index: 100;
 }
 .atlas-header--overlay {
   position: absolute;
@@ -115,24 +115,114 @@ select:focus-visible,
   letter-spacing: -1px;
   line-height: 1.05;
 }
-.atlas-brand span {
+.menu-toggle {
+  position: relative;
+  z-index: 2;
+  width: 58px;
+  height: 58px;
+  padding: 15px 10px;
+  display: grid;
+  align-content: center;
+  gap: 7px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+}
+.menu-toggle span {
   display: block;
-  margin-top: 9px;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  width: 38px;
+  height: 2px;
+  background: currentColor;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+}
+.menu-toggle--light {
+  color: white;
+}
+.menu-toggle[aria-expanded='true'] {
+  color: var(--ink);
+}
+.menu-toggle[aria-expanded='true'] span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.menu-toggle[aria-expanded='true'] span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle[aria-expanded='true'] span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+.site-menu {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  padding: clamp(120px, 16vh, 180px) 5vw 42px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  visibility: hidden;
+  opacity: 0;
+  background: rgba(250, 250, 250, 0.84);
+  backdrop-filter: blur(22px) saturate(115%);
+  -webkit-backdrop-filter: blur(22px) saturate(115%);
+  transition:
+    opacity 0.25s ease,
+    visibility 0s linear 0.25s;
+}
+.site-menu[aria-hidden='false'] {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+.atlas-header--menu-open {
+  color: var(--ink);
+  border-color: #171b1c24;
+}
+.atlas-header--menu-open .atlas-brand {
+  filter: none !important;
+}
+.menu-is-open {
+  overflow: hidden;
+}
+.site-menu__nav {
+  width: min(100%, 1180px);
+  margin: auto;
+  border-top: 1px solid #171b1c2b;
+}
+.site-menu__link {
+  position: relative;
+  min-height: 104px;
+  padding: 22px clamp(52px, 8vw, 110px) 22px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  border-bottom: 1px solid #171b1c2b;
+  transition: padding-left 0.2s ease;
+}
+.site-menu__link:hover {
+  padding-left: 14px;
+}
+.site-menu__link > span {
+  font-size: clamp(25px, 3vw, 46px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+}
+.site-menu__link small {
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.site-menu__link b {
+  position: absolute;
+  right: 4px;
+  font-size: 22px;
   font-weight: 400;
 }
-.atlas-header nav {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  font-size: 14px;
-}
-.atlas-header nav a {
-  padding: 10px 0;
-}
-.atlas-header nav a[aria-current] {
-  border-bottom: 1px solid currentColor;
+.site-menu__foot {
+  margin-top: 28px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
 }
 .atlas-footer {
   padding: 50px 4vw;
@@ -651,16 +741,36 @@ select:focus-visible,
   .atlas-brand {
     font-size: 20px;
   }
-  .atlas-brand span {
-    font-size: 10px;
-    letter-spacing: 0.02em;
+  .menu-toggle {
+    width: 48px;
+    height: 48px;
+    padding-inline: 8px;
   }
-  .atlas-header nav {
-    gap: 20px;
-    font-size: 14px;
+  .menu-toggle span {
+    width: 32px;
   }
-  .atlas-header nav a:first-child {
-    display: none;
+  .site-menu {
+    padding: 108px 20px 28px;
+  }
+  .site-menu__link {
+    min-height: 92px;
+    padding: 19px 42px 19px 0;
+    display: block;
+  }
+  .site-menu__link > span {
+    display: block;
+    font-size: clamp(23px, 7vw, 31px);
+  }
+  .site-menu__link small {
+    display: block;
+    margin-top: 3px;
+    font-size: 11px;
+  }
+  .site-menu__link b {
+    top: 26px;
+  }
+  .site-menu__foot {
+    margin-top: 20px;
   }
   .region-track {
     height: max(660px, 100svh);
